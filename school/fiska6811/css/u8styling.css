@@ -1,0 +1,62 @@
+/* Unit 8 Style Sheet by Austin Fisk */
+
+body
+	{
+	background:url(../images/u8pics/background.jpg);
+	margin: 5% 10% 9% 10%;
+	font-family: "Georgia", sans-serif;
+	color:rgb(69,122,148);
+	text-align:center;
+	}
+
+a:link, a:visited
+	{
+	color:inherit;
+	font-style:normal;
+	}
+a:hover
+	{
+	color:#FAAD1E;
+	}
+
+table.TableOne
+	{
+	background:rgb(247,122,55);
+	margin:auto;
+	border:5px solid rgb(12,155,12);
+	}
+table.TableTwo
+	{
+	background:rgb(209,79,9);
+	margin:auto;
+	margin-bottom:4px;
+	width:90%
+	}
+
+img
+	{
+	border:3px solid rgb(0,0,0);
+	margin:5px 5px 5px 5px;
+	}
+	
+img.r1pic
+	{
+	padding:7px;
+	}
+
+th#sources
+	{
+	width:20%;
+	}
+
+td#info
+	{
+	text-align:left;
+	padding-right:8px;
+	}
+
+td#links
+	{
+	vertical-align:top;
+	padding-top:50px;
+	}

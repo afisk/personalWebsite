@@ -1,0 +1,83 @@
+<script>
+	var fullURL = window.location.href;
+	fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
+
+	function toggleActive() {
+		var z, i, elmnt, link, xhttp;
+		/* Loop through a collection of all HTML elements: */
+		z = document.getElementsByTagName("*");
+		for (i = 0; i < z.length; i++) {
+			elmnt = z[i];
+			/*search for elements with a certain atrribute:*/
+			link = elmnt.getAttribute("href");
+			if (link) {
+				if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
+				{
+					/* If is a drop down, add active to parent node */
+					if(elmnt.classList.contains("dropdown-item")) {
+						elmnt.classList.add("highlight");
+						elmnt.parentNode.parentNode.classList.add("active");
+						console.log("Found one " + link);
+					}
+					else if(elmnt.classList.contains("nav-link")) {
+						/* else it is a drop down header */
+						elmnt.classList.add("active");
+						console.log("Found one " + link);
+					}
+				}
+
+			}
+			// /* Exit the function: */
+			// return;
+		}
+	}
+	console.log(fullURL);
+</script>
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" onload="toggleActive()">
+	<div class="navbarCenter">
+		<a class="navbar-brand" style="text-decoration: underline" href="#">Austin Fisk Projects</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="https://pages.cs.wisc.edu/~fisk/index.html">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link mobile-disable dropdown-toggle" href="https://pages.cs.wisc.edu/~fisk/resume/resume.html" id="navbarDropdownPersonal" role="button" aria-haspopup="true" aria-expanded="false">
+					Resume
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownPersonal">
+					<a class="dropdown-item" target="_blank" href="https://pages.cs.wisc.edu/~fisk/resume/files/AustinFisk-Resume.PDF">Austin's Resume</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link mobile-disable dropdown-toggle" href="https://pages.cs.wisc.edu/~fisk/personal/personalProjects.html" id="navbarDropdownPersonal" role="button" aria-haspopup="true" aria-expanded="false">
+					Personal Projects
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownPersonal">
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/personal/cbr1000rrLED/cbr1000rrLEDInfo.html">Bluetooth Motorcycle LEDs</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/personal/thermostat/thermostatInfo.html">Pi Thermostat</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/personal/chickenDoor/doorInfo.html">Chicken Door</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/personal/touchPainting/paintingInfo.html">Touch Painting</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/personal/gateController/gateInfo.html">Gate Controller</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/personal/snoopy/snoopyInfo.html">Snoopy Mailbox</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link mobile-disable dropdown-toggle" href="https://pages.cs.wisc.edu/~fisk/school/schoolProjects.html" id="navbarDropdownSchool" role="button" aria-haspopup="true" aria-expanded="false">
+					School Projects
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownSchool">
+					<a class="dropdown-item" target="_blank" href="https://numberprime-b359d.firebaseapp.com/#!/Login">Number Prime</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/school/graphics/default.htm">Intro To Computer Graphics</a>
+					<a class="dropdown-item" href="https://pages.cs.wisc.edu/~fisk/school/fiska6811/index.html">Intro To Web Development</a>
+				</div>
+			</li>
+			</ul>
+		</div>
+	</div>
+</nav>

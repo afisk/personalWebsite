@@ -1,0 +1,98 @@
+/* unit 13 
+	by Zach Powers */
+
+body{
+background-color:rgb(186, 190, 190);
+font-family: "Papyrus", sans-serif;
+
+}
+
+#wrapper{
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+margin-top:20px;
+}
+
+#pic{
+float:right;
+margin:20px;
+border:3px solid rgb(0, 82, 204);
+padding:5px;
+background-color:rgb(26, 39, 39);
+}
+
+
+/* header section of the page */
+
+#logo{
+background-color:rgb(26, 39, 39);
+padding-right:30px;
+}
+.FirstLetter{
+font-size:50px;
+}
+
+
+/*Navigation bar*/
+div#navh ul{
+border-bottom:black thin solid;
+border-top:black thin solid;
+background-color:rgb(26, 39, 39);
+clear:both;
+text-align:center;
+}
+ul{
+list-style:none;
+}
+#navh li{
+display:inline;
+margin:0px 10px 0px 10px;
+}
+div#navh a:link, div#navh a:visited{
+color:rgb(223, 232, 215);
+text-decoration:none;
+font-weight:bold;
+}
+
+div#navh a:hover{
+color:rgb(0, 82, 204);
+}
+/*Navigation Pane*/
+
+#navv{
+padding-top:40px;
+padding-bottom:90px;
+margin-top:20px;
+width:200px;
+background-color:rgb(26, 39, 39);
+}
+#navv a{
+background-color:rgb(223, 232, 215);
+display:block;
+margin-right:40px;
+border:1px solid rgb(0, 82, 204);
+}
+
+#navv a:link, a:visited{
+color:rgb(0, 82, 204);
+text-decoration:none;
+}
+#navv a:hover{
+color:rgb(223, 232, 215);
+background-color:rgb(0, 82, 204);
+}
+
+
+
+/*Foot area*/
+#footer{
+clear:both;
+text-align:center;
+margin-top:20px;
+}
+div#footer a:link, div#footer a:visited{
+color:rgb(0, 82, 204);
+
+margin:0px 5px 0px 5px;
+}

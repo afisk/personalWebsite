@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Graphics town framework code by Mike Gleicher
+  -- written October, 2015
+  -->
+<head>
+    <meta charset="UTF-8">
+    <title>GraphicsTown JS 2017!</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/common.css">
+</head>
+<body onload="myFunction()">
+
+  <div w3-include-html="../../../../header.html"></div>
+
+
+              <p>This works best with a computer -- Will take a moment to load the canvas
+            <br/><br/>To fly/drive: use A,S,D,W and Arrow keys
+            <br/><br/>To use ArcBall: Click and drag around
+            <br/><br/></p>
+  <!-- load this stuff first -->
+  <script src="Libraries/twgl-full.js"></script>
+  <script src="Libraries/panel.js"></script>
+  <script src="Libraries/arcball.js"></script>
+  <script src="grobject.js"></script>
+  <script src="ExampleObjects/ground.js"></script>
+  
+  <!-- This is where we load the objects for the world -->
+  <!--script src="ExampleObjects/simplest.js"></script-->
+  <!--script src="ExampleObjects/texturedplane.js"></script-->
+  <!--script src="ExampleObjects/cube.js"></script-->
+  <script src="AustinObjects/house.js"></script>
+  <script src="AustinObjects/throwHouse.js"></script>
+  <script src="AustinObjects/tallBuilding.js"></script>
+  <script src="AustinObjects/tree.js"></script>
+  <script src="AustinObjects/metalBox.js"></script>
+  <script src="AustinObjects/skyBox.js"></script>
+  
+  <!-- I am adding the helicopter -->
+  <!--script src="Helicopter/helicopter.js"></script-->
+  <script src="Helicopter/spaceship.js"></script>
+  
+  <!-- This gets loaded LAST (actually, it probably doesn't have to) -->
+  <script src="graphicstown.js"></script>
+  
+
+
+
+  <!-- all of the shaders get stuck here in the HTML because
+    -- that's the only way I know to load them without either
+    -- sticking them in JavaScript strings, or using a web server
+    -->
+  
+  <script id="cube-vs" type="notjs">
+  // specialized shader for the simple cube
+  // we assume that the model matrix works as the normal
+  //      matrix - this only is try if the model matrix
+  //      it a rotate/translate
+  //      (uniform scale is OK since we re-normalize)
+  // color is solid
+  // simple lighting
+      precision highp float;
+  
+      attribute vec3 vpos;
+      attribute vec3 vnormal;
+      varying vec3 outColor;
+  
+      uniform mat4 view;
+      uniform mat4 proj;
+      uniform mat4 model;
+      uniform vec3 lightdir;
+      uniform vec3 cubecolor;
+  
+  
+      void main(void) {
+          gl_Position = proj * view * model * vec4(vpos, 1.0);
+          vec4 normal = normalize(model * vec4(vnormal,0.0));
+          float diffuse = .5 + .5*abs(dot(normal, vec4(lightdir,0.0)));
+          outColor = cubecolor * diffuse;
+      }
+  </script>
+  <script id="cube-fs" type="notjs">
+  // simple shader that does vertex coloring
+  //  (e.g. the vertex shader figures the lighting
+  // note this is used for more than just the cube
+      precision highp float;
+      varying vec3 outColor;
+      void main(void) {
+          gl_FragColor = vec4(outColor, 1.0);
+      }
+  </script>
+  
+  
+  
+  <!-- tree shader-->
+      <script id="tree-vs" type="not-js">
+        attribute vec3 vPosition;
+        attribute vec3 vColor;
+        attribute vec2 vTexCoord;
+        varying vec3 fColor;
+        varying vec2 fTexCoord;
+        uniform mat4 uMVP;
+  
+        void main(void) {
+  			gl_Position = uMVP * vec4(vPosition, 1.0);
+  			fColor = vColor;
+  			fTexCoord = vTexCoord;
+        }
+      </script>
+  
+      <script id="tree-fs" type="not-js">
+        precision highp float;
+        varying vec3 fColor;
+        varying vec2 fTexCoord;
+        uniform sampler2D texSampler;
+  
+        void main(void) {
+           vec4 texColor = texture2D(texSampler,fTexCoord);
+           //gl_FragColor = vec4(texColor.xyz*fColor,texColor.a);
+           gl_FragColor = vec4(texColor.xyz,texColor.a);
+        }
+      </script>
+  	
+  	
+  
+  
+  
+  
+  <!-- Special Ground Plane Shader - makes a boring
+    -- checkerboard
+    -->
+  <script id="ground-vs" type="not-js">
+      precision highp float;
+  
+      attribute vec3 vpos;
+      varying vec3 outPos;
+  
+      uniform mat4 view;
+      uniform mat4 proj;
+  
+      void main(void) {
+          gl_Position = proj * view * vec4(vpos, 1.0);
+          outPos = vpos;
+      }
+  </script>
+  <script id="ground-fs" type="notjs">
+      // note this is used for more than just the cube
+      precision highp float;
+      varying vec3 outPos;
+      void main(void) {
+          float xs = step(1.0,mod(outPos.x,2.0));
+          float zs = step(1.0,mod(outPos.z,2.0));
+          float ss = (xs>.5) ? zs : 1.0-zs;
+          gl_FragColor = mix(vec4(0.5,0.5,0.5,1),
+                             vec4(0.3,0.5,0.4,1),
+                             ss
+                             );
+  
+      }
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-61034445-2');
+  </script>
+
+  <h2 id="canvasLoadingMessage">Canvas is Loading, may take up to 20 seconds...</h2>
+  <p><img src="loading.gif" alt="Page Loading gif" id="loadingGif" height="100px"/></p>
+  <canvas id="drawingCanvas" alt="loading"></canvas>
+  <p><a id="backButton" href="../../default.htm" class="borderedLink">Return To Landing Page</a></p>
+  
+</body>
+</html>

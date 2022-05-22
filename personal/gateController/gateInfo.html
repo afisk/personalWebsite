@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Austin Fisk</title>
+		    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../css/common.css">
+
+        <script>
+          var fullURL = window.location.href;
+          fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
+
+          function toggleActive() {
+            var z, i, elmnt, link, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              link = elmnt.getAttribute("href");
+              if (link) {
+                if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
+            {
+              /* If is a drop down, add active to parent node */
+              if(elmnt.classList.contains("dropdown-item")) {
+                elmnt.classList.add("highlight");
+                elmnt.parentNode.parentNode.classList.add("active");
+                console.log("Found one " + link);
+              }
+              else if(elmnt.classList.contains("nav-link")) {
+                /* else it is a drop down header */
+                elmnt.classList.add("active");
+                console.log("Found one " + link);
+              }
+            }
+
+              }
+              // /* Exit the function: */
+              // return;
+            }
+          }
+
+          window.onload = function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              file = elmnt.getAttribute("include-html-header");
+              if (file) {
+                /* Make an HTTP request using the attribute value as the file name: */
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-html-header");
+                    includeHTML();
+                  }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+            
+            xhttp.addEventListener('loadend', toggleActive  );
+                /* Exit the function: */
+                return;
+              }
+            }
+          }
+        </script>
+    </head>
+	
+	  <body>
+      <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+
+        <h1 class="header">Crowd Gate Project</h1>
+        <br>
+        <div style="margin: 0 auto; width:870px;">
+            <h3>Project Background</h3>
+            <p>After working on a farm for 2 years I noticed some areas for improvement.
+               There is an electric gate run by 2 buttons, one to run the gate forward down a ~150ft hallway and one to run the gate back the opposite way.
+               After watching the farmers jam a metal rod into the button to make the gate run for 3-4 minutes, forget about it, and burn out the $600 motor 3 times in two months, I took it onto myself to find a solution.
+               This is that solution.</p>
+            <hr />
+
+            <h3>Circuit Design</h3>
+            <p>This circuit was designed around a mechanical relay that could drive the gate's 110 volt AC, 0.5 amperes controls.
+               I used an RC discharge timer driving a mosfet to run the relay in the Gate Controller for simplicity over using a programmable circuit.
+               This was designed to be used with Lithium AA batteries so that it could be run in extreme temperatures with minimal voltage drop.
+               Along with better stability in extreme weather, Lithium batteries also have a higher voltage compared to Alkalines and NiMH batteries.
+               This circuit will not keep the gate turned on for long periods of time with lower voltage batteries which helps protect it from burning out the motor when the gate reaches the end of its rail.
+            </p>
+            <p>
+              The circuit has a button to start the Gate Controller timer and one to end it.
+              For extra protection, the circuit also has an auxiliary plug for ending the timer in case the gate makes it to the end of the rail.
+              The auxiliary plug is made to have a magnetic contact switch hooked into it which would stop the timer when the gate is in proximity to the end of the rail.
+            </p>
+            <img src="media/gateCircuit.png" alt="gateCircuit" class="fitHeight slowFadeIn" />
+            <p>Circuit revision/redesign done by <a href="https://www.linkedin.com/in/roman-robles-31789197" class="inTextLink">Roman Robles</a> PE Electrical Engineer</p>
+            <hr />
+
+            <h3>Testing Circuit</h3>
+            <p>Tested the circuit to make sure that the math of the relay would drive the gate the full length of the alley way and ensure that the RC Discharge Timer math was correct.</p>
+            <video id="gatePrint" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+              <source src="media/testingGateCircuit.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+            <hr />
+
+            <h3>Box Design</h3>
+            <p>I designed and 3D printed a case that had screw holes and separate access to the batteries and circuit.
+               This case is meant to protect both the user from the electronics as well as prevent mishandling and tampering of the electronics from both humans and cows that pass by.
+            </p>
+            <img src="media/gateCadDrawing.jpg" alt="gateCircuit" class="fitHeight slowFadeIn" />
+            <p>Cad Design</p>
+
+            
+            <br>
+            <!-- <img src="media/gateBoxPrintFinished.jpg" alt="gateBoxPrintFinished" class="fitHeight slowFadeIn" /> -->
+            <!-- <br/> -->
+            <!-- <img src="media/gateFinishedBox.jpg" class="fitHeight slowFadeIn" alt="gateFinishedBox" /> -->
+            <br/>
+
+            <video id="gatePrint" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+                <source src="media/gatePrint.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <p>3D Printing the box</p>
+            <br>
+
+            <video id="gateBoxTour" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+              <source src="media/gateBoxTour.mp4" type="video/mp4">
+              Your browser does not support HTML video.
+            </video>
+            <p>Finished Box</p>
+            <hr />
+
+            <h3>Installation</h3>
+            <p>Unfortunately I do not have any images of this installed and running. I will be sure to provide this ASAP.</p>
+            <br/>
+
+ 
+            
+        </div>
+        <br>
+        <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
+        <br>
+        <br>
+        <br>
+
+  
+	</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+

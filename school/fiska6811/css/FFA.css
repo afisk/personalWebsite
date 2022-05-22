@@ -1,0 +1,210 @@
+/* Final Project Style Sheet by Austin Fisk */
+
+
+/* Settings */
+
+body
+	{
+	background-color:#1D2727;
+	/*background:#5EC88C;*/
+	font-family: "Georgia", sans-serif;
+	color:rgb(235,235,235);
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black ;
+	}
+
+#wrapper
+	{
+	max-width:900px;
+	margin:0px auto;
+	}
+
+ul
+	{
+	list-style-type:none;
+	}
+	
+a:link, a:visited
+	{
+	color:inherit;
+	font-style:normal;
+	text-decoration:none;
+	}
+
+a:hover
+	{
+	color:green;
+	}
+
+
+/* Header */
+
+div#logo
+	{
+	margin-top:40px;
+	padding:3px;
+	background-color:rgb(18,34,180);
+	}
+
+h1
+	{
+	margin:90px 150px 0px 0px;
+	text-align:center;
+	float:right;
+	font-size:35px;
+	}
+
+span.FirstLetter
+	{
+	font-size:50px;
+	}
+
+img#imglogo
+	{
+	margin:10px;
+	}
+
+
+/* Horizontal Links */
+
+div#navh
+	{
+	background-color:rgb(18,34,180);
+	margin-top:20px;
+	text-align:center;
+	border-top:1px solid green;
+	border-bottom:1px solid green;
+	}
+
+div#navh li
+	{
+	display:inline;
+	font-size:20px;
+	margin-left:30px;
+	}
+
+#navh li a
+	{
+	text-align:center;
+	padding:5px;
+	border:1px solid green;
+	}
+
+#current
+	{
+	background-color:green;
+	}
+
+/*div#navh a:link, div#navh a:visited
+	{
+
+	}*/
+
+div#navh a:hover
+	{
+	color:blue;
+	background-color:green;
+	border:1px solid black;
+	}
+
+
+/* Content */
+
+div#content
+	{
+	margin-top:45px;
+	}
+
+div#left
+	{
+	float:left;
+	padding:10px;
+	margin:10px 0px 40px 0px;
+	border:1px solid green;
+	width:470px;
+	}
+
+.red
+	{
+	color:red;
+	}
+
+#order
+	{
+	background-color:blue;
+	border:2px solid black;
+	padding:30px;
+	margin:0px auto;
+	width:400px;
+	}
+
+.prompt
+	{
+	margin-left:30px;
+	}
+
+.LPrompt
+	{
+	margin-top:20px;
+	}
+
+#bitMap
+	{
+	float:right;
+	text-align:center;
+	margin-top:30px;
+	padding:10px;
+	border:1px solid green;
+	}
+
+#ContactUs
+	{
+	float:left;
+	background-color:blue;
+	border:2px solid black;
+	padding:30px;
+	margin:0px 0px 40px 50px;
+	width:300px;
+	}
+
+#ContactInfo
+	{
+	float:right;
+	padding:10px;
+	margin:auto 50px 40px 0px;
+	border:1px solid green;
+	width:340px;
+	}
+
+img#pic
+	{
+	background-color:blue;
+	padding:1px;
+	margin:10px 40px;
+	float:right;
+	border:2px solid black;
+	}
+
+#Sources li
+	{
+	list-style-image:url(../images/FPPics/li.png)
+	}
+
+#Sources a:link, #ContactInfo a:link, #Sources a:visited, #ContactInfo a:visited
+	{
+	color:green;
+	}
+
+#Sources a:hover, #ContactInfo a:hover
+	{
+	color:blue;
+	}
+
+
+/* Footer */
+
+div#footer
+	{
+	clear:both;
+	text-align:center;
+	margin:40px auto;
+	}

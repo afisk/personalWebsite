@@ -1,0 +1,91 @@
+/* Unit 12 Style Sheet by Austin Fisk */
+
+body
+	{
+	background:#5EC88C url(../images/u12pics/bg.gif) no-repeat fixed 95% 5%;
+	font-family: "Georgia", sans-serif;
+	color:blue;/*rgb(167,203,84);*/
+	margin: 6%;
+	width:800px;
+	text-align:justify;
+	}
+	
+a:link, a:visited
+	{
+	color:inherit;
+	font-style:normal;
+	}
+
+a:hover
+	{
+	color:blue;
+	}
+
+#sideBar
+	{
+	position:absolute;
+	top:0;
+	left:0;
+	background-color:rgb(193,23,134);
+	width:155px;
+	padding:60px 0px 400px 0px;
+	}
+
+ul
+	{
+	list-style-type: none;
+	text-align:center;
+	margin-left:-40px;
+	}
+
+li
+	{
+	margin-top:10px;
+	}
+
+.rowInput
+	{
+	margin-top:20px;
+	}
+
+.prompt
+	{
+	margin:20px 0px 5px 5px;
+	}
+
+#wrapper
+	{
+	margin:0 auto;
+	width:600px;
+	margin-left:160px;
+	}
+
+#leftSide
+	{
+	float:left;
+	width:250px;
+	}
+
+#title
+	{
+	text-align:center;
+	}
+
+
+#rightSide
+	{
+	float:right;
+	}
+
+#footer
+	{
+
+	margin-left:220px;
+	clear:both;
+	font-size:0.8em;
+	}
+
+.button
+	{
+	color:blue;
+	}

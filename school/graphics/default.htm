@@ -1,0 +1,122 @@
+
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Austin Fisk</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script>
+          var fullURL = window.location.href;
+          fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
+
+          function toggleActive() {
+            var z, i, elmnt, link, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              link = elmnt.getAttribute("href");
+              if (link) {
+                if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
+                {
+                  /* If is a drop down, add active to parent node */
+                  if(elmnt.classList.contains("dropdown-item")) {
+                    elmnt.classList.add("highlight");
+                    elmnt.parentNode.parentNode.classList.add("active");
+                    console.log("Found one " + link);
+                  }
+                  else if(elmnt.classList.contains("nav-link")) {
+                    /* else it is a drop down header */
+                    elmnt.classList.add("active");
+                    console.log("Found one " + link);
+                  }
+                }
+
+              }
+              // /* Exit the function: */
+              // return;
+            }
+          }
+
+          window.onload = function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              file = elmnt.getAttribute("include-html-header");
+              if (file) {
+                /* Make an HTTP request using the attribute value as the file name: */
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-html-header");
+                    includeHTML();
+                  }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+            
+            xhttp.addEventListener('loadend', toggleActive  );
+                /* Exit the function: */
+                return;
+              }
+            }
+          }
+        </script>
+  </head>
+
+  <body>
+    <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+    
+    <h1 class="header">Intro to Computer Graphics</h1>
+    <br>
+    <div class="linkList">
+      <br>
+      <a href="projects/hmwk 1 - cat.html"><h3 class="borderedLink">JS Drawing</h3></a>
+      <a href="projects/hmwk 2 - Solar Cats.html"><h3 class="borderedLink">2D Hierarchical Modeling</h3></a>
+      <!-- <a href="projects/hmwk 3.html"><h3 class="borderedLink">Project 3 -- Hierarchical Modeling and Transforms (via TWGL) in 3D</h3></a> -->
+      <a href="projects/hmwk 3.html"><h3 class="borderedLink">3D Modeling</h3></a>
+      <a href="http://shdr.bkcore.com/#1/pVNNc9sgEP0rjE6gMFRx5GkbT3tJprd2cuql6WSohGwyCDSA/JXxf+8iRCzbSS89yDK7y9v33q5estpUfSu0d9ntr6yzopJOGo1WcrnqUKMM94tH+6jX3O6kXqK1qG5Q88PYlqsh0WvZwCmWIi9bcVm/MVbVD8ZdZpSpuEqZ8ESYrldO4Ph/zRUd0WvnyUuoQsgK31sd4sbi1tQYynLI04J9npMrdkMGyEPCXRtZo5ZLjUk4jiiRA0j19xKk+6D8yxDFBb2mRQRBKP6OElfCc6gKUvNZwYrFBKuW9s6ohFEZh4dyAmAOeg+HfM4KQhYnoJVR97Jpeifgbmc2uDYejzbTCErojI2EJg3horGpX7Qtecq2tIQbNEbTDNiefgzRgs1O1Q1wMJzIf0Ioj00WU771K1lWztEVmtI99fO0yVI9fbN8eXdkXeKWb3HsS4dGhKJrdma9bHDwbw52569KduRrwT4RIOMqbus48Iz+Y4u591b+6b2IajvjZOD4Vk5frnjLfYp/51C8Pc+WCDZRqJ9SbN4r6Kx5jsZMKt79uP7nS3p740d08D4KkXuBp5Jg2vFIjmtdBqPgxpk4KB3ml1w8GVsiOqwzrOJuPyYSz5g42j/ZkIcxHkrO7IKe3ajxkP2m2UApu41v98H1e661eApzZ88uO/wF" target="_blank"><h3 class="borderedLink">Shading V1</h3></a>
+      <a href="projects/hmwk 6 - shaders.html"><h3 class="borderedLink">Shading V2</h3></a>     
+      <div class="popup"><h3 class="popup borderedLink" onClick="myFunction()">Final Project</h3>
+        <span class="popuptext" id="myPopup">Interface not mobile optimized
+          <br/><br/>
+          <a href="projects/GraphicsTownJS2015-master/index.html"><u>Click Here For Link To Final Project</u></a>
+        </span>
+      </div>
+      <br/><br/><br/><br/>
+    </div>
+
+    <script>
+      // When the user clicks on div, open the popup
+      function myFunction() {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+      }
+    </script>
+  
+	</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+

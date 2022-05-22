@@ -1,0 +1,42 @@
+/* Unit 06 Style sheet
+	by Zach Powers */
+
+body
+{
+background-color:rgb(64, 80, 114);
+font-family:"castellar",sans-serif; 
+margin-left:5%;
+margin-right:5%;
+}
+#clickhere{
+position:absolute;
+left:155px;
+}
+#small{
+float:left;
+margin:15px;
+border:3px black solid;
+
+}
+
+div.wrapper{
+margin:30px;
+background-color:rgb(80,100,142);
+height:1200px;
+}
+
+a:link,a:visited{
+text-decoration:none;
+font-style:normal;
+color:inherit;
+color:#C8C8C8; 
+}
+
+
+
+
+a:hover{
+color:inherit;
+color:#FFFF00;
+}
+

@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Austin Fisk</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../css/common.css">
+        <script>
+          var fullURL = window.location.href;
+          fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
+    
+          function toggleActive() {
+            var z, i, elmnt, link, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              link = elmnt.getAttribute("href");
+              if (link) {
+                if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
+                {
+                  /* If is a drop down, add active to parent node */
+                  if(elmnt.classList.contains("dropdown-item")) {
+                    elmnt.classList.add("highlight");
+                    elmnt.parentNode.parentNode.classList.add("active");
+                    console.log("Found one " + link);
+                  }
+                  else if(elmnt.classList.contains("nav-link")) {
+                    /* else it is a drop down header */
+                    elmnt.classList.add("active");
+                    console.log("Found one " + link);
+                  }
+                }
+    
+              }
+              // /* Exit the function: */
+              // return;
+            }
+          }
+    
+          window.onload = function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              file = elmnt.getAttribute("include-html-header");
+              if (file) {
+                /* Make an HTTP request using the attribute value as the file name: */
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-html-header");
+                    includeHTML();
+                  }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                
+                xhttp.addEventListener('loadend', toggleActive  );
+                /* Exit the function: */
+                return;
+              }
+            }
+          }
+        </script>
+      </head>
+      
+      <body>			
+        <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+
+        <h1 class="header">CBR 1000RR LEDs</h1>		
+        <br/>
+        <div style="margin: 0 auto; width:870px;">
+            <img src="media/cbrHeadlightsRed.jpg" alt="LEDRed" height="600" />
+            <img src="media/cbrHeadlightsBlinking.jpg" alt="LEDRed" height="600" />
+            <h3>Project Inspiration</h3>
+            <p>My 2007 Honda CBR 1000RR has flush mounted turn signals meaning that it is hard for cars coming head on to see which way I am turning, this is especially difficult at 4 way stops when I want to turn left and the car in front of me thinks I am going straight.
+                COVID-19 left me at home with my thoughts long enough that I decided to not only fix my problem, but have some fun with it as well.
+                Many high end cars such as Audi, Lamborghini, and Ford Mustang have dynamic turn signals and LED accent lighting that I decided to recreate for my motorcycle.
+            </p>
+            <br>
+            <hr>
+            <h3>Project Planning</h3>
+            <p>This was my first embedded project that talked to devices over a bus line.
+              I had to read into the datasheets to understand what an I2C address was and how to make each INA260 have its own.
+              I had to be cognizant of my very limited code space and make functions that were very dynamic and useful in multiple ways to achieve the functionality I was looking for without hogging a lot of memory.
+              I added functionality to connect over bluetooth and interact with Adafruit BlueFruit app for setting the LED colors.
+              A lot of time was spent understanding how much power was required for the microcontroller and how I could power microcontroller off the motorcycle power system.
+            </p>
+            <br><hr>
+            <h2>Parts List</h2>
+            <table class="centered">
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="https://www.adafruit.com/product/2829">Adafruit Feather 32u4 Bluefruit LE</a></p></td>
+                </tr>
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="https://www.adafruit.com/product/4226">Adafruit INA260 High or Low Side Voltage, Current, Power Sensor</a></p></td>
+                </tr>
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="https://www.adafruit.com/product/2848">Adafruit NeoPixel Digital RGBW LED Strip</a></p></td>
+                </tr>
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="USB-A Male Plug to 5-pin Terminal Block">USB-A Male Plug to 5-pin Terminal Block</a></p></td>
+                </tr>
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B07RCG7RQX/">In Line Fuse Holder</a></p></td>
+                </tr>
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B07HVM8X1C/">12 Volt to USB</a></p></td>
+                </tr>
+                <tr>
+                    <td><p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B01DYJEHZ2/">1000uf 6.3v Capacitor</a></p></td>
+                </tr>
+            </table>
+            <br><hr>
+            <h3>Dissassembly and LED Install</h3>
+            <img src="media/cbrDisassembled.jpg" alt="Bike Dissassembled" width="400" />
+            <p>Took apart the front of my motorcycle.</p>
+            <p>Baked the headlights so I could pry apart the headlights.</p>
+            <img src="media/cbrHeadlights.jpg" alt="Headlight not in" width="400" />
+            <br><br>
+            <video id="ledVideo" width="400" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+                <source src="media/cbrHeadlightsWorking.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <p>Installed the LEDs in the headlights.</p>
+            <img src="media/cbrINA260Circuit.jpg" alt="INA260 Circuit" height="550" />
+            <p>INA260 directly in line with the blinkers power line that indicates when the blinkers are in "Driving Lights Mode."
+                If the blinkers are blinking, the driving light wire will recieve zero current, then we know the blinker is blinking without having to wait and detect an inconsistent blink.
+            </p>
+            
+            <br><hr>
+            <h3>Reassemble</h3>
+            <img src="media/cbrAssembling1.jpg" alt="Bike Assembling" height="550" />
+            <p>Start assembling and running wires on the motorcycle.<br>
+                Solder. Solder. Solder.<br>
+                Wire LED power and microcontroller into motorcycle power system.
+            </p>
+            <br><hr>
+            <h3>Completed</h3>
+            <img src="media/cbrAustinOnCyle.jpg" alt="Bike Assembling1" height="550" />
+            <p>Me (Austin Fisk) on my cycle</p>
+            <video id="blinkersVideo" width="620" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+                <source src="media/cbrBlinkers.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <br>
+            
+            <video id="bleSelector" height="550" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+                <source src="media/cbrBluetoothSelector.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <video id="FestiveLights" height="550" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+                <source src="media/cbrFestiveLights.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+            <p>Connects to the Bluefruit app via Bluetooth Low Energy.
+                Can change the colors of the Driving Lights and Turn Signals.
+            </p>
+            <!-- <br><br>
+            <p>Summer/Fall 2020 project complete.</p> -->
+            
+        </div>
+        <br>
+        <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
+        <br>
+        <br>
+        <br>
+
+  
+	</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+

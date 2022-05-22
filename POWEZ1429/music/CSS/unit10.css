@@ -1,0 +1,79 @@
+/* Unit 10 Style sheet
+	by Zach Powers */
+
+body
+{
+background:rgb(210, 248, 232) url("../images/u10pics/gradient.png") repeat-y fixed right top;
+font-family:"ariel",sans-serif; 
+color:silver;
+margin:60px;
+text-align:justify;
+}
+#thumb{
+float:left;
+background-color:blue;
+padding:10px;
+border:solid silver 2px;
+margin:10px;
+}
+
+h3{
+float:right;
+font-weight:bold;
+text-align:right;
+width:200px;
+}
+
+#one{
+border:silver solid 2px;
+position:absolute;
+z-index:1;
+left:650px;
+}
+
+#two{
+border:silver solid 2px;
+position:absolute;
+z-index:3;
+left:600px;
+}
+
+#three{
+border:silver solid 2px;
+position:absolute;
+left:550px;
+z-index:2;
+}
+
+span.severe{
+text-transform:uppercase;
+font-weight:bold;
+font-size:1.2em;
+}
+
+span.down{
+position:relative;
+top:250px;
+}
+
+a:link,a:visited{
+text-decoration:none;
+font-style:normal;
+color:inherit;
+
+}
+
+a:hover{
+color:#00FF00;
+}
+
+span.space{
+position:relative;
+padding:10px;
+}
+p{
+width:1100px}
+p.links{
+text-align:center;
+}
+

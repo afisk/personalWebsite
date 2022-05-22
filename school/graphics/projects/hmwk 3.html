@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="Build Stuff on Stuff" content="Yee Boi">
+  <meta charset="utf-8">
+  <title>Thingers</title>
+ 	<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+</head>
+<body>
+
+  <table style="width:100%">
+    <tr>
+		 <th style="width:10%"></th>
+		<th style="width:30%">
+			<canvas id="myCanvas" 
+				width="400" height="400"
+				style="border:5px solid #000;">
+			</canvas><br/>
+		</th>
+		<th style="width:30%">
+			Rotate Around Y-axis: <input id="slider1" type="range" min="-100" max="100" />
+			<br />
+			Spin All Around [1,1,1]
+			<input id="slider2" type="range" min="-100" max="100" />
+			<br/>
+			Zoom: +
+			<input id="sliderZoom" type="range" min="-175" max="2000" /> -
+			<br/>
+			Slink House Things: <input id="sliderGreen" type="range" min="-100" max="100" />
+			<br/>
+			Spin House Things:
+			<input id="sliderFlip" type="range" min="0" max="200" />
+			<br/>
+			Move Pink:
+			<input id="sliderPink" type="range" min="-200" max="200" />
+			<br/>
+			Scale Pink Box: +
+			<input id="sliderScale" type="range" min="1" max="3" /> -
+		</th>
+	  </tr>
+	</table>
+	<p><a id="bw" class="borderedLink" href="../default.htm">Return To Landing Page</a></p>
+
+
+  <!-- <script src="http://graphics.cs.wisc.edu/JS/twgl-full.min.js"></script> -->
+  <script src="GraphicsTownJS2015-master/Libraries/twgl-full.js"></script>
+  
+  <script>
+	function setup()
+	{
+		"use strict";
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+		var m4 = twgl.m4;
+	  
+		var slider1 = document.getElementById('slider1');
+		slider1.value = 25;
+		var slider2 = document.getElementById('slider2');
+		slider2.value = 0;
+					
+		var sliderGreen = document.getElementById('sliderGreen');
+		sliderGreen.value = 0;
+		var sliderPink = document.getElementById('sliderPink');
+		sliderPink.value = 0;
+		var sliderFlip = document.getElementById('sliderFlip');
+		sliderFlip.value = 0;
+		var sliderScale = document.getElementById('sliderScale');
+		sliderScale.value=1;
+		var sliderZoom = document.getElementById('sliderZoom');
+		sliderZoom.value=0;
+
+		function moveToTx(x,y,z,Tx)
+		{
+			var loc = [x,y,z];
+			var locTx = m4.transformPoint(Tx,loc);
+			context.moveTo(locTx[0],locTx[1]);
+		}
+		
+		function lineToTx(x,y,z,Tx)
+		{
+			var loc = [x,y,z];
+			var locTx = m4.transformPoint(Tx,loc);
+			context.lineTo(locTx[0],locTx[1]);
+		}
+                
+		function drawAxes(Tx)
+		{
+			context.strokeStyle="red";
+			moveToTx(0,0,0,Tx);lineToTx(250,0,0,Tx);context.stroke();
+			context.strokeStyle="blue";
+			moveToTx(0,0,0,Tx);lineToTx(0,150,0,Tx);context.stroke();
+			moveToTx(0,0,0,Tx);lineToTx(0,0,50,Tx);context.stroke();
+		}		
+
+		function drawCube(Tx) 
+		{
+			// Twelve edges of a cube
+			moveToTx(75,75,75,Tx);lineToTx(300,75,75,Tx);
+			lineToTx(300,300,75,Tx);lineToTx(75,300,75,Tx);context.stroke();
+			context.closePath();
+			moveToTx(75,75,300,Tx);lineToTx(75,75,75,Tx);
+			lineToTx(75,300,75,Tx);lineToTx(75,300,300,Tx);context.stroke();
+			context.closePath();	
+		}
+		
+		
+
+		function miniHouse(color,Tx) 
+		{
+			context.beginPath();
+			context.fillStyle = color;
+			moveToTx(0,0,0,Tx);
+			lineToTx(100,0,0,Tx);
+			lineToTx(100,15,0,Tx);
+			lineToTx(0,15,0,Tx);
+			context.closePath();
+			context.fill();
+			moveToTx(0,0,0,Tx);
+			lineToTx(0,15,0,Tx);
+			lineToTx(0,15,30,Tx);
+			lineToTx(0,0,30,Tx);
+			context.closePath()
+			context.fill();
+			moveToTx(100,0,0,Tx);
+			lineToTx(100,15,0,Tx);
+			lineToTx(100,15,30,Tx);
+			lineToTx(100,0,30,Tx);
+			context.closePath()
+			context.fill();
+			moveToTx(0,0,30,Tx);
+			lineToTx(100,0,30,Tx);
+			lineToTx(100,15,30,Tx);
+			lineToTx(0,15,30,Tx);
+			context.closePath()
+			context.fill();
+			
+			moveToTx(0,15,0,Tx);
+			lineToTx(50,40,0,Tx);
+			lineToTx(100,15,0,Tx);
+			context.closePath();
+			context.fill();
+			moveToTx(0,15,30,Tx);
+			lineToTx(50,40,30,Tx);
+			lineToTx(100,15,30,Tx);
+			context.closePath();
+			context.fill();
+			//lineToTx(0,15,30,Tx);
+		}
+
+		function draw()
+		{
+			canvas.width = canvas.width;
+			
+			//Control spinning of little house thingers
+			var spin = sliderFlip.value*.01*Math.PI
+    
+			// Control the camera and spinning of cube
+			var angle1 = slider1.value*0.01*Math.PI;
+			var angle2 = slider2.value*0.01*Math.PI;
+			
+			// Control the articulated chain
+			var angleGreen = sliderGreen.value*0.005*Math.PI;
+			var anglePink = sliderPink.value*0.005*Math.PI;
+			
+			var axis = [1,1,1];
+		  
+			var Tcube_model=m4.axisRotation(axis,angle2);
+			var Tmodel = m4.identity();
+
+			var eye=[700*Math.cos(angle1),400,700*Math.sin(angle1)];
+			var target=[0,0,0];
+			var up=[0,1,0];
+			var Tcamera=m4.inverse(m4.lookAt(eye,target,up));
+
+			var Tprojection=m4.ortho(-200-sliderZoom.value,200-(-sliderZoom.value),-150-sliderZoom.value,250-(-sliderZoom.value),-1,2);
+			//var Tprojection=m4.perspective(Math.PI/3,1,5,400);
+
+			var Tviewport=m4.multiply(m4.scaling([200,-200,200]),m4.translation([200,200,0]));
+			
+			var Tcpv=m4.multiply(m4.multiply(Tcamera,Tprojection),Tviewport);
+			var Tmcpv=m4.multiply(Tcube_model,Tcpv);
+			
+			drawCube(Tmcpv);
+			drawAxes(Tcpv);
+			
+			// Now, attempt to draw the 2D robotic arm
+
+			
+			var Tblue_to_canvas = m4.translation([50,150,0]);    
+
+			var Tface_model=m4.multiply(m4.scaling([0.5,0.5,0.5]),m4.translation([100,100,100]));
+			Tmodel=m4.multiply(m4.multiply(Tblue_to_canvas,Tface_model),Tcube_model);
+			Tmcpv=m4.multiply(Tmodel,Tcpv);			
+			Tface_model=m4.multiply(m4.rotationY(spin),m4.multiply(m4.scaling([0.5,0.5,0.5]),m4.translation([100,100,100])));
+			Tmodel=m4.multiply(m4.multiply(Tblue_to_canvas,Tface_model),Tcube_model);
+			Tmcpv=m4.multiply(Tmodel,Tcpv);
+			miniHouse("blue",Tmcpv);
+			
+			var Tgreen_to_blue = m4.multiply(m4.rotationZ(angleGreen),m4.translation([100,0,0]));
+			var Tgreen_to_canvas = m4.multiply(Tgreen_to_blue,Tblue_to_canvas);
+			Tface_model=m4.multiply(m4.multiply(m4.rotationY(spin),m4.scaling([0.5,0.5,0.5])),m4.translation([100,100,100]));
+			Tmodel=m4.multiply(m4.multiply(Tgreen_to_canvas,Tface_model),Tcube_model);
+			Tmcpv=m4.multiply(Tmodel,Tcpv);
+			miniHouse("green",Tmcpv);
+			
+			var Tpink_to_blue = m4.multiply(m4.scaling([0.5,0.1*(sliderScale.value*3),1*(sliderScale.value)]),
+											m4.multiply(m4.rotationZ(anglePink),
+														m4.translation([-200,0,-100])));
+			var Tpink_to_canvas = m4.multiply(Tpink_to_blue,Tblue_to_canvas);
+
+			Tface_model=m4.multiply(m4.rotationY(-Math.PI),m4.translation([100,0,100]));
+			Tmodel=m4.multiply(m4.multiply(Tpink_to_canvas,Tface_model),Tcube_model);
+			Tmcpv=m4.multiply(Tmodel,Tcpv);
+			miniHouse("pink",Tmcpv);
+			
+			var Tblack_to_green = m4.multiply(m4.rotationZ(-angleGreen),m4.translation([100,0,0]));
+			var Tblack_to_canvas = m4.multiply(Tblack_to_green,Tgreen_to_canvas);
+			Tface_model = m4.multiply(m4.multiply(m4.rotationY(spin),m4.scaling([0.5,0.5,0.5])),m4.translation([100,100,100]));
+			Tmodel = m4.multiply(m4.multiply(Tblack_to_canvas,Tface_model),Tcube_model)
+			Tmcpv = m4.multiply(Tmodel,Tcpv);
+			miniHouse("black",Tmcpv);
+			
+			var Torange_to_black = m4.multiply(m4.rotationZ(-angleGreen),m4.translation([100,0,0]));
+			var Torange_to_canvas = m4.multiply(Torange_to_black,Tblack_to_canvas);
+			Tface_model = m4.multiply(m4.multiply(m4.rotationY(spin),m4.scaling([0.5,0.5,0.5])),m4.translation([100,100,100]));
+			Tmodel = m4.multiply(m4.multiply(Torange_to_canvas,Tface_model),Tcube_model)
+			Tmcpv = m4.multiply(Tmodel,Tcpv);
+			miniHouse("orange",Tmcpv);
+			
+			var Tyellow_to_orange = m4.multiply(m4.rotationZ(angleGreen),m4.translation([100,0,0]));
+			var Tyellow_to_canvas = m4.multiply(Tyellow_to_orange,Torange_to_canvas);
+			Tface_model = m4.multiply(m4.multiply(m4.rotationY(spin),m4.scaling([0.5,0.5,0.5])),m4.translation([100,100,100]));
+			Tmodel = m4.multiply(m4.multiply(Tyellow_to_canvas,Tface_model),Tcube_model)
+			Tmcpv = m4.multiply(Tmodel,Tcpv);
+			miniHouse("yellow",Tmcpv);
+			
+			var Tpurple_to_yellow = m4.multiply(m4.rotationZ(angleGreen),m4.translation([100,0,0]));
+			var Tpurple_to_canvas = m4.multiply(Tpurple_to_yellow,Tyellow_to_canvas);
+			Tface_model = m4.multiply(m4.multiply(m4.rotationY(spin),m4.scaling([0.5,0.5,0.5])),m4.translation([100,100,100]));
+			Tmodel = m4.multiply(m4.multiply(Tpurple_to_canvas,Tface_model),Tcube_model)
+			Tmcpv = m4.multiply(Tmodel,Tcpv);
+			miniHouse("purple",Tmcpv);
+			
+			var Tred_to_purple = m4.multiply(m4.rotationZ(-angleGreen),m4.translation([100,0,0]));
+			var Tred_to_canvas = m4.multiply(Tred_to_purple,Tpurple_to_canvas);
+			Tface_model = m4.multiply(m4.multiply(m4.rotationY(spin),m4.scaling([0.5,0.5,0.5])),m4.translation([100,100,100]));
+			Tmodel = m4.multiply(m4.multiply(Tred_to_canvas,Tface_model),Tcube_model)
+			Tmcpv = m4.multiply(Tmodel,Tcpv);
+			miniHouse("red",Tmcpv);
+    
+		}
+
+	slider1.addEventListener("input",draw);
+	slider2.addEventListener("input",draw);
+	sliderGreen.addEventListener("input",draw);
+	sliderPink.addEventListener("input",draw);
+	sliderZoom.addEventListener("input",draw);
+	sliderFlip.addEventListener("input",draw);
+	sliderScale.addEventListener("input",draw);
+	draw();
+}
+window.onload = setup;
+</script>
+
+</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>

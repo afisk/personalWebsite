@@ -1,0 +1,44 @@
+/* Build Cam Style Sheet by Austin Fisk */
+
+body
+	{
+	background:url(../images/u9pics/background.jpg);
+	font-family: "Georgia", sans-serif;
+	color:rgb(69,122,148);
+	margin: 8%;
+	text-align:center;
+	}
+	
+a:link, a:visited
+	{
+	color:inherit;
+	font-style:normal;
+	}
+
+a:hover
+	{
+	color:#FAAD1E;
+	}
+
+h1
+	{
+	background:black;
+	border:3px solid green;
+	padding-top:10px;
+	width:900px;
+	height:50px;
+	margin:auto;
+	}
+
+#wrapper
+	{
+	background:black;
+	border:3px solid green;
+	width:700px;
+	margin:auto;
+	}
+
+#requirement
+	{
+	color:red;
+	}

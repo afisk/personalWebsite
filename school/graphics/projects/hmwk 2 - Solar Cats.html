@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="Meow Meow" content="Orbiting Cats">
+  <meta charset="utf-8">
+  <title>Orbiting Cats</title>
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+</head>
+<body>
+  
+  <table style="width:100%">
+    <tr>
+      <th style="width:75%">
+      <canvas id="myCanvas" width="1000" height="700"></canvas>
+      </th>
+      <th style="width:20%">
+        <center>Rotation Around Sun Cat   :<input id="slider2" type="range" min="-200" max="200" />
+        <br/>
+        <center>Rotation Around Other Cats:<input id="slider1" type="range" min="-200" max="200" />
+      <th>
+      </tr>
+  </table>
+  <p><a id="bw" class="borderedLink" href="../default.htm">Return To Landing Page</a></p>
+
+</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+<script> "use strict"
+  function setup() {
+    var y = 50;
+    var v = 20;
+    var canvas = document.getElementById('myCanvas');
+    var slider1 = document.getElementById('slider1');
+	slider1.value = 20;
+    var slider2 = document.getElementById('slider2');
+    slider2.value = 30;
+    
+    
+    
+    function draw() 
+    {
+      var context = canvas.getContext('2d');
+      canvas.width = canvas.width;
+
+    
+
+      
+      function newHead(color)
+ {
+  context.lineWidth = 5;
+  context.strokeStyle = color;
+  context.fillStyle = "pink";
+  //Right Ear
+  context.beginPath();
+  context.moveTo(10,-37);
+  context.lineTo(25,-55);
+  context.lineTo(30,-27);
+  context.stroke();
+  context.fill();
+
+  //Left Ear
+  context.beginPath();
+  context.moveTo(-25,-33);
+  context.lineTo(-20,-55);
+  context.lineTo(-5,-37);
+  context.stroke();
+  context.fill();
+
+  context.fillStyle = color;
+  //Head
+  context.beginPath();
+  context.arc(0,0,40,0,2*Math.PI);
+  context.stroke();
+  context.fill();
+
+  //Face
+  context.fillStyle = "pink";
+  context.beginPath();
+  context.moveTo(0,15);
+  context.lineTo(-5,7);
+  context.lineTo(5,7);
+  context.lineTo(0,15);
+  context.fill();
+
+  context.strokeStyle = "black"
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(0,15);
+  context.lineTo(-5,19);
+  context.lineTo(-13,16);
+  context.stroke();
+
+  context.beginPath()
+  context.moveTo(0,15);
+  context.lineTo(5,19);
+  context.lineTo(13,16);
+  context.stroke();
+
+  context.beginPath()
+  context.arc(-17,-5,7,0,1*Math.PI);
+  context.stroke();
+
+  context.beginPath();
+  context.arc(17,-5,7,0,1*Math.PI);
+  context.stroke();
+ }
+      
+
+      y = (y +(slider1.value*.003)) %2000;
+      v = (v + (slider2.value*.003)) %2000;
+      context.translate(500,300)
+      context.rotate(v*.1);
+      newHead("yellow");
+      context.save();
+      
+      context.translate(-150,40);
+      context.rotate(y);
+      newHead("red");
+      context.restore();
+      
+      context.translate(205,0);
+      context.rotate(y*.6);
+      newHead("green");
+      context.save();
+      
+      context.translate(100,0);
+      context.rotate(y*.1);
+      newHead("blue")
+      
+      context.restore();
+      context.restore();
+      
+      context.translate(0, 120);
+      context.rotate(y);
+      context.scale(.5,.5);
+      newHead("pink");
+      context.restore();
+      context.restore();
+      
+      context.translate(80,30)
+      context.rotate(y*1.01)
+      newHead("orange");
+      
+      
+      window.requestAnimationFrame(draw);
+
+	  }
+    
+    window.requestAnimationFrame(draw);
+    }
+	window.onload = setup;
+</script>
+
+</html>

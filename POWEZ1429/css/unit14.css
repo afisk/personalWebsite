@@ -1,0 +1,121 @@
+/* unit 14
+	by Zach Powers */
+/* across all pages*/ 
+body{
+background-color:rgb(186, 190, 190);
+font-family: "Papyrus", sans-serif;
+}
+a:hover{
+font-weight:bold;
+}
+a:visited{
+color:rgb(0, 82, 204);
+text-decoration:none;
+}
+a:active{
+color:red;
+font-weight:bold;
+}
+
+#wrapper{
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+margin-top:20px;
+}
+.bold{
+font-weight:bold;
+}
+/* content section of pages. these very from page to page. */
+
+/* all pages with a picture*/
+#pic{
+float:right;
+margin:20px;
+border:3px solid rgb(0, 82, 204);
+padding:5px;
+background-color:rgb(26, 39, 39);
+}
+.text{
+width:400px;
+padding:20px;
+float:left;
+}
+/* contact us page*/
+.textalt{
+text-align:center;
+}
+#form{
+font-weight:bold;
+color:rgb(223, 232, 215);
+margin:20px auto;
+border:3px solid rgb(0, 82, 204);
+padding:5px;
+background-color:rgb(26, 39, 39);
+width:400px;
+}
+.textalt3{
+font-size:9pt;
+font-weight:bold;
+text-align:center;
+}
+.underline{
+font-weight:normal;
+}
+
+/*Visitors page*/
+.textalt2{
+margin:0px 0px 40px 0px;
+}
+
+/* products page*/
+#types{
+font-size: 9pt
+}
+
+/* header section of the page */
+
+#logo{
+background-color:rgb(26, 39, 39);
+padding-right:30px;
+}
+
+
+
+/*Navigation bar*/
+div#navh ul{
+border-bottom:black thin solid;
+border-top:black thin solid;
+background-color:rgb(26, 39, 39);
+clear:both;
+text-align:center;
+}
+ul{
+list-style:none;
+}
+#navh li{
+display:inline;
+margin:0px 10px 0px 10px;
+}
+div#navh a:link, div#navh a:visited{
+color:rgb(223, 232, 215);
+text-decoration:none;
+font-weight:bold;
+}
+
+div#navh a:hover{
+color:rgb(0, 82, 204);
+}
+
+
+/*Foot area*/
+#footer{
+clear:both;
+text-align:center;
+margin-top:20px;
+}
+div#footer a:link, div#footer a:visited{
+color:rgb(0, 82, 204);
+margin:0px 5px 0px 5px;
+text-decoration:none;
+}

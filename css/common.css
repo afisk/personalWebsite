@@ -1,0 +1,322 @@
+
+/* Landing Page Style Sheet by Austin Fisk */
+
+html
+{
+  height: 100%;
+}
+
+body
+{
+	background-color:#4D6D9A;
+	font-family: "Georgia", sans-serif;
+	color:#FFFFFF;
+	margin:0px; padding:0px;
+	text-align:center;
+	width:100%;
+	padding-top: 120px;
+	height: 100%;
+	text-shadow: 1px 1px #000000;
+}
+
+.header
+{
+	padding-top:30px;
+}
+
+.navbar
+{
+	text-shadow: 0px 0px #000000;
+	font-size:28px;
+}
+
+.navbar-brand
+{
+	font-size:30px;
+}
+
+
+.highlight
+{
+	background-color: #FAAD1E;
+}
+
+.dropdown-item:hover
+{
+	visibility: visible;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+	background-color: #ffc862;
+}
+
+.inTextLink
+{
+	color:#FAAD1E;
+	font-style:normal;
+	text-decoration: underline;
+}
+
+.inTextLink:hover,.inTextLink:hover
+{
+	color:#fa6b1e;
+	border-width: 10px;
+}
+
+.navbarCenter
+{
+	text-align:center;
+	margin:0 auto;
+}
+
+.centeredNavbar
+{
+	max-width: 700px;
+	margin:0 auto;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+	margin-top: 0; /* remove the gap so it doesn't close */
+}
+
+.fitHeight {
+	max-width: 900px;
+	max-height: 92vh;
+	margin: auto;
+}
+
+/* a:link, a:visited
+{
+	color:inherit;
+	font-style:normal;
+  	text-decoration: none;
+}
+
+a:hover
+{
+	color:#FAAD1E;
+}
+
+.link
+{
+	width: 325px;
+	height: 30px;
+	border: solid 5px black;
+	border-radius: 30px;
+	padding: 10px 20px;
+	transition: border-width 0.6s linear;
+	text-align: center;
+	white-space:nowrap;
+	background-color:#86B3D1;
+}
+
+.link:hover,.linkL:hover
+{
+	border-width: 10px;
+} */
+
+
+.centered
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+a
+{
+	text-decoration: none;
+}
+
+.linkList
+{
+	margin: 0 auto;
+	width:425px;
+}
+
+.borderedLink
+{
+	color:#FFFFFF;
+	font-style:normal;
+  	text-decoration: none;
+	  
+	width: 425px;
+	/* height: 30px; */
+	border: solid 5px black;
+	border-radius: 30px;
+	padding: 10px 20px;
+	transition: border-width 0.6s linear;
+	text-align: center;
+	white-space:nowrap;
+	background-color:#86B3D1;
+	font-size:25px;
+}
+
+.borderedLink:hover,.borderedLink:hover
+{
+	color:#FAAD1E;
+
+  	border-width: 10px;
+}
+
+
+
+
+.slowFadeIn {
+	visibility: visible;
+	-webkit-animation: fadeIn 8s;
+	animation: fadeIn 8s;
+}
+
+.fastFadeIn {
+	visibility: visible;
+	-webkit-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+}
+
+
+
+
+/* Popup container - can be anything you want */
+.popup {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+	visibility: hidden;
+	width: 160px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 8px 0;
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 50%;
+	margin-left: -80px;
+	font-size: 20px;
+	line-height:1;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+	visibility: visible;
+	-webkit-animation: fadeIn 1;
+	animation: fadeIn 1;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+	from {opacity: 0;} 
+	to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+	from {opacity: 0;}
+	to {opacity:1 ;}
+}
+
+
+.blackLinkBox {
+	cursor:pointer;
+	padding: 10px 20px;
+	background:#000;
+	color: #fff;
+	border-radius: 4px;
+	display: inline-block;
+ }
+
+
+/* Graphics Town */
+/*#flightControls
+{
+	width:100px;
+}*/
+.UDLRCol
+{
+	width:30%;
+}
+.FwdBackCol
+{
+	width:30%;
+}
+
+.UpDownBtn
+{
+	/*width:70px;*/
+	width:100%;
+	height:40px;
+}
+.LeftRightBtn
+{
+	width:45%;
+	height:40px;
+}
+.btnSplitter
+{
+	width:6%;
+}
+.FwBkwrdBtn
+{
+	width:100%;
+	height:40px;
+}
+.inBrowControlTbl
+{
+	width:50%;
+}
+
+
+
+/* Larger Text For Mobile */
+@media all and (min-width:10px) and (max-width: 1024px)
+{
+	.navbar-toggler-icon
+	{
+		height: 40px !important;
+		width: 40px !important;
+	}
+	.navbar
+	{
+		font-size:40px;
+	}
+	.navbar-brand
+	{
+		font-size:44px;
+	
+	}
+	.mobile-disable
+	{
+		pointer-events: none; 
+	}
+	.borderedLink
+	{
+		font-size:35px;
+		width: 525px;
+	}
+
+	.linkList
+	{
+		width:525px;
+	}
+}

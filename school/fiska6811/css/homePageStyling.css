@@ -1,0 +1,142 @@
+/* Homepage Styling*/
+
+body
+	{
+	background-color:#1D2727;/*#0099CC;*/
+	font-family: "Georgia", sans-serif;
+	text-align:justify;
+	margin-left:60px; 
+	margin-right:60px;
+	text-align: center;
+	}
+			
+a:link.header,a:visited.header
+	{
+	color:#00FF00;
+	margin-top:50px;
+	text-decoration: none;
+	}
+/* For new Page? */
+#pic
+	{
+	width:500px;
+	height:500px;
+	}
+
+#left
+	{
+	float:left;
+	}
+
+/* End of new page */
+
+h2
+	{
+	color:#55FFFF;
+	}
+			
+.LinkBack
+	{
+	border-radius: 30px;
+	padding: 10px 20px;
+	background:rgb(50,10,200);
+	}
+			
+#applets
+	{
+	border-radius: 30px;
+	padding: 10px 20px;
+	background:rgb(50,10,200);
+	color:#00FF00;
+	}
+			
+.current
+	{
+	border-radius: 30px;
+	padding: 10px 20px;
+	background-color:blue;
+	-webkit-animation-name: taco;
+	-webkit-animation-duration: 8s;
+	-webkit-animation-iteration-count: infinite;
+	animation-name: taco;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	color:#00FF00;
+	}
+			
+#bw
+	{
+	border-radius: 30px;
+	padding: 10px 20px;
+	background-color:black;
+	-webkit-animation-name: bw;
+	-webkit-animation-duration: 12s;
+	-webkit-animation-iteration-count: infinite;
+	animation-name: taco;
+	animation-duration: 12s;
+	animation-iteration-count: infinite;
+	color:#00FF00;
+	}
+			
+#bg
+	{
+	border-radius: 30px;
+	padding: 10px 20px;
+	background-color:blue;
+	-webkit-animation-name: bg;
+	-webkit-animation-duration: 12s;
+	-webkit-animation-iteration-count: infinite;
+	animation-name: taco;
+	animation-duration: 12s;
+	animation-iteration-count: infinite;
+	color:#00FF00;
+	}
+
+a:link.LinkBack,a:visited.LinkBack
+	{
+	color:Red;
+	text-decoration: none;
+	}
+
+a:hover.LinkBack
+	{
+	color:#FAAD1E;
+	background-color:green;
+	}
+
+.cat
+	{
+	color:rgb(120,255,0)
+	}
+			
+#result
+	{
+	color:black;
+	font-size:18px;
+	}
+			
+@-webkit-keyframes taco
+	{
+	0%  {background-color:red;}
+	20%  {background-color:yellow;}
+	40%  {background-color:blue;}
+	45%	{background-color:black;}
+	53%  {background-color:white;}
+	60%  {background-color:green;}
+	80%  {background-color:red;}
+	100% {background-color:orange;}
+	}
+			
+@-webkit-keyframes bw
+	{
+	1%	{background-color:black;}
+	20%  {background-color:white;}
+	40%  {background-color:black;}
+	}
+			
+@-webkit-keyframes bg
+	{
+	1%	 {background-color:blue;}
+	20%  {background-color:black;}
+	40%  {background-color:blue;}
+	}

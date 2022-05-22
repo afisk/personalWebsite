@@ -1,0 +1,42 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+	</head>
+
+<body>
+
+	<input type = "button" onclick = "asname()" value = "What is your name?">
+	<input type = "button" onclick = "addten()" value = "How old will you be in ten years?">
+	
+
+</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+		<script>
+
+		function asname(){
+		var uname = prompt("What is your name?", "your name")
+		alert ("Hello " +uname)
+		}	
+	</script>
+
+	<script> 
+		function addten(){
+			var n = prompt("How old are you?", "your age")
+			n = parseInt(n)
+			var ageAdd = (n + 10)
+			alert("In ten years you will be " +ageAdd)
+		}	
+		</script>
+
+</html>

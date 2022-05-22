@@ -1,0 +1,158 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Doug's Tool Belt</title>	
+		<link rel="stylesheet" type="text/css" href="../css/new.css" />
+	</head>
+	
+	<body>
+<!--Top of page-->
+		<div id="top">
+			<div id="name">
+				<img src="pics/nameplate.jpg" title="Us" alt="Picture Here" />
+			</div>
+			<div id="logo">
+				<img src="pics/logo.jpg" title="logo" alt="Picture Here" />
+			</div>
+		</div>
+<!--Navigation Bar-->
+		<div id="navbar">
+			<div class="barbutton">
+				<a id="home" href="default.htm">Home</a>
+			</div>
+			<div class="barbutton">
+				<a href="products.htm">Products</a>
+			</div>
+			<div class="barbutton">
+				<a href="contact.htm">Contact Us</a>
+			</div>
+			<div class="barbutton">w
+				<a href="about.htm">About Us</a>
+			</div>
+		</div>
+<!--Content of page-->
+		<div id="container" class="clearfix">
+<!--Text Box-->
+			<div id="textbox">
+				<p>Some of the <span class="fancy">superiorly crafted</span> crap of <span class="fancy">astounding quality</span> in the image to the right is available for purchase. The rest are just examples of things we could sell but don't. And in-case you are wondering: Yes, we are aware of this, that is why I put the note here for you to read first before you contact me, Duh.</p>
+			</div>
+<!--Picture Frame-->
+			<div id="pictureframe">
+				<p>
+					<img src="pics/toolbox.jpg" title="Cheap Tools" alt="You want to see this!" usemap="#productmap"/>
+<!--Image Map-->
+					<map name="productmap" id="productmap">
+<!--Polygonal area-->
+					<area shape="poly"
+						coords="0,60,0,160,90,160,90,60"
+						href="#oewrench"
+						title="Open End Wrench" />
+					
+<!--Rectangle Area-->	
+					<area shape="rect"
+						coords="100,60,140,185"
+						href="#crescent"
+						title="Crescent wrench or other brand adjustable spanner wrench." />
+					
+<!--Circle Area-->	
+					<area shape="circle"
+						coords="207,72,47"
+						href="#hammer"
+						title="I hope you know what this is." />
+					</map>
+				</p>
+			</div>
+			<div>
+<!--Form-->		
+			<form class="clearfix">
+				<table>
+					<tr>	
+						<td class="pic">
+							<img src="pics/oewrench.jpg" alt="Open End"/>
+						</td>
+						<td class="text">
+							<p>This is open end wrench. It got it's name by the fact that one end of the wrench is open. They come in many sizes. You get a random size and brand.</p>
+							<p>Size: Random</p>
+							<p>$ 5.00</p>
+						</td>
+						<td class="input">
+							<p>Quantity</p>
+							<input type="number" min="0" id="quantityoe" name="openendquantity" value="1" />
+						</td>
+				
+					</tr>
+					<tr>
+						<td class="pic">
+							<img src="pics/crescent.jpg" alt="Adjustable"/>
+						</td>
+						<td class="text">
+							<p>This is crescent wrench. It got it's name by the fact that one company named Crescent first made them. The unofficial name is an adjustable wrench. They come in many sizes. You get a one size fits most but a random brand.</p>
+							<p>Size: 15 inch</p>
+							<p>Brand: Random</p>
+							<p>$12.00</p>
+						</td>
+						<td class="input">
+							<p>Quantity</p>
+							<input type="number" min="0" id="quantitycr" name="crescentquantity" value="1" />
+						</td>
+					</tr>
+					<tr>
+						<td class="pic">
+							<img src="pics/hammer.jpg" alt="Hammer"/>
+						</td>
+						<td class="text">
+							<p>This is hammer. It got it's name by the fact that you hammer with it. Everyone in their life should know what the hell a hammer looks like. This is not rocket science, or hell any science. It's a flippen hammer.</p>
+							<p>Size: 16 ounce</p>
+							<p>Brand: Random</p>
+							<p>$ 7.00</p>
+						</td>
+							
+						<td class="input">	
+							<p>Quantity</p>
+							<input type="number" min ="0" id="quantityhm" name="hammerquantity" value="1" />
+						</td>
+					
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p>Because I love America!</p>
+								<input class="button" type="submit"	value="Buy"/>
+						</td>
+						<td colspan="2">
+							<p>Because I don't love America.</p>
+								<input	class="button" type="reset"	value="Clear"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+			
+		
+<!--Disclaimer-->
+		<div id="warning">
+			<p>Disclaimer: This is a fake website created for a class, it is not designed to sell anything. For real products and services seek help elsewhere. 
+			</p>
+		</div>
+<!--Footer and end links-->
+		<div id="footer">
+		<p>
+			<a href="#top">
+				Top
+			</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="default.htm">
+				Home
+			</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="products.htm">
+				Products
+			</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="contact.htm">
+				Contact Us 
+			</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="about.htm">
+				About Us
+			</a>
+		</p>
+		</div>
+	</body>
+</html>

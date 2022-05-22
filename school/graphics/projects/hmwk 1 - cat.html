@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta name="description"
+         content="Draw A Line">
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+</head>
+<body>
+	 <canvas id="myCanvas" 
+	   width="400" height="250"
+	   style="border:1px solid #000;">
+	 </canvas>
+	 <p><a id="bw" class="borderedLink" href="../default.htm">Return To Landing Page</a></p>
+
+
+
+<script>
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+
+//Body Line Settings
+context.lineWidth = 5;
+
+//Background
+context.fillStyle = "lightBlue";
+context.beginPath();
+context.moveTo(0,0);
+context.lineTo(0,250);
+context.lineTo(400,250);
+context.lineTo(400,0);
+context.fill();
+
+context.fillStyle = "lightGreen";
+context.beginPath();
+context.moveTo(0,215);
+context.lineTo(400,215);
+context.lineTo(400,300);
+context.lineTo(0,300);
+context.fill();
+
+context.fillStyle = "yellow";
+context.beginPath();
+context.arc(0,0,100,0,2*Math.PI);
+context.fill()
+
+
+context.strokeStyle = "brown";
+context.fillStyle = "pink";
+//Right Ear
+context.beginPath();
+context.moveTo(295,68);
+context.lineTo(310,50);
+context.lineTo(315,78);
+context.stroke();
+context.fill();
+
+//Left Ear
+context.beginPath();
+context.moveTo(260,72);
+context.lineTo(265,50);
+context.lineTo(280,68);
+context.stroke();
+context.fill();
+
+context.fillStyle = "brown";
+//Head
+context.beginPath();
+context.arc(285,105,40,0,2*Math.PI);
+context.stroke();
+context.fill();
+
+//Body and legs
+context.beginPath();
+context.moveTo(270,140);
+context.lineTo(250,160);
+context.lineTo(240,150);
+context.lineTo(150,150);
+context.lineTo(140,160);
+context.lineTo(140,180);
+context.lineTo(145,200);//start leg
+context.lineTo(145,215);//leg
+context.lineTo(145,200);
+context.lineTo(160,185); //240
+context.lineTo(230,185);
+context.lineTo(245,200);//start front leg
+context.lineTo(245,215);
+context.lineTo(245,200);
+context.lineTo(250,180);
+context.lineTo(250,160);
+context.stroke();
+context.fill();
+
+//Tail
+context.beginPath();
+context.moveTo(140,164);
+context.lineTo(120,180);
+context.lineTo(110,170);
+context.stroke();
+
+//Face
+context.fillStyle = "pink";
+context.beginPath();
+context.moveTo(285,120);
+context.lineTo(280,112);
+context.lineTo(290,112);
+context.lineTo(285,120);
+context.fill();
+
+context.strokeStyle = "black"
+context.lineWidth = 2;
+context.beginPath();
+context.moveTo(285,120);
+context.lineTo(280,124);
+context.lineTo(272,121);
+context.stroke();
+
+context.beginPath()
+context.moveTo(285,120);
+context.lineTo(290,124);
+context.lineTo(298,121);
+context.stroke();
+
+context.beginPath()
+context.arc(268,100,7,0,1*Math.PI);
+context.stroke();
+
+context.beginPath();
+context.arc(302,100,7,0,1*Math.PI);
+context.stroke();
+</script>
+
+
+</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+
+
+
+
+

@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Austin Fisk</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <script>
+        function setPlaybackSpeed() {
+            document.getElementById("doorVideo").playbackRate = 3;
+        };
+    </script>
+    <script>
+      var fullURL = window.location.href;
+      fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
+
+      function toggleActive() {
+        var z, i, elmnt, link, xhttp;
+        /* Loop through a collection of all HTML elements: */
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          /*search for elements with a certain atrribute:*/
+          link = elmnt.getAttribute("href");
+          if (link) {
+            if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
+            {
+              /* If is a drop down, add active to parent node */
+              if(elmnt.classList.contains("dropdown-item")) {
+                elmnt.classList.add("highlight");
+                elmnt.parentNode.parentNode.classList.add("active");
+                console.log("Found one " + link);
+              }
+              else if(elmnt.classList.contains("nav-link")) {
+                /* else it is a drop down header */
+                elmnt.classList.add("active");
+                console.log("Found one " + link);
+              }
+            }
+
+          }
+          // /* Exit the function: */
+          // return;
+        }
+      }
+
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /* Loop through a collection of all HTML elements: */
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          /*search for elements with a certain atrribute:*/
+          file = elmnt.getAttribute("include-html-header");
+          if (file) {
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4) {
+                if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                /* Remove the attribute, and call this function once more: */
+                elmnt.removeAttribute("include-html-header");
+                includeHTML();
+              }
+            }
+            xhttp.open("GET", file, true);
+            xhttp.send();
+            
+            xhttp.addEventListener('loadend', toggleActive  );
+            /* Exit the function: */
+            return;
+          }
+        }
+      }
+
+      function loadPage() {
+        setPlaybackSpeed();
+        includeHTML();
+      }
+    </script>
+  </head>
+	
+	<body onload="loadPage()">			
+    <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+
+    <h1 class="header">Chicken Door Project</h1>
+    <br/>
+    <div style="margin: 0 auto; width:870px;">
+        <h3>Project Inspiration</h3>
+        <p>My neighbors, the Hollubs, originally had 16 free range chickens.
+            After just a couple of months had passed, the Hollub's chicken flock had dropped to 10 hens.
+            The chickens only seemed to disappear when the coop door was left open overnight.
+            Looking for a fun project to take on, I decided to think, design, and create a way to keep the chickens safe at night while still allowing them to go outside on daily basis.</p>
+        <br>
+        <h3>Door</h3>
+        <video id="doorVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+            <source src="media/chickenDoorVideo.mp4" type="video/mp4">
+            Your browser does not support HTML video.
+        </video>
+        <p>Door moves slow to ensure that any chickens in the way will not be harmed during the opening and closing process.<br>Video playing at 3x speed</p>
+        <br><br>
+        <h3>Controller Pieces</h3>
+        <img class="fitHeight slowFadeIn" src="media/chickenDoorController.jpg" alt="Controller" />
+        <p>Due to the low budget of this project, the motor controller, Raspberry Pi 3b+, and custom made circuits were placed in a plastic bag.
+            Though not aesthetic, the plastic bag provides enough weather proofing to protect the electronics after it was fastened to the top of the chicken coop.</p>
+        <br><br>
+        <img class="fitHeight slowFadeIn" src="media/chickenDoorButtons.jpg" alt="Buttons" />
+        <p>Hens like to be out of the coop when the sun is up and come back home when the sun sets.  The door automatically opens when it detects daylight and closes after it disappears.
+            On the exception that Hollubs would like to keep their chickens indoors, there are buttons to manually operate the door - Open/Close.</p>
+        <br><br>
+        <img class="fitHeight slowFadeIn" src="media/chickenDoor.jpg" alt="TheDoor" />
+        <p>The door has been in place and running since July 2019.</p>
+        
+    </div>
+    <br>
+    <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
+    <br>
+    <br>
+    <br>
+
+  
+	</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+

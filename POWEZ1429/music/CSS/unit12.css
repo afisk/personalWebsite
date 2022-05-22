@@ -1,0 +1,61 @@
+/* Unit 12 Style sheet
+	by Zach Powers */
+
+/* required stuff*/	
+body{
+width:800px;
+background:rgb(0, 77, 0) url("../images/u12pics/BG.png") no-repeat fixed right top;
+}
+#sidebar{
+padding:15px;
+position:absolute;
+width:200px;
+background-color:rgb(255, 255, 153);
+border:4px solid black;
+text-align:justify;
+height:600px;
+}
+ul{
+list-style:none;
+}
+#wrapper{
+margin-left:240px;
+background-color:rgb(255, 255, 153);
+padding:10px;
+height:610px;
+border:4px solid black;
+}
+#leftside{
+float:left;
+width:280;
+height:622px;
+}
+#footer{
+margin-left:240px;
+height:25px;
+clear:both;
+background-color:rgb(255, 255, 153);
+border:4px solid black;
+font-size: .8em;
+width:552px;
+text-align:center;
+}
+a:link,a:visited{
+color:inherit;
+text-decoration:none;
+font-weight:bold;
+}
+a:hover{
+color:rgb(0, 77, 0);
+}
+/*spacing, it's gonna be messy...*/
+
+.rowinput{
+height:40px;
+}
+.prompt{
+float:left;
+width:60px;
+margin-right:5px;
+text-align:right;
+}

@@ -1,0 +1,11 @@
+/* Unit 06 Style sheet
+	by Zach Powers */
+
+
+
+a:link.hidden,a:visited.hidden{
+text-decoration:none;
+color:black;
+}
+
+

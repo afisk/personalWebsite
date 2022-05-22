@@ -1,0 +1,317 @@
+while( itr.hasNext() )
+	    	{
+	    		attString = itr.next();
+	    		splitIndex = 0;
+	    		seperatedAttributes = new ArrayList<String>();
+	    		
+	    		//For each one of the attribute's values, sort/organize -- put similar with eachother in list
+	    		for(Instance instance: trainInstances )
+	    		{
+	  			  //tempLabel = instance.label;   //Label doesn't matter, don't need this idt?
+	  			  
+	  			  p("SI : " + splitIndex + " AT : " + instance.attributes.get(splitIndex));
+	  			  
+	  			  if (instance.attributes.get(splitIndex).equals(attString))
+	  				seperatedAttributes.add(instance.attributes.get(splitIndex));
+	    				
+	    		  splitIndex ++;
+	    		}
+	    		//buildTree(, curreAttribute);
+	    		//attributeCounter ++;
+	    		childrenLists.add(seperatedAttributes);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				  private DecTreeNode buildTree(DataSet train, String parentAttrVal)
+  {
+
+	  /*
+	   * 
+	   * 
+	   * 
+	   * buildtree(examples, attributes, default-label) 
+	   * if empty(examples) then return default-label 
+	   * if (examples all have same label y) then return y 
+	   * if empty(attributes) then return majority-class of examples 
+	   * q = maxInfoGain(examples, attributes)
+	   * 
+	   * tree = create-node with attribute q
+	   * foreach value v of attribute q do
+	   * 	v-ex = subset of examples with q == v 
+	   * 	subtree = buildtree(v-ex, attributes - {q}, majority-class(examples)) 
+	   * 	add arc from tree to subtree 
+	   * return tree
+	   * 
+	   * 
+	   * 
+	   */
+	  
+	  
+	    this.labels = train.labels;
+	    this.attributes = train.attributes;
+	    this.attributeValues = train.attributeValues;
+	    double infoGain = 0;//[]=new double[this.attributes.size()];
+	    double newInfoGain = 0;
+	    int index = 0;
+	    int newIndex = 0;
+	    List<Instance> trainInstances = train.instances;
+	    //DecTreeNode node;
+	    String currAttribute;
+	    String attrub;
+
+	    double entropy= CalculateEntropy(trainInstances);
+
+	    int attr=0;
+	    
+	    for(String attribute : this.attributes)
+	    {
+	    	newInfoGain = entropy - calculateCondEntropy(train, attribute);
+	    	if (newInfoGain > infoGain)
+	    	{
+	    		infoGain = newInfoGain;
+	    		index = newIndex;
+	    		attrub = attribute;
+	    	}
+	    	newIndex += 1;
+	    }
+	    
+	    /*
+	     * 
+	     * 
+	     * INDEX MAY BE OFF BY ONE, do lists start at 0 or 1 lolololol (6 lines up)
+	     * 
+	     * 
+	     * 
+	     */
+	    
+	    DataSet newTrain = train;
+	    newTrain.attributes.remove(index);
+	    newTrain.instances.remove(index);
+	   // currAttribute = train.attributes.get(index);
+	    
+	    Iterator<String> itr =  train.attributeValues.get(attrub).iterator();;
+	    List<String> children[];
+	    int attributeCounter = 0;
+	    String attString;
+	    int splitIndex = 0;
+	    
+	    
+	    
+	    if(entropy <= 0) //If output is uniform or only 1 point, return a node
+	    {
+	    	if (parentAttrVal == null)
+	    	{	
+	    		root = new DecTreeNode(trainInstances.get(0).label, attrub, parentAttrVal, true);
+	    		return root;
+	    	}
+	    	else
+	    		return new DecTreeNode(trainInstances.get(0).label, attrub, parentAttrVal, true);
+	    }
+	    else
+	    {
+	    	while( itr.hasNext() )
+	    	{
+	    		attString = itr.next();
+	    		splitIndex = 0;
+	    		
+	    		//For each one of the attribute's values, sort/organize -- put similar with eachother in list
+	    		for(Instance instance: newTrain.instances )
+	    		{
+	  			  //tempLabel = instance.label;   //Label doesn't matter, don't need this idt?
+	  			  
+	  			  
+	  			  if (instance.attributes.get(splitIndex).equals(attString))
+	  				  children[attributeCounter].add(instance.attributes.get(splitIndex));
+	    				
+	    		  splitIndex ++;
+	    		}
+	    		//buildTree(, curreAttribute);
+	    		attributeCounter ++;
+	    	}
+	    	
+	    	//Now that attributes have been plased into list files, create their seperate build trees
+	    	
+	    	//Take each seperate list and build a tree
+	    	for(List<String> listInChildren : children)
+	    	{
+	    		//Make list into  DataSet and recurse
+	    		
+	    		/*
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * here is where we need to continue
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 * 
+	    		 */
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    		
+	    	}
+	    }
+	    
+	    
+	    //TODO
+	    //CREATE LEAVES AS STOP CONDITION
+	    //FOR EACH train.attributeValues.get(attribute) CREATE NEW DAUGHTER NODE (RECURSE)
+	    
+	    
+	    
+	    //find highest condEntorpy and make that the next node in tree
+	    
+	    if(entropy>0)
+	    {
+	    	//WRONG
+	    	condEntropy = calculateCondEntropy(train);
+	    	
+	      //  calculate info gain for each attribute. Make list?
+	      //  find maximum
+	      //  create node for tree with this max attribute
+	      //  call self again, pass in simplified DataSet somehow
+
+	    }
+	    else 
+	    {
+	    	return new DecTreeNode(trainInstances.get(0).label, attribute-4, parentAttrVal, true);	
+	    }
+  }
+  
+  
+  
+  
+  
+  
+  
+   private double calculateCondEntropy(DataSet train, String attribute)
+  {
+	  double condEntropy = 0;
+	  double specCondEntropy = 0;
+//	  Map<String, List<String>> map;
+//	  map.put(attribute, value)
+	  
+	 // int[] counts=new int[train.attributeValues.get(attribute).size()];
+	  Iterator<Instance> itr;// = train.instances.iterator();
+	  Iterator<String> attItr = train.attributeValues.get(attribute).iterator();
+	 
+
+	  
+	  // List of possible att. values
+	  //List possibles=train.attributeValues.get(attribute);
+	 //Iterate through this list and sum that spec.cond.entropy with the conditional entropy.
+	  
+	  
+	  
+	  String tempLabel;
+	  String labA = this.labels.get(0);
+	  int numLabA = 0;
+	  double a;
+	  double b;
+	  int amtAttrValContains = 0;//---------------
+	  String attString;
+	  Instance x;
+	    
+	  //For every attribute (n,r,j)
+	  while(attItr.hasNext())
+	  {
+		  attString = attItr.next();
+		  //for each label 0, find specCondEntrop, add to condE. for each lab 1, find SCE, add to CE
+		  specCondEntropy = 0;
+		  itr = train.instances.iterator();
+		  amtAttrValContains = 0;//--------------
+		  
+		  while(itr.hasNext()) 
+		  {
+			  x = itr.next();
+			  tempLabel = x.label;
+			  
+			  
+			  if (x.attributes.get(getAttributeIndex(attribute)).equals(attString))
+			  {
+				  amtAttrValContains += 1;//--------------
+				  if ( tempLabel.equals(labA) )
+					  numLabA++;
+			  }
+		  }
+		  
+		  a = numLabA / amtAttrValContains;
+		  b = (amtAttrValContains - numLabA) / amtAttrValContains;
+		  
+		  specCondEntropy = -a * lg(a) - b * lg(b);
+		  condEntropy += (amtAttrValContains / train.instances.size()) *  specCondEntropy;
+
+	  }
+	  
+
+	  
+	  //specCondEntropy += -a * lg(a);
+	    
+	  
+	  return condEntropy;
+  }
+  
+  

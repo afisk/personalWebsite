@@ -1,0 +1,69 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Katherine Reiter</title>	
+		<link rel="stylesheet" type="text/css" href="first.css">
+		
+		<script>
+		
+		function Boring() {
+		document.getElementById('doug').style.AnimationPlayState='paused';
+		document.getElementById('doug').style.WebkitAnimationPlayState='paused';
+		document.getElementById('dave').style.AnimationPlayState='paused';
+		document.getElementById('dave').style.WebkitAnimationPlayState='paused';
+		document.getElementById('carl').style.AnimationPlayState='paused';
+		document.getElementById('carl').style.WebkitAnimationPlayState='paused';
+		document.getElementById('frank').style.AnimationPlayState='paused';
+		document.getElementById('frank').style.WebkitAnimationPlayState='paused';
+		document.getElementById('bore').style.visibility='hidden';
+		document.getElementById('fun').style.visibility='visible';
+		document.body.style.background='beige';
+		}
+		
+		function Funtimes() {
+		document.getElementById('doug').style.AnimationPlayState='running';
+		document.getElementById('doug').style.WebkitAnimationPlayState='running';
+		document.getElementById('dave').style.AnimationPlayState='running';
+		document.getElementById('dave').style.WebkitAnimationPlayState='running';
+		document.getElementById('carl').style.AnimationPlayState='running';
+		document.getElementById('carl').style.WebkitAnimationPlayState='running';
+		document.getElementById('frank').style.AnimationPlayState='running';
+		document.getElementById('frank').style.WebkitAnimationPlayState='running';
+		document.getElementById('bore').style.visibility='visible';
+		document.getElementById('fun').style.visibility='hidden';
+		document.body.style.background="url('images/wispy.jpg')";
+		}
+		</script>
+    </head>
+	<body id="body">
+		<h1>Katherine Reiter's Homepage</h1>
+		<p><a id="doug" href="unit1/unit1.htm">Unit 1</a>
+		<br/><br/>
+		<a id="ougd" href="unit2/unit2.htm">Unit 2</a>
+		<br/><br/>
+		<a id="ugdo" href="unit3/unit3.htm">Unit 3</a>
+		<br/><br/>
+		<a id="gdou" href="unit4/unit4.htm">Unit 4</a>
+		</p>
+		<hr/>
+		<p><a id="carl" href="../default.htm">CPS 139</a>&nbsp;&nbsp;&nbsp;
+		<a id="frank" href="mailto:&#082;&#069;&#073;&#084;&#075;&#050;&#050;&#052;&#050;&#064;&#117;&#119;&#099;&#046;&#101;&#100;&#117;?subject=From%20my%20CPS%20139%20website">Email me</a>
+		</p>
+		<br/>
+		<button id="bore" onClick="Boring()">I'm boring</button>
+		<br/>
+		<button id="fun" onClick="Funtimes()">I changed my mind! I'm fun!</button>
+  </body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>

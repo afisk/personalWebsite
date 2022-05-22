@@ -1,0 +1,154 @@
+/* Unit 13 Style Sheet by Austin Fisk */
+
+
+/* Settings For All (3-Header) */
+
+body
+	{
+	background-color:#1D2727;
+	/*background:#5EC88C;*/
+	font-family: "Georgia", sans-serif;
+	color:black;
+	}
+
+#wrapper
+	{
+	max-width:900px;
+	margin:0px auto;
+	}
+
+ul
+	{
+	list-style-type:none;
+	}
+	
+a:link, a:visited
+	{
+	color:inherit;
+	font-style:normal;
+	}
+
+a:hover
+	{
+	color:green;
+	}
+
+
+/* Header */
+
+div#logo
+	{
+	margin-top:40px;
+	padding:3px;
+	background-color:rgb(18,34,180);
+	}
+
+h1
+	{
+	margin:90px 150px 0px 0px;
+	text-align:center;
+	float:right;
+	font-size:35px;
+	}
+
+span.FirstLetter
+	{
+	font-size:50px;
+	}
+
+img#imglogo
+	{
+	margin:10px;
+	}
+
+
+/* Horizontal Links */
+
+div#navh
+	{
+	background-color:rgb(18,34,180);
+	margin-top:20px;
+	text-align:center;
+	border-top:1px solid green;
+	border-bottom:1px solid green;
+	}
+
+div#navh li
+	{
+	display:inline;
+	font-size:20px;
+	margin-left:30px;
+	}
+
+div#navh a:link,div#navh a:visited
+	{
+	text-decoration:none;
+	}
+
+
+/* Content */
+
+div#content
+	{
+	margin-top:35px;
+	height:280px;
+	}
+
+
+/* Content - 1 -  Vertical Link */
+
+div#navv
+	{
+	border:1px solid green;
+	background-color:rgb(18,34,180);
+	padding-top:30px;
+	padding-bottom:30px;
+	width:150px;
+	}
+
+div#navv li
+	{
+	margin-top:11px;
+	}
+
+#navv li a
+	{
+	margin:0px 10px 0px -25px;
+	text-align:center;
+	display:block;
+	}
+
+div#navv a:link,div#navv a:visited
+	{
+	color:inherit;
+	text-decoration:none;
+	padding:5px;
+	border:1px solid green;
+	}
+
+div#navv a:hover
+	{
+	color:blue;
+	background-color:green;
+	}
+
+
+/* Content - 2 - Pic */
+
+img#pic
+	{
+	background-color:rgb(18,34,180);
+	padding:1px;
+	margin:10px 40px;
+	float:right;
+	border:1px solid green;
+	}
+
+
+/* Footer */
+
+div#footer
+	{
+	clear:both;
+	text-align:center;
+	}

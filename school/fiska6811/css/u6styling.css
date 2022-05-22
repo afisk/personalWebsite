@@ -1,0 +1,51 @@
+/* Unit 6 Style Sheet by Austin Fisk */
+
+body
+	{
+background: rgb(13,248,5) url(../images/u6pics/background.jpg) repeat-y;
+
+	/*background-color:black;
+	background-image:url(../images/u6pics/background.jpg);
+	background-attachment:fixed;
+	background-position: center;
+	margin-left:10%;
+	margin-right:10%;
+	font-family: "Georgia", sans-serif;
+	color:rgb(69,122,148);*/
+	}
+
+a:link, a:visited
+	{
+	color:rgb(165,237,235);
+	font-style:normal;
+	}
+a:hover
+	{
+	color:#FAAD1E;
+	}
+
+.first
+	{
+	color:#3BD9D6;
+	}
+
+li.first
+	{
+	font-style:italic;
+	}
+
+h1, h3
+	{
+	margin-right:50px;
+	background-color:rgb(242,58,6);
+	}
+
+p
+	{
+	text-align:right;
+	}
+
+ul
+	{
+	list-style-image:url(../images/u6pics/bullet.gif)
+	}

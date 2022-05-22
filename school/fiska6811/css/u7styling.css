@@ -1,0 +1,76 @@
+/* Unit 7b Style Sheet by Austin Fisk*/
+
+body 
+	{
+    background-color:rgb(221,249,183);
+    color:rgb(47,77,6);
+    font-family:"Courier New", sans-serif;
+    text-align:center;
+	margin-left:8%;
+	margin-right:8%;
+	}
+a:link,a:visited
+	{
+    color:inherit;
+	}
+
+a:hover
+	{
+    color:rgb(0,202,202);
+	}
+
+td#info /*Text on the right side in the first table*/
+	{
+    text-align:justify;
+	padding-left:20px;
+	padding-right:20px;
+	}
+
+#first  /*first Table*/
+	{
+	background-color:rgb(94,152,14);
+	}
+
+#second  /*second Table*/
+	{
+	background-color:rgb(136,222,20);
+	}
+
+table 
+	{
+	margin:auto;
+	width:84%;
+	}
+
+h3, p 
+	{
+	margin-top:50px;
+	}
+	
+.topPic
+	{
+	border:none;
+	padding:5px;
+	}
+	
+.smallPic
+	{
+	border-width:1px;
+	border-style:solid;
+	border-color:#FF00FF;
+	}
+	
+.smallPictureAlign
+	{
+	text-align:right;
+	}
+	
+.yearAlign
+	{
+	text-align:left;
+	}
+	
+.pictureColumn
+	{
+	width:10%;
+	}

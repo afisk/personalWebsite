@@ -1,0 +1,79 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Unit 1 by Austin Fisk</title>
+		<link href="../CSS/test.css" rel="stylesheet" type="text/css"/>
+
+    </head>
+   <body>
+	<h2>Unit 1 by Austin Fisk</h2>
+   
+		<h4>One Paragraph about Myself</h4>
+		<p>I was born in Wisconsin in 1995.
+		I have skied in Colorado, California, Nevada, Minnesota, and of course Wisconsin.
+		I like to eat muffins.</p>
+	<hr />
+		<h4>1 Paragraph about 3 Topics</h4>
+		<p>Taco bell is healthy. I like tacos.<br />
+		I'm addicted to clash of clans, I play it on my phone every day.<br />
+		Amazon Prime is great, you can buy "free" 2-day shipping.</p>
+	<hr />
+		<h4 style="color:purple">3 Paragraphs about 3 Topics</h4>
+		<p style="color:green;font-style:bold">I work at a gas station. We sell Mountain Dew at my place of work.</p>
+		<p style="color:blue">I have a cat, his name is Leo.</p>
+		<p style="color:red">I like to watch TV.</p>
+	<hr />
+		<h2>Do you like cats?</p>
+		
+		
+		
+		<input type= "button" onclick= "btnYesCat()"  value= "YES" >
+		<input type= "button" onclick= "btnNoCat ()"  value= "NO"  >
+		
+
+
+		<input type= "submit" onclick= "btnCat()" font color= "red" value= "Cat?!">
+		
+		<p id="result"></p>
+		
+		<script>
+			function btnYesCat(){
+				document.getElementById("result").innerHTML = "YAY CATS!!!!!!!!!!!!!!!!!!!!!!!!!!";
+			}	
+		</script>
+		
+		<script>
+		function btnNoCat() {
+				document.getElementById("result").innerHTML = "YOU DON'T LIKE CATS?";
+			}
+		</script>
+		
+		<script>
+			function btnCat(){
+				location.href= 'https://www.google.com/search?q=cat&biw=704&bih=747&source=lnms&tbm=isch&sa=X&ei=8YXSVIn0L8__yQS1yILQDg&ved=0CAYQ_AUoAQ'
+				alert("Navigating to pictures of cats.")
+				}
+		</script>
+		
+	<hr />
+		<h4 contenteditable="true">Edit Me!</h4>
+	<hr />
+		<img src="media/CAT.jpg" alt="CAT." title="MEOW" width="375" height="300">
+
+  </body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+
+
+

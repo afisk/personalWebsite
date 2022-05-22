@@ -1,0 +1,82 @@
+/* Unit 10 Style Sheet by Austin Fisk */
+
+body
+	{
+	background:#5EC88C url(../images/u10pics/gradient.jpg) repeat-y fixed right top;
+	font-family: "Georgia", sans-serif;
+	color:rgb(41,97,152);
+	margin: 6%;
+	text-align:justify;
+	}
+	
+a:link, a:visited
+	{
+	color:inherit;
+	font-style:normal;
+	}
+
+a:hover
+	{
+	color:#FAAD1E;
+	}
+
+h3
+	{
+	text-align:right;
+	float:right;
+	width:150px;
+	}
+
+#thumb
+	{
+	padding:5px;
+	background:#FFFFFF;
+	margin:0px 20px 20px 0px;
+	float:left;
+	}
+
+.storm
+	{
+	font-weight:bold;
+	font-size:1.2em;
+	text-transform:uppercase;
+	}
+
+img
+	{
+	border:2px solid rgb(41,97,152);
+	}
+
+#pOne
+	{
+	position:relative;
+	width:150px;
+	top:5px;
+	}
+
+#overlap
+	{
+	margin-left:40px;
+	}
+
+#picOne
+	{
+	z-index:1;
+	}
+
+#picTwo
+	{
+	z-index:3;
+	position:absolute;
+	left:250px;
+	}
+
+#picThree
+	{
+	z-index:2;
+	}
+
+#links
+	{
+	text-align:center;
+	}

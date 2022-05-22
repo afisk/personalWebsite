@@ -1,0 +1,141 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fast Food America</title>
+		<link rel="stylesheet" type="text/css" href="../css/FFA.css" />	
+    </head>
+    <body>
+	
+  <div id="wrapper">
+	<div id="header">
+	
+		<div id="logo">
+			<img src="../images/FPPics/logo1.png" alt="FFA" id="imglogo" />
+			<h1><span class="FirstLetter">F</span>ast
+			<span class="FirstLetter">F</span>ood
+					<span class="FirstLetter">A</span>merica</h1>
+		</div>
+		
+		<!-- Links -->
+		
+		<div id="navh">
+			<ul>
+				<li><a href="Home.htm">Home</a></li>
+				<li><a href="Products.htm">Products</a></li>
+				<li><a id="current" href="Order.htm">Order</a></li>				
+				<li><a href="ContactUs.htm">Contact Us</a></li>
+				<li><a href="AboutUs.htm">About Us</a></li>
+			</ul>
+		</div>	
+	</div>
+	
+	<!-- Content -->
+	
+	<div id="content">	
+		
+		<!--Form-->
+		<div id="order">
+			<form
+				method="post" 
+				action="mailto:&#102;&#105;&#115;&#107;&#097;&#054;&#056;&#049;&#049;&#064;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#115;&#046;&#117;&#119;&#099;&#046;&#101;&#100;&#117;?subject=From_Unit12"
+				enctype="text/plain">
+			
+				<div class="LPrompt">Name:<br />
+					<input class="prompt" type="text" name="Name"/>
+				</div>
+				<div class="LPrompt">Email:<br />
+					<input class="prompt" type="text" name="e_mail">
+				</div>
+				
+				<div class="LPrompt">What Kind Of Burger?</div>
+				<Select class="prompt" name="Type" size="1">
+					<option value="Hamburger">Hamburger</option>
+					<option value="ChsBurger">Cheese Burger</option>
+				</select>
+				<br />
+				
+				<div class="LPrompt">How Many Burger Patties?</div>
+				<Select class="prompt" name="Treat" size="1">
+					<option value="1_BurgerPatty">1</option>
+					<option value="2_BurgerPatty">2</option>
+					<option value="3_BurgerPatty">3</option>
+					<option value="4_BurgerPatty">4</option>
+				</select>
+				
+				<div class="LPrompt">How Many Tomato Slices?</div>
+				<Select class="prompt" name="Treat" size="1">
+					<option value="1_TomatoSlice">1</option>
+					<option value="2_TomatoSlice">2</option>
+					<option value="3_TomatoSlice">3</option>
+					<option value="4_TomatoSlice">4</option>
+					<option value="5_TomatoSlice">5</option>
+				</select>
+				
+				<div class="LPrompt">How Many Pickle Slices?</div>
+				<Select class="prompt" name="Treat" size="1">
+					<option value="1_PickleSlice">1</option>
+					<option value="2_PickleSlice">2</option>
+					<option value="3_PickleSlice">3</option>
+				</select>
+				
+				<!-- Check Boxes -->
+				
+				<div class="LPrompt">Toppings:</div>
+				<div class="prompt">
+					<input type="checkbox" name="Topping" value="Twinkie" />Twinkie<br />
+					<input type="checkbox" name="Topping" value="Lettuce" />Lettuce<br />
+					<input type="checkbox" name="Topping" value="Ketchup" />Ketchup<br />
+					<input type="checkbox" name="Topping" value="Mustard" />Mustard<br />
+					<input type="checkbox" name="Topping" value="Onion" />Onion<br />
+				</div>
+				
+				<!-- Radio Buttons -->
+				
+				<div class="LPrompt">Which Location Would You Like To Order From</div>
+				<div class="prompt">
+					<input type="radio" name="place" value="Sauk City" checked="checked" />Sauk City, WI<br />
+					<input type="radio" name="place" value="Baraboo" />Baraboo, WI<br />
+					<input type="radio" name="place" value="Marinette" />Marinette, WI<br />
+					<input type="radio" name="place" value="Columbus" />Columbus, OH<br />
+					<input type="radio" name="place" value="Tallahassee" />Tallahassee, FL
+				</div>
+				
+				<!-- Allergies -->
+				
+				<div class="LPrompt">Any Food Allergies We Need To Know About?</div>
+				<textarea class="prompt"  name="comments" rows="3" cols="35"></textarea><br />
+				<div class="LPrompt">
+					<input class="button" type="submit" value="Send" />&nbsp;&nbsp;&nbsp;
+					<input class="button" type="reset" value="Clear" />
+				</div>
+
+			</form>
+		</div>
+	</div>
+	
+	<div id="footer">
+		<a href="#header">Top</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="Home.htm">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="Products.htm">Products</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="ContactUs.htm">Contact Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="AboutUs.htm">About Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="AboutUs.htm">From The WebMaster</a>
+	</div><!-- end footer-->	
+	</div><!-- end wrapper -->
+  </body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+
+
+

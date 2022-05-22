@@ -1,0 +1,81 @@
+/* Unit 09 Style sheet
+	by Zach Powers */
+
+body
+{
+background:url(../images/u9pics/background.jpg); 
+color:#4343E8;
+font-family:"Verdana", "Arial", sans-serif;
+margin:5%;
+text-align:center;
+}
+
+a:link,a:visited{
+text-decoration:none;
+font-style:normal;
+color:inherit;
+color:#4343E8;
+background-color:#A3D1FF;
+}
+
+a:hover{
+color:inherit;
+color:#FFFFFF;
+}
+
+
+#wrapper{
+ border:#4343E8 3px solid;
+ background-color:#B5FFFF;
+ width:100%;
+ height:600px; /*images are close <=400 px so i have gone with 600 */
+}
+
+img{
+background:url(../images/u9pics/background.jpg);
+padding:20px;
+border:#4343E8 3px solid;
+
+}
+#gif{
+background:none;
+border:none;
+margin-bottom:20px;
+}
+
+#bunny{
+margin-left:30px;
+float:left;
+width:500px;
+}
+#text{
+margin:200px 335px 0px 700px;
+text-align:justify;
+}
+
+#tree{
+float:left;
+width:500px;
+margin-left:30px;
+}
+
+table{
+margin:auto;
+width:100%;
+
+}
+
+#rightstar{
+background:none;
+border:none;
+
+
+}
+#leftstar{
+background:none;
+border:none;
+
+}
+
+
+

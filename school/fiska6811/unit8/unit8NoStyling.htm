@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+		<title>Unit8 without styling by Austin Fisk</title>
+		<!--link rel="stylesheet" type="text/css"
+			  href="../css/u8styling.css"-->
+		</head>
+		
+	<body>
+
+		<h1>Paul Klee</h1>
+		
+		<!-- Table One (Outer Table) -->
+		<table rules="all">
+			
+			<!-- Row One pics 300x300px or larger, 150x150 cut outs -->
+			<tr>
+				<td><img src="../images/u8pics/pic1.jpg" alt="Pic1"/></td>
+				<td><img src="../images/u8pics/pic2.jpg" alt="Pic2"/></td>
+				<td><img src="../images/u8pics/pic3.jpg" alt="Pic3"/></td>
+			</tr>
+
+			<!-- Table One Row 2 -->
+			<tr>
+				<!-- Colspan 3 takes up 3 (all) collumns -->
+				<td colspan="3">
+
+				<!-- Table Two inside Table One Row 2 -->
+				<table rules="all">
+					
+					<!-- Row One Table Two -->
+					<tr>
+						<th rowspan="2"><a href="../images/u8pics/original.jpg"><img src="../images/u8pics/bigPic.jpg" alt="bigPic"/></a></th>
+						<th>Paul Klee</th>
+						<th>Sources</th>
+					</tr>
+					
+					<!-- Row Two Table Two -->
+					<tr>
+						<td>"Around The Fish," is the painting featured to the left. This painting was created 
+						by none other than Paul Klee. Paul Klee is a Swiss-German painter who taught at the Bauhaus school 
+						of art, design and architecture.</td>
+						<td>	
+						<a href="http://www.abcgallery.com/K/klee/klee15.JPG">Picture Source</a><br/>
+						<a href="http://en.wikipedia.org/wiki/Paul_Klee">Information Source</a><br/>
+						<a href="../images/u8pics/background.jpg">Background Picture</a>
+						</td>
+					</tr>
+				</table>
+			<!-- -->
+				</td>
+			</tr>
+		</table>
+		
+
+		<hr />
+
+		<p style="text-align:center">
+			<a href="../../../index.html">Austin Projects Home Page Homepage</a>&nbsp;&nbsp;&nbsp;
+			<a href="../index.html">My Homepage</a>&nbsp;&nbsp;&nbsp;
+			<a href="../css/template.css">CSS</a>
+		</p>
+
+	</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>

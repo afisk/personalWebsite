@@ -1,0 +1,123 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Fast Food America</title>
+		<link rel="stylesheet" type="text/css" href="../css/FFA.css" />	
+    </head>
+    <body>
+	
+	<div id="wrapper">
+	<div id="header">
+	
+		<div id="logo">
+			<a href="Home.htm"><img src="../images/FPPics/logo1.png" alt="FFA" id="imglogo" /></a>
+			<h1><span class="FirstLetter">F</span>ast
+			<span class="FirstLetter">F</span>ood
+					<span class="FirstLetter">A</span>merica</h1>
+		</div>
+		
+		<!-- Links -->
+		
+		<div id="navh">
+			<ul>
+				<li><a href="Home.htm">Home</a></li>
+				<li><a href="Products.htm">Products</a></li>					
+				<li><a id="current" href="">Contact Us</a></li>
+				<li><a href="AboutUs.htm">About Us</a></li>
+			</ul>
+		</div>
+	</div> <!-- end header -->	
+	
+	<div id="content">	
+		<div id="ContactUs">
+			<form
+				method="post" 
+				action="mailto:&#102;&#105;&#115;&#107;&#097;&#054;&#056;&#049;&#049;&#064;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#115;&#046;&#117;&#119;&#099;&#046;&#101;&#100;&#117;?subject=From_FFA_ContactUs"
+				enctype="text/plain">
+			
+				<div class="LPrompt">Name:<br />
+					<input class="prompt" type="text" name="Name"/>
+				</div>
+				<div class="LPrompt">Email:<br />
+					<input class="prompt" type="text" name="e_mail">
+				</div>
+				
+				<div class="LPrompt">What Did You Purchase?</div>
+				<Select class="prompt" name="Type" size="1">
+					<option value="Hamburger">Hamburger - In Store</option>
+					<option value="ChsBurger">Cheese Burger - In Store</option>
+					<option value="BurgerPInStore">Burger Products - In Store</option>
+					<option value="BurgerPOnline">Burger Products - Online</option>
+				</select>
+				
+				<!-- Radio Buttons -->
+				
+				<div class="LPrompt">Which Location Did You Purchase From?</div>
+				<div class="prompt">
+					<input type="radio" name="place" value="Website" checked="checked"/>Website/Online<BR />
+					<input type="radio" name="place" value="Sauk City" />Sauk City, WI<br />
+					<input type="radio" name="place" value="Baraboo" />Baraboo, WI<br />
+					<input type="radio" name="place" value="Marinette" />Marinette, WI<br />
+					<input type="radio" name="place" value="Columbus" />Columbus, OH<br />
+					<input type="radio" name="place" value="Tallahassee" />Tallahassee, FL
+				</div>
+
+				<!-- Allergies -->
+				
+				<div class="LPrompt">Comments:</div>
+				<textarea class="prompt" name="comments" rows="5" cols="35"></textarea><br />
+				<div class="LPrompt">
+					<input class="button" type="submit" value="Send" />&nbsp;&nbsp;&nbsp;
+					<input class="button" type="reset" value="Clear" />
+				</div>
+
+			</form>
+		</div>
+
+		<div id="ContactInfo">
+			You can also contact a Consumer Representative via the following:<br /><br />
+			<a Class="Sources" href="mailto:&#102;&#105;&#115;&#107;&#097;&#054;&#056;&#049;&#049;&#064;&#115;&#116;&#117;&#100;&#101;&#110;&#116;&#115;&#046;&#117;&#119;&#099;&#046;&#101;&#100;&#117;?subject=FFA">Email</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Click To Email<br /><br />
+			Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;608-555-6431<br /><br />
+			Address:&nbsp;&nbsp;&nbsp;&nbsp;FFA Cons. Rep.<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;742 Evergreen Terrace<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sauk City, WI 53578<br /><br />
+			<h3>Store Hours:</h3>
+			Monday: Open all day<br />
+			Tuesday: Open all day<br />
+			Wednesday: Open all day<br />
+			Thursday: Open all day<br />
+			Friday: Open all day<br />
+			Saturday: Open all day<br />
+			Sunday: Open all day<br /><br />
+			<h3>Phone Hours:</h3>
+			Weekdays: 9am - 6pm<br />
+			Weekends: 10am - 2pm
+			
+		</div>
+	</div><!-- end content -->
+	
+	<div id="footer">
+		<a href="#header">Top</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="Home.htm">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="Products.htm">Products</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="ContactUs.htm">Contact Us</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a href="AboutUs.htm">About Us</a>
+	</div><!-- end footer-->	
+	</div><!-- end wrapper -->
+  </body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
