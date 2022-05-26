@@ -86,18 +86,20 @@
             <img src="media/cbrHeadlightsRed.jpg" alt="LEDRed" height="600" />
             <img src="media/cbrHeadlightsBlinking.jpg" alt="LEDRed" height="600" />
             <h3>Project Inspiration</h3>
-            <p>My 2007 Honda CBR 1000RR has flush mounted turn signals meaning that it is hard for cars coming head on to see which way I am turning, this is especially difficult at 4 way stops when I want to turn left and the car in front of me thinks I am going straight.
-                With lots of extra free time at the begining of COVID-19, I decided to build a solution.
-                Many high end cars such as Audi, Lamborghini, and Ford Mustang have dynamic turn signals and LED accent lighting that I decided to recreate for my motorcycle.
+            <p>My 2007 Honda CBR 1000RR has flush mounted turn signals which make it difficult for oncoming cars on to see which way I am turning.
+               This is especially difficult at 4-way stops when I want to turn left and the car across the intersection may think I'm going straight.
+               With plenty of extra free time at the beginning of the pandemic , I decided to develop a solution.
+               Many high-end cars such as Audi, Lamborghini, and Ford Mustang have dynamic turn signals and LED running lights which I decided to recreate for my motorcycle.
+               With turn signals that face towards oncoming traffic, I could feel safer turning across traffic anywhere I go.
             </p>
             <br>
             <hr>
             <h3>Project Planning</h3>
-            <p>This was my first embedded project that talked to devices over a data bus.
-              I had to read into the datasheets to understand what an I2C address was and how to make each INA260 have its own.
-              I had to be cognizant of my limited code space and make functions that were dynamic and useful in multiple ways to achieve the functionality I was looking for without using up all of the memory.
-              I added functionality to connect to the lights using the Adafruit BlueFruit app vie Bluetooth.
-              A lot of time was spent understanding how much power was required for the microcontroller and how I could power microcontroller off the motorcycle power system.
+            <p>This was my first embedded project that communicated to devices over a data bus.
+               I had to read into the datasheets to understand what an I2C address was and how to make each INA260 have its own address.
+               I had to be cognizant of my limited code space and make functions that were dynamic and useful in multiple ways to achieve the functionality I was looking for without using up all the memory.
+               Finally, I added Bluetooth functionality to control the lights through my phone using the Adafruit BlueFruit app.
+               A significant amount of time was spent figuring out how much power was required for the microcontroller and how I could power the microcontroller using the motorcycle's power system and only supplying power while the motorcyle was on.
             </p>
             <br><hr>
             <h2>Parts List</h2>
@@ -127,31 +129,31 @@
             <br><hr>
             <h3>Dissassembly and LED Install</h3>
             <img src="media/cbrDisassembled.jpg" alt="Bike Dissassembled" width="400" />
-            <p>Took apart the front of my motorcycle.</p>
-            <p>Baked the headlights so I could pry apart the headlights.</p>
+            <p>Taking apart the front of my motorcycle.</p>
+            <p>Baking the headlights so I could pry apart the sections apart.</p>
             <img src="media/cbrHeadlights.jpg" alt="Headlight not in" width="400" />
             <br><br>
             <video id="ledVideo" width="400" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
                 <source src="media/cbrHeadlightsWorking.mp4" type="video/mp4">
                 Your browser does not support HTML video.
             </video>
-            <p>Installed the LEDs in the headlights.</p>
+            <p>Installation of the LEDs in the headlights.</p>
             <img src="media/cbrINA260Circuit.jpg" alt="INA260 Circuit" height="550" />
-            <p>INA260 directly in line with the blinkers power line that indicates when the blinkers are in "Driving Lights Mode."
-                If the blinkers are blinking, the driving light wire will receive zero current, then we know the blinker is blinking without having to wait and detect an inconsistent blink.
+            <p>The INA260 is directly in line with the blinkers power line that indicates when the blinkers are in "Driving Lights Mode."
+               If the blinkers are active, the driving light wire will receive zero current, then the system knows that the blinker is active without having to wait and detect an inconsistent signal.
             </p>
             
             <br><hr>
             <h3>Reassemble</h3>
             <img src="media/cbrAssembling1.jpg" alt="Bike Assembling" height="550" />
-            <p>Start assembling and running wires on the motorcycle.<br>
+            <p>Started the reassembling and running wires around the motorcycle.<br>
                 Solder. Solder. Solder.<br>
                 Wire LED power and microcontroller into motorcycle power system.
             </p>
             <br><hr>
             <h3>Completed</h3>
             <img src="media/cbrAustinOnCyle.jpg" alt="Bike Assembling1" height="550" />
-            <p>Me (Austin Fisk) on my cycle</p>
+            <p>Demoing the new lights on my cycle.</p>
             <video id="blinkersVideo" width="620" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
                 <source src="media/cbrBlinkers.mp4" type="video/mp4">
                 Your browser does not support HTML video.
@@ -166,8 +168,8 @@
                 <source src="media/cbrFestiveLights.mp4" type="video/mp4">
                 Your browser does not support HTML video.
             </video>
-            <p>Connects to the Bluefruit app via Bluetooth Low Energy.
-                Can change the colors of the Driving Lights and Turn Signals.
+            <p>Connecting to the Bluefruit app via Bluetooth Low Energy.
+               The app can change the colors of the driving lights and turn signals.
             </p>
             <!-- <br><br>
             <p>Summer/Fall 2020 project complete.</p> -->
