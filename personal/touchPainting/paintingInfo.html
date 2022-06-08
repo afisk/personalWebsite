@@ -148,6 +148,11 @@
               To save power and prolong battery life, I was able to get the sleep current for this circuit down to 1.6 mA by configuring the nrf to sleep until the interrupt line from the touch breakout board is raised during a touch interaction.
               This circuit should be able to run around 18 weeks on a 6000 mAh battery with low usage.
             </p>
+            <p>
+               When touching the painting after the nRF has gone to sleep, the user is greeted with a wake up tone.
+               The nRF does not wake up fast enough to poll the MPR121 and see which spot is currently activated.
+               The wake up tone serves two purposes, one to inform the user that the painting was asleep and has just woken up, and two, to replace the deficiency of not being able to wake up and poll the MPR121 quick enough.
+            </p>
             <br>
             <h2>Parts List</h2>
             <table class="centered">
