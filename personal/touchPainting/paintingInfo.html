@@ -7,6 +7,7 @@
         <title>Austin Fisk</title>
         <script>
           function loadImage() {
+             // Giraffe Image
             var image = document.getElementById("giraffe");
             var downloadingImage = new Image();
             downloadingImage.onload = function(){
@@ -15,6 +16,16 @@
                 image.src = this.src;
             };
             downloadingImage.src = "https://pages.cs.wisc.edu/~fisk/personal/touchPainting/media/giraffeDrawn.jpg";
+            
+            //Frog Image
+            image = document.getElementById("frog");
+            downloadingImage = new Image();
+            downloadingImage.onload = function(){
+                image.classList.add("fitHeight");
+                image.classList.add("slowFadeIn");
+                image.src = this.src;
+            };
+            downloadingImage.src = "https://pages.cs.wisc.edu/~fisk/personal/touchPainting/media/frog.jpg";
           }
 
           var fullURL = window.location.href;
@@ -91,16 +102,28 @@
         <link rel="stylesheet" type="text/css" href="../../css/common.css">
 
         <script>
-          function toggleAudio() {
-            if(document.getElementById("audio-control").innerHTML == "Unmute")
+          function toggleGiraffeAudio() {
+            if(document.getElementById("giraffe-audio-control").innerHTML == "Unmute")
             {
               document.getElementById("giraffeVideo").muted = false;
-              document.getElementById("audio-control").innerHTML = "Mute";
+              document.getElementById("giraffe-audio-control").innerHTML = "Mute";
             }
             else
             {
               document.getElementById("giraffeVideo").muted = true;
-              document.getElementById("audio-control").innerHTML = "Unmute";
+              document.getElementById("giraffe-audio-control").innerHTML = "Unmute";
+            }
+          }
+          function toggleFrogAudio() {
+            if(document.getElementById("frog-audio-control").innerHTML == "Unmute")
+            {
+              document.getElementById("frogVideo").muted = false;
+              document.getElementById("frog-audio-control").innerHTML = "Mute";
+            }
+            else
+            {
+              document.getElementById("frogVideo").muted = true;
+              document.getElementById("frog-audio-control").innerHTML = "Unmute";
             }
           }
         </script>
@@ -149,7 +172,7 @@
                 Your browser does not support HTML video.
             </video>
             <br>
-            <div id="audio-control" class="blackLinkBox slowFadeIn" onclick="toggleAudio()">Unmute</div>
+            <div id="audio-control" class="blackLinkBox slowFadeIn" onclick="toggleGiraffeAudio()">Unmute</div>
             <p>Turn on your volume to hear the sounds of the jungle.</p>
             <br>
 
@@ -161,6 +184,27 @@
             <p>Spring 2022 project complete.</p> -->
             
         </div>
+        <br>
+        <h2>3D Design</h2>
+        <img id="fBox" class="fitHeight slowFadeIn" src="media/BoxBottomFilled.JPG" alt="FilledBox"/>
+        <p>Populated Cad Design</p>
+        <img id="eBox" class="fitHeight slowFadeIn" src="media/BoxBottomEmpty.JPG" alt="EmptyBox"/>
+        <p>Box Cad Design</p>
+        <br>
+        <h2>3D Print</h2>
+        <p>Images Coming Soon..</p>
+        <br>
+        <h2>Frog Touch Painting</h2>
+        <video id="frogVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
+          <source src="media/frogPaintingSounds.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+        <br>
+        <div id="frog-audio-control" class="blackLinkBox slowFadeIn" onclick="toggleFrogAudio()">Unmute</div>
+        <p>Turn on your volume to hear animals and musical instruments.</p>
+        <br>
+        <br>
+        <img id="frog" class="fitHeight slowFadeIn" src="../../sharedMedia/loading.gif" alt="Frog"/>
         <br>
         <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
         <br>
