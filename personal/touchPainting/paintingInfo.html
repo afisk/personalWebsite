@@ -8,22 +8,22 @@
         <script>
           function loadImage() {
              // Giraffe Image
-            var image = document.getElementById("giraffe");
+            var giraffeImage = document.getElementById("giraffe");
             var downloadingGiraffeImage = new Image();
             downloadingGiraffeImage.onload = function(){
-                image.classList.add("fitHeight");
-                image.classList.add("slowFadeIn");
-                image.src = this.src;
+               giraffeImage.classList.add("fitHeight");
+               giraffeImage.classList.add("slowFadeIn");
+               giraffeImage.src = this.src;
             };
             downloadingGiraffeImage.src = "https://pages.cs.wisc.edu/~fisk/personal/touchPainting/media/giraffeDrawn.jpg";
             
             //Frog Image
-            image = document.getElementById("frog");
-            downloadingFrogImage = new Image();
+            var frogImage = document.getElementById("frog");
+            var downloadingFrogImage = new Image();
             downloadingFrogImage.onload = function(){
-                image.classList.add("fitHeight");
-                image.classList.add("slowFadeIn");
-                image.src = this.src;
+               frogImage.classList.add("fitHeight");
+               frogImage.classList.add("slowFadeIn");
+               frogImage.src = this.src;
             };
             downloadingFrogImage.src = "https://pages.cs.wisc.edu/~fisk/personal/touchPainting/media/frog.jpg";
           }
