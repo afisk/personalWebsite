@@ -11,8 +11,8 @@
             var giraffeImage = document.getElementById("giraffe");
             var downloadingGiraffeImage = new Image();
             downloadingGiraffeImage.onload = function(){
-               giraffeImage.classList.add("fitHeight");
-               giraffeImage.classList.add("slowFadeIn");
+               // giraffeImage.classList.add("fitHeight");
+               // giraffeImage.classList.add("slowFadeIn");
                giraffeImage.src = this.src;
             };
             downloadingGiraffeImage.src = "https://pages.cs.wisc.edu/~fisk/personal/touchPainting/media/giraffeDrawn.jpg";
@@ -193,7 +193,7 @@
             <br>
 
             <!-- <img id="giraffe" class="fitHeight slowFadeIn" src="media/giraffeDrawn.jpg" alt="Giraffe"/> -->
-            <img id="giraffe" src="media/giraffeDrawnLowRes.jpg" alt="Giraffe"/>
+            <img id="giraffe" class="fitHeight slowFadeIn" src="media/giraffeDrawnLowRes.jpg" alt="Giraffe"/>
             <br>
             
             <hr>
