@@ -231,6 +231,14 @@
             <p>All PCBs are held onto their respective posts with M2 bolts.
                The speaker is bolted to the underside of the cover with ventilation holes so the sound can escape.
             </p>
+            <p>After testing a working version of code, I decided to leave the circuit powered up off the battery pack to check if it would run for a duration of time.
+               The frog ran great while sitting, untouched, and silent for about 10 minutes.
+               Some phantom touch interactions started happening, making all sorts of sounds play.
+               I found that there was an issue with the way I had initialized the MPR121, it was set to be too sensitive.
+               After turning down the sensitivity, the frog ran great and showed signs that it would stay powered for the predicted duration of time.
+               Currently, upon wake up, the sensitivity gets turned up in order to help those with dry hands interact with the painting and allow their touch to be more easily interpreted as an interaction.
+               Before sleep, the sensitivity is turned to ensure no ghost interactions throughout the day.
+            </p>
             <br>
 
             <h2>Finished Product</h2>
