@@ -46,7 +46,8 @@ body
 	visibility: visible;
 	-webkit-animation: fadeIn 1s;
 	animation: fadeIn 1s;
-	background-color: #ffc862;
+	color: #FFC862;
+	background-image: url("https://pages.cs.wisc.edu/~fisk/sharedMedia/abstractCircuitBackground.jpg");
 }
 
 .inTextLink
