@@ -100,33 +100,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
         <link rel="stylesheet" type="text/css" href="../../css/common.css">
-
-        <script>
-          function toggleGiraffeAudio() {
-            if(document.getElementById("giraffe-audio-control").innerHTML == "Unmute")
-            {
-              document.getElementById("giraffeVideo").muted = false;
-              document.getElementById("giraffe-audio-control").innerHTML = "Mute";
-            }
-            else
-            {
-              document.getElementById("giraffeVideo").muted = true;
-              document.getElementById("giraffe-audio-control").innerHTML = "Unmute";
-            }
-          }
-          function toggleFrogAudio() {
-            if(document.getElementById("frog-audio-control").innerHTML == "Unmute")
-            {
-              document.getElementById("frogVideo").muted = false;
-              document.getElementById("frog-audio-control").innerHTML = "Mute";
-            }
-            else
-            {
-              document.getElementById("frogVideo").muted = true;
-              document.getElementById("frog-audio-control").innerHTML = "Unmute";
-            }
-          }
-        </script>
     </head>
 	
 	  <body>
@@ -158,6 +131,7 @@
             <p>
                 An email for someone with the FirstName of Austin, LastName of Fisk, and CompanyName of Marketing Company XYZ could look like this:
             </p>
+            <hr />
             <p>
                 Dear {{FirstName}} {{LastName}},
                 <br />
@@ -179,6 +153,7 @@
                 <br />
                 Salsey Scott
             </p>
+            <hr />
 
             <h2>PROJECT IS FINISHED BUT WEB PAGE IS CURRENTLY UNDER CONSTRUCTION</h2>
             <h2>IMAGES COMING SOON</h2>
