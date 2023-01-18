@@ -109,25 +109,24 @@
         <br>
         <div style="margin: 0 auto; width:870px;">
             <h2>Project Inspiration</h2>
-            <p>A lot of sales work is done by reaching out to multiple potential clients all at once via generated contact lists
-               that can be purchased from online sources. I was contacted by a former work associate, <a target="_blank" class="inTextLink" href="https://www.instagram.com/chi.animalart">Scott Krause</a>,
-               and asked to build an app that could send marketing emails from a GMail account. There are many other applications
-               already available on the market, however they are a costly investment that must be paid every single time an email
-               is sent. This application logs Scott into his GMail through a Google Auth application. This allows him to generate
-               emails and send them all from his personal/work email as many times as he would like with no additional charges.
-            </p>
+            <p>
+                A lot of sales work is done by reaching out to multiple potential clients all at once via generated contact lists
+                that can be purchased from online sources.  We want to be able to reach out to everyone on those lists quickly
+                and and efficiently. With this application, we are able to do the same thing many highly priced applicaitons already
+                do.  We can write a general format email and substitute in important information throughout to make the general
+                email personalized for each person on the generated contact list.
+             </p>
+ 
+             <p>
+                 This application was built on python with PySimpleGUI for the user interface.
+                 This leverages the <a target="_blank" class="inTextLink" href="https://github.com/jeremyephron/simplegmail">simplegmail</a>
+                 application to handle the Google Auth login. This then use a list of contacts in a .csv file to populate values in the
+                 marketing emails (see below for exapmles). This application will read over the csv's column names and replace them anywhere
+                 it finds them throughout the email, so long as they are surrounded by curly braces - {{ColumnName1}}.
+             </p>
 
             <p>
-                This application was built on python with PySimpleGUI for the user interface construction.
-                This leverages the <a target="_blank" class="inTextLink" href="https://github.com/jeremyephron/simplegmail">simplegmail</a>
-                application for the Google O-Auth login. This then use a list of contacts in a .csv file to populate the values in the
-                marketing emails (see below for exapmles). It can be used with any .csv. The user just needs to type in the header
-                value, but surrounded by double curly braces and the marketing application will substitute in the value with a
-                contact's personal information from the .csv file.
-            </p>
-
-            <p>
-                Below is an example email generation:
+                Example email generation:
             </p>
             <hr />
             <img id="fOnWall" class="fitHeight slowFadeIn" style="width:33%" src="media/emailTemplate.jpg" alt="FrogOnWall"/>
@@ -143,7 +142,7 @@
             <br />
 
             <p>
-                Watch me send the same generic email to 3 different people using their names and company names all based off
+                Sending a generic email to 3 different people using their names and company names all based off
                 one single email template.
             </p>
             <video id="marketingEmailsVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
