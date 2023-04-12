@@ -1,0 +1,133 @@
+
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Austin Fisk</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../css/common.css">
+
+        <script>
+          var fullURL = window.location.href;
+          fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
+
+          function toggleActive() {
+            var z, i, elmnt, link, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              link = elmnt.getAttribute("href");
+              if (link) {
+                if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
+            {
+              /* If is a drop down, add active to parent node */
+              if(elmnt.classList.contains("dropdown-item")) {
+                elmnt.classList.add("highlight");
+                elmnt.parentNode.parentNode.classList.add("active");
+                console.log("Found one " + link);
+              }
+              else if(elmnt.classList.contains("nav-link")) {
+                /* else it is a drop down header */
+                elmnt.classList.add("active");
+                console.log("Found one " + link);
+              }
+            }
+
+              }
+              // /* Exit the function: */
+              // return;
+            }
+          }
+
+          window.onload = function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            /* Loop through a collection of all HTML elements: */
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+              elmnt = z[i];
+              /*search for elements with a certain atrribute:*/
+              file = elmnt.getAttribute("include-html-header");
+              if (file) {
+                /* Make an HTTP request using the attribute value as the file name: */
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState == 4) {
+                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-html-header");
+                    includeHTML();
+                  }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+            
+            xhttp.addEventListener('loadend', toggleActive  );
+                /* Exit the function: */
+                return;
+              }
+            }
+          }
+        </script>
+    </head>
+	
+	<body>			
+    <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+        
+    <h1 class="header">Lawn Mower Drop Hitch Project</h1>
+    <br>
+    <div style="margin: 0 auto; width:870px;">
+        <h3>Project Inspiration</h3>
+        <p>My parents' stock lawn mower hitch is about 7" too high.
+           When driving around with a wagon, the wagon looks like it is dumping, which looks pretty dumpy.
+           So we had to come up with a solution.
+           My dad made a cardboard model of what he wanted and I made the product.
+        </p>
+        <br>
+        <p>*Unpictured* is me learning how to use a metal hole punching and chopping machine at Sector67 in Madison.</p>
+        <img class="fitHeight" src="media/hitchWelding2.jpg" alt="Buttons" />
+        <p>I had to learn how to weld for this project.</p>
+        <br><br>
+        <img class="fitHeight" src="media/hitchFinished.jpg" alt="TheDoor" />
+        <p>After grinding off all the excess weld, the next thing to grind out was painting!</p>
+        <img class="fitHeight" src="media/hitchOnMower.jpg" alt="TheDoor" />
+        <p>A perfect fit!</p>
+        <br>
+        <img class="fitHeight" src="media/hitchOnMower2.jpg" alt="TheDoor" />
+        <p>The stock hitch was bent upwards.
+           After a couple of heavy loads of dirt, we are hoping the hitch will bend down into perfect shape.
+           None the less, the hitch works as expected!</p>
+        <br><br>
+        <img class="fitHeight" src="media/hitchWelding1.jpg" alt="Phase 1" />
+        <p>*Deep in thought*</p>
+        <br>
+        <!-- <p>Spring 2023 project complete.</p> -->
+        
+    </div>
+    <br>
+    <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
+    <br>
+    <br>
+    <br>
+
+  
+	</body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-61034445-2');
+    </script>
+</html>
+

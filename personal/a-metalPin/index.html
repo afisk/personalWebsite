@@ -13,6 +13,11 @@
         <link rel="stylesheet" type="text/css" href="../../css/common.css">
 
         <script>
+            function setPlaybackSpeed() {
+                document.getElementById("pinLaseringVideo").playbackRate = 3;
+            };
+        </script>
+        <script>
           var fullURL = window.location.href;
           fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
 
@@ -81,22 +86,32 @@
 	<body>			
     <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
         
-    <h1 class="header">Snoopy Mailbox Project</h1>
+    <h1 class="header">Lazer Cut Metal Pin Project</h1>
     <br>
     <div style="margin: 0 auto; width:870px;">
         <h3>Project Inspiration</h3>
-        <p>A fun way to stay occupied and bond with my father during COVID-19.</p>
+        <p>I collect pins from every place I go skiing.
+           I had the opportunity to go helicopter skiing in February 2023, but they did not have any pins I could buy to commemorate the trip.
+           I had to make my own.
+        </p>
         <br>
         <h3>Initial Phase</h3>
-        <img class="fitHeight" src="media/snoopyPhase1.jpg" alt="Phase 1" />
-        <p>I drew Snoopy freehand, my dad cut him out.  We then measured, cut, and assembled the dog house before prepping it for painting.</p>
+        <img class="fitHeight" src="media/pinLogoBase.png" alt="Phase 1" />
+        <p>I decided to use the logo of the helicopter skiing business, HeliTrax.</p>
         <br><br>
-        <img class="fitHeight" src="media/snoopyPhase2.jpg" alt="Buttons" />
-        <p>Many hours spent watching paint dry, touching up around the edges.</p>
+
+        <video id="pinLaseringVideo" height="550" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=5 >
+            <source src="media/pinCutting.mp4" type="video/mp4">
+            Your browser does not support HTML video.
+        </video>
+        <p>Cutting a 0.95 mm piece of stainless that I got for a steel with a 50W Galvanometer fiber laser that runs at 1064nm wavelength.</p>
+
+        <img class="fitHeight" src="media/pinsPolished.jpg" alt="Buttons" />
+        <p>I gained a lot of practice polishing pins.</p>
         <br><br>
-        <img class="fitHeight" src="media/snoopyPhase3.jpg" alt="TheDoor" />
-        <p>Cut and painted a Woodstock flag.</p>
-        <!-- <p>Spring/Summer 2020 project complete.</p> -->
+        <img class="fitHeight" src="media/pinCollection.jpg" alt="TheDoor" />
+        <p>There is an imposter among us. My homemade pin fits in perfectly with all its store bought brothers and sisters.</p>
+        <!-- <p>Winter 2023 project complete.</p> -->
         
     </div>
     <br>
