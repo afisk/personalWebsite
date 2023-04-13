@@ -318,10 +318,12 @@ a
 	{
 		font-size:35px;
 		width: 525px;
+		margin: 8px auto;
 	}
 
 	.linkList
 	{
-		width:525px;
+		/*width:525px;*/
+		width:850px;
 	}
 }
