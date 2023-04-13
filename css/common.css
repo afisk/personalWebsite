@@ -132,14 +132,15 @@ a
 .linkList
 {
 	margin: 0 auto;
-	width:425px;
+	width:850px;
 }
 
 .borderedLink
 {
 	color:#FFFFFF;
 	font-style:normal;
-  	text-decoration: none;
+	text-decoration: none;
+	margin: 8px auto;
 	  
 	width: 425px;
 	/* height: 30px; */
