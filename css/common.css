@@ -160,7 +160,9 @@ a
 
   	border-width: 10px;
 	background-image: url("https://pages.cs.wisc.edu/~fisk/sharedMedia/abstractCircuitBackground.jpg");
-	background-size: 220% 800%;
+	/* background-size: 220% 800%; */
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
 	
 }
 
