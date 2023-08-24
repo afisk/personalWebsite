@@ -334,3 +334,46 @@ a
 		width:1050px;
 	}
 }
+
+
+
+
+#ChickenDoor:hover
+{
+	height:200px;
+	background-image: url(https://pages.cs.wisc.edu/~fisk/personal/chickenDoor/media/chickenDoor.jpg);
+	background-size: auto 310px;
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
+
+#TouchPainting:hover
+{
+	height:200px;
+	background-image: url(https://pages.cs.wisc.edu/~fisk/personal/touchPainting/media/frog.jpg);
+	background-size: auto 200px;
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
+
+#CBRLEDs:hover
+{
+	height:200px;
+	background-image: url(https://pages.cs.wisc.edu/~fisk/personal/cbr1000rrLED/media/cbrAssembling1.jpg);
+	background-size: auto 300px;
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
+
+#GateController:hover
+{
+	height:200px;
+	background-image: url(https://pages.cs.wisc.edu/~fisk/personal/gateController/media/gateCadDrawing.jpg);
+	background-size: auto 200px;
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
