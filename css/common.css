@@ -48,6 +48,8 @@ body
 	animation: fadeIn 1s;
 	color: #FFC862;
 	background-image: url("https://pages.cs.wisc.edu/~fisk/sharedMedia/abstractCircuitBackground.jpg");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
 }
 
 .inTextLink
