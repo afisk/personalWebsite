@@ -1,190 +1,409 @@
-
-
 <!DOCTYPE HTML>
 <html>
-	<head>
-        <meta charset="UTF-8">
-        <title>Austin Fisk</title>
-        <script>
-          var fullURL = window.location.href;
-          fullURL = fullURL.substr(0, fullURL.lastIndexOf("/")+1);
 
-          function toggleActive() {
-            var z, i, elmnt, link, xhttp;
-            /* Loop through a collection of all HTML elements: */
-            z = document.getElementsByTagName("*");
-            for (i = 0; i < z.length; i++) {
-              elmnt = z[i];
-              /*search for elements with a certain atrribute:*/
-              link = elmnt.getAttribute("href");
-              if (link) {
-                if(link.substr(0, link.lastIndexOf("/")+1) == fullURL)
-            {
-              /* If is a drop down, add active to parent node */
-              if(elmnt.classList.contains("dropdown-item")) {
-                elmnt.classList.add("highlight");
-                elmnt.parentNode.parentNode.classList.add("active");
-                console.log("Found one " + link);
-              }
-              else if(elmnt.classList.contains("nav-link")) {
-                /* else it is a drop down header */
-                elmnt.classList.add("active");
-                console.log("Found one " + link);
-              }
+<head>
+  <meta charset="UTF-8">
+  <title>Austin Fisk</title>
+  <script>
+    var fullURL = window.location.href;
+    fullURL = fullURL.substr(0, fullURL.lastIndexOf("/") + 1);
+
+    function toggleActive() {
+      var z, i, elmnt, link, xhttp;
+      /* Loop through a collection of all HTML elements: */
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        link = elmnt.getAttribute("href");
+        if (link) {
+          if (link.substr(0, link.lastIndexOf("/") + 1) == fullURL) {
+            /* If is a drop down, add active to parent node */
+            if (elmnt.classList.contains("dropdown-item")) {
+              elmnt.classList.add("highlight");
+              elmnt.parentNode.parentNode.classList.add("active");
+              console.log("Found one " + link);
             }
-
-              }
-              // /* Exit the function: */
-              // return;
+            else if (elmnt.classList.contains("nav-link")) {
+              /* else it is a drop down header */
+              elmnt.classList.add("active");
+              console.log("Found one " + link);
             }
           }
 
-          window.onload = function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-            /* Loop through a collection of all HTML elements: */
-            z = document.getElementsByTagName("*");
-            for (i = 0; i < z.length; i++) {
-              elmnt = z[i];
-              /*search for elements with a certain atrribute:*/
-              file = elmnt.getAttribute("include-html-header");
-              if (file) {
-                /* Make an HTTP request using the attribute value as the file name: */
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                  if (this.readyState == 4) {
-                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-                    /* Remove the attribute, and call this function once more: */
-                    elmnt.removeAttribute("include-html-header");
-                    includeHTML();
-                  }
-                }
-                xhttp.open("GET", file, true);
-                xhttp.send();
-            
-                xhttp.addEventListener('loadend', toggleActive  );
-            
-                /* Exit the function: */
-                return;
-              }
+        }
+        // /* Exit the function: */
+        // return;
+      }
+    }
+
+    window.onload = function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /* Loop through a collection of all HTML elements: */
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-html-header");
+        if (file) {
+          /* Make an HTTP request using the attribute value as the file name: */
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+              /* Remove the attribute, and call this function once more: */
+              elmnt.removeAttribute("include-html-header");
+              includeHTML();
             }
           }
-        </script>
-        
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
-        <link rel="stylesheet" type="text/css" href="../../css/common.css">
-    </head>
-	
-	  <body>
-        <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+          xhttp.open("GET", file, true);
+          xhttp.send();
 
-        <h1 class="header">Lay-Z Pool Boy Project</h1>
-        <br>
-        <div style="margin: 0 auto; width:870px;">
-            <img class="fitHeight" src="media/rickLazy.webp" alt="rickLazy" />
-            <br><br>
-            <h1>**WORK IN PROGRESS**</h1>
-            <br><br><br>
-            <h2>Introduction</h2>
-            <p>Pools get mucky and yucky when they are not taken care of.
-               For some reason my parents have trusted me to take care of their pool from time to time when they go on vacation.
-               I don’t know what I’m doing, but wouldn’t it be awesome if they had something that could help protect their pool from my negligence.
-               I would like to make a pool chemical dispenser that can both monitor the pool’s well being and dispense the 3 most common types of chemicals at scheduled intervals and at the push of a button over the internet via a web app.
-               This would also be able to work as a remote on/off switch for the pool motor with an included pool motor on/off scheduler.
-            </p>
+          xhttp.addEventListener('loadend', toggleActive);
 
-            <h2>Goals</h2>
-            <table class="centered">
-                <tr>
-                    <td><p>Enable myself to be more lazy when my parents ask me to take care of the pool</p></td>
-                </tr>
-                <tr>
-                    <td><p>Build a web front end that can schedule when the pool motor is running, shows information about the pool like the last time it got chemicals, ph over time, temperature of the water, show how much of each chemical is remaining, etc…, and that allows the user to dump specified amounts of chemicals into the pool.</p></td>
-                </tr>
-                <tr>
-                    <td><p>Make a system that can dispense 3 different chemicals at specified amounts into a mixing pipe coming off of the pool motor. 1 type of granulated chemical (Synergy Clear – Once a week) and 2 types of liquid chemicals (Liquid Chlorine & Liquid Algaecide as needed).</p></td>
-                </tr>
-                <tr>
-                    <td><p>Make a system to redirect water into the mixing pipe so that it can easily be bypassed when not in use</p></td>
-                </tr>
-                <tr>
-                    <td><p>Make an audible and visual (LED) Warning Alarm that sounds before chemicals get mixed into the pool</p></td>
-                </tr>
-            </table>
+          /* Exit the function: */
+          return;
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="../../css/common.css">
+</head>
+
+<body>
+  <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+
+  <h1 class="header">Lay-Z Pool Boy Project</h1>
+  <br>
+  <div style="margin: 0 auto; width:870px;">
+    <img class="fitHeight" src="media/rickLazy.webp" alt="rickLazy" />
+    <br><br>
+    <h2>Introduction</h2>
+    <p>Pools get mucky and yucky when they are not taken care of.
+      For some reason my parents have trusted me to take care of their pool from time to time when they go on vacation.
+      I don’t know what I’m doing, but wouldn’t it be awesome if they had something that could help protect their pool
+      from my negligence.
+      I would like to make a pool chemical dispenser that can both monitor the pool’s well being and dispense the 3 most
+      common types of chemicals at scheduled intervals and at the push of a button over the internet via a web app.
+      This would also be able to work as a remote on/off switch for the pool motor with an included pool motor on/off
+      scheduler.
+    </p>
+
+    <h2>Goals</h2>
+    <table class="centered">
+      <tr>
+        <td>
+          <p>Enable myself to be more lazy when my parents ask me to take care of the pool</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Build a web front end that can schedule when the pool motor is running, shows information about the pool
+            like the last time it got chemicals, ph over time, temperature of the water, show how much of each chemical
+            is remaining, etc…, and that allows the user to dump specified amounts of chemicals into the pool.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Make a system that can dispense 2 different liquid chemicals at specified amounts into the pool, Liquid
+            Chlorine & Liquid Algaecide as needed.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Make an audible and visual (LED) Warning Alarm that sounds before chemicals get mixed into the pool</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Read in rain and automatically dose chemicals after rain.</p>
+        </td>
+      </tr>
+    </table>
 
 
-            <h2>Skills</h2>
-            <table class="centered">
-                <tr>
-                    <td><p>Learn to drive servo motors</p></td>
-                </tr>
-                <tr>
-                    <td><p>Working with PVC Pipes</p></td>
-                </tr>
-                <tr>
-                    <td><p>Metal bending/welding</p></td>
-                </tr>
-                <tr>
-                    <td><p>Web design things</p></td>
-                </tr>
-                <tr>
-                    <td><p>Make an audible and visual (LED) Warning Alarm that sounds before chemicals get mixed into the pool</p></td>
-                </tr>
-            </table>
+
+    <br>
+    <h2>Parts List</h2>
+    <table class="centered">
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B0053HOXFI">2x 6 Gallon
+              Marine Gas Tank</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B01GDN1T4S">USB RF Radio</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://milonetech.com/products/chemical-etape-assembly">2x
+              Chemical Liquid Level Reading E-Tape</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B09SH59SJ7">3 Wire in
+              casing</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B075M7FHM1">USB Speaker</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/">Raspberry Pi 3B+</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B074MZYS37">2x 12 V pumps</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B004V1XJW0">AcuRite RF Rain
+              Gauge</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.amazon.com/gp/product/B09NVFJYPS">2 Temperature
+              probe pack</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.Digikey.com">Realy: 3v Control 15A 125vAC -
+              J1071CS3VDC.36</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.Digikey.com">2x Diode: B140B-13-F</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.Digikey.com">3x Mosfet: DMN6068LK3-13</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.Digikey.com">4x Diode: CLL4752A TR PBFREE</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">2x Toat to hide everything in</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">2x 1/4 in to 3/8 in adapter</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">3/8 in plastic tubing</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">4x 3/8" grommets</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">2x 1/4" grommets</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">Desk grommet</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a target="_blank" class="inTextLink" href="https://www.menards.com">Plastic Board</a></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Wires/Connectors/Solder/Glue</p>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <p>Total Cost: ~$660</p>
+
+    <h2>Overview:</h2>
+    <p>Python Flask website</p>
+    <p>Port Forwarding on router</p>
+    <p>Dynamic DNS to fiskpool.ddns.net:8080</p>
+    <p>Google Authentication - only specific emails can login</p>
+
+    <h2>Front End:</h2>
+    <p>Web UI to show temperature inside pool and for the outside air</p>
+    <p>Web UI to show current chemical liquid levels</p>
+    <p>Web UI set up to schedule chemical dumps of 0.25, 0.5, 0.75, and 1.0 gallons at specific times of a week, Sunday
+      - Saturday</p>
+    <p>Web UI set up to show Chemical dump history & amounts</p>
+    <p>Web UI set to save and show if want chemical dump to be repeated every week or just one time</p>
+    <p>Web UI to configure schedule for motor running</p>
+
+    <h2>Back End:</h2>
+    <p>Back end set up to take readings of the current temperature & store it so it can be provided to the Web UI</p>
+    <p>Back end set up to read temperature every hour and average out over the last 60 seconds to get an accurate temp
+      reading, then store so it can be provided to the UI for graphing</p>
+    <p>Back end set up to read when next scheduled chemical dispense is and then PWM the pin controlling the motor power
+      for a certain amount of time to make sure the correct amount of chemicals are dispensed</p>
+    <p>*Only one type of chemical can be dispensed at a time*</p>
+    <p>Back end set up to log how much of a chemical has been dispensed after it dispenses (as multiple dispenses may
+      happen on top of eachother, so it would only make one log of 2 gallons dispensed if two 1 gallon dispenses were
+      scheduled one right after the other</p>
+    <p>Back end set up to read in how much rainfall is set from Accurite RF rain gauge. Sends in 433MHz signal</p>
+    <p>Back end to turn on relay when motor schedule is set</p>
+    <p>Hardware modify the motor with relay and another switch to turn off the motor manually</p>
+
+    <br>
+    <h2>Chemical Pump Motor Controllers:</h2>
+    <img class="fitHeight" src="media/MotorControllerSchematic.png" alt="mcSchematic" />
+    <img class="fitHeight" src="media/MotorControllerFront.jpg" alt="mcFront" />
+    <img class="fitHeight" src="media/MotorControllerBack.jpg" alt="mcBack" />
+
+    <br>
+    <h2>Pool Pump Relay Controller:</h2>
+    <img class="fitHeight" src="media/PoolPumpControllerSchematic.jpg" alt="ppcSchematic" />
+    <img class="fitHeight" src="media/PoolPumpController.jpg" alt="ppc" />
+
+    <br>
+    <h2>Sensor Breakout Board:</h2>
+    <img class="fitHeight" src="media/SensorBreakout.jpg" alt="sensorBreakout" />
+    <p>Break out 5v and ground to each of the 2 temperature probes, chemical level readers, A to D reader, and LEDs.</p>
+    <p>Break out A to D Analog 0 and 1 to chemical level reader signal line</p>
+    <p>Break out GPIO to Red and Blue LEDs</p>
+    <p>Break out GPIO to temperature sensors data lines</p>
+
+    <br>
+    <h2>Rasbperry Pi Casing:</h2>
+    <img class="fitHeight" src="media/RPi.jpg" alt="rPiCasing" />
+
+    <br>
+    <h2>Chemical Tanks & Electronics:</h2>
+    <img class="fitHeight" src="media/Chemical1Tank.jpg" alt="tank1" />
+    <img class="fitHeight" src="media/Chemical2Tank.jpg" alt="tank2" />
+    <br>
+    <img class="fitHeight" src="media/Toats.jpg" alt="toats" />
+    <img class="fitHeight" src="media/Antenna.jpg" alt="antenna" />
+
+    <br>
+    <h2>Acurite wireless rain gauge:</h2>
+    <img class="fitHeight" src="media/AcuriteRainGauge.png" alt="rainGauge" />
+    <h3>433 MHz Rain Gauge signal bytes we care about:</h3>
+    <p>uint16_t sensor_id = ((bb[0] & 0x3f) << 8) | bb[1];</p>
+    <p>int battery_low = (bb[2] & 0x40) == 0;</p>
+    <p>int channel = bb[0] >> 6;  // Channel A, B, or C</p>
+    <p>raincounter = ((bb[5] & 0x7f) << 7) | (bb[6] & 0x7f);</p>
+
+    <br>
+    <h2>Web Application:</h2>
+    <iframe class="fitHeight" src="https://youtu.be/konXSP7cQpQ"></iframe>
 
 
-            <h2>Stretch Goals</h2>
-            <table class="centered">
-                <tr>
-                    <td><p>Read in rain and automatically dose chemicals after rain? Or suggest to dose chemicals after rain.</p></td>
-                </tr>
-                <tr>
-                    <td><p>Camera in the pool basket.</p></td>
-                </tr>
-                <tr>
-                    <td><p>Extra 2 granular dispensing vats for PH-up and PH-down (get added as needed).</p></td>
-                </tr>
-                <tr>
-                    <td><p>Un-invasively read the current of the pool motor to learn when it is working harder, ie) the basket is full and automatically shut off the pump using the idea that a motor’s driving current goes up with the amount of force counteracting it from spinning – OR – Use a water flow meter in the water pipeline to see if water flowage has slowed.</p></td>
-                </tr>
-            </table>
 
-            <br><br>
-            <img class="fitHeight" src="media/rickAcidVat.jpg" alt="rickVat" />
-            <p>*Trying to prevent pool from turning into a vat of acid*</p>
 
-            <br><br>
-            <video id="FluidLevel_WebShown_Video" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-              <source src="media/FluidLevel_WebShown.mp4" type="video/mp4">
-              Your browser does not support HTML video.
-            </video>
-            <p>Able to read the fluid levels and display them on the webpage in real time as the vase gets filled with water.</p>
 
-            <br><br>
-            <h1>**WORK IN PROGRESS**</h1>
-            <br><br>
-        </div>
-        <br>
-        <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
-        <br>
-        <br>
-        <br>
 
-  
-	</body>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <br><br>
+    <img class="fitHeight" src="media/rickAcidVat.jpg" alt="rickVat" />
+    <p>*Trying to prevent pool from turning into a vat of acid*</p>
 
-        gtag('config', 'UA-61034445-2');
-    </script>
+    <br><br>
+    <video id="FluidLevel_WebShown_Video" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop"
+      controls="controls" muted="muted" playbackRate=1>
+      <source src="media/FluidLevel_WebShown.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+    <p>Able to read the fluid levels and display them on the webpage in real time as the vase gets filled with water.
+    </p>
+
+    <br><br>
+
+
+
+
+
+
+
+
+
+    <h2>Future Goals</h2>
+    <table class="centered">
+
+      <tr>
+        <td>
+          <p>Camera in the pool basket.</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Extra 2 granular dispensing vats for PH-up and PH-down (get added as needed).</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Un-invasively read the current of the pool motor to learn when it is working harder, ie) the basket is full
+            and automatically shut off the pump using the idea that a motor’s driving current goes up with the amount of
+            force counteracting it from spinning – OR – Use a water flow meter in the water pipeline to see if water
+            flowage has slowed.</p>
+        </td>
+      </tr>
+    </table>
+
+
+
+    <br><br>
+  </div>
+  <br>
+  <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
+  <br>
+  <br>
+  <br>
+
+
+</body>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-61034445-2');
+</script>
+
 </html>
-
