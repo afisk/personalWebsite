@@ -350,15 +350,15 @@ a
 }
 
 .bigFasthilight {
-	animation: pulsate 0.4s ease-out infinite;
+	animation: pulsateBig 0.4s ease-out infinite;
 }
 .bigFasthilight:hover {
 	animation: pulsateBig 5s ease-out infinite;
 }
 @-webkit-keyframes pulsateBig {
-	0%   { box-shadow: 200px 0 0 black; }
+	0%   { box-shadow: 125px 0 0 transparent; }
 	50%  { box-shadow: 0 0 57px cyan; }
-	100% { box-shadow: -200px 0 0 black; }
+	100% { box-shadow: -125px 0 0 transparent; }
 }
 
 /* #ChickenDoor:hover
