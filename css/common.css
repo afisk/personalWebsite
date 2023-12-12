@@ -349,6 +349,18 @@ a
 	100% { box-shadow: 0 0 0 black; }
 }
 
+.bigFasthilight {
+	animation: pulsate 0.4s ease-out infinite;
+}
+.bigFasthilight:hover {
+	animation: pulsate 5s ease-out infinite;
+}
+@-webkit-keyframes pulsate {
+	0%   { box-shadow: 0 0 0 black; }
+	50%  { box-shadow: 0 0 57px cyan; }
+	100% { box-shadow: 0 0 0 black; }
+}
+
 /* #ChickenDoor:hover
 {
 	height:200px;
