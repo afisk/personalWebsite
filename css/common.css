@@ -340,7 +340,14 @@ a
 }
 
 
-
+.hilight {
+	animation: pulsate 2s ease-out infinite;
+}
+@-webkit-keyframes pulsate {
+	0%   { box-shadow: 0 0 0 black; }
+	50%  { box-shadow: 0 0 17px cyan; }
+	100% { box-shadow: 0 0 0 black; }
+}
 
 /* #ChickenDoor:hover
 {
