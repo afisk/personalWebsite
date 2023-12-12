@@ -103,6 +103,7 @@
       scheduler.
     </p>
 
+    <br><br>
     <h2>Goals</h2>
     <table class="centered">
       <tr>
@@ -137,7 +138,7 @@
 
 
 
-    <br>
+    <br><br>
     <h2>Parts List</h2>
     <table class="centered">
       <tr>
@@ -257,13 +258,15 @@
     </table>
     <br>
     <p>Total Cost: ~$660</p>
-
+    
+    <br><br>
     <h2>Overview:</h2>
     <p>Python Flask website</p>
     <p>Port Forwarding on router</p>
     <p>Dynamic DNS to fiskpool.ddns.net:8080</p>
     <p>Google Authentication - only specific emails can login</p>
 
+    <br>
     <h2>Front End:</h2>
     <p>Web UI to show temperature inside pool and for the outside air</p>
     <p>Web UI to show current chemical liquid levels</p>
@@ -273,6 +276,7 @@
     <p>Web UI set to save and show if want chemical dump to be repeated every week or just one time</p>
     <p>Web UI to configure schedule for motor running</p>
 
+    <br>
     <h2>Back End:</h2>
     <p>Back end set up to take readings of the current temperature & store it so it can be provided to the Web UI</p>
     <p>Back end set up to read temperature every hour and average out over the last 60 seconds to get an accurate temp
@@ -287,18 +291,18 @@
     <p>Back end to turn on relay when motor schedule is set</p>
     <p>Hardware modify the motor with relay and another switch to turn off the motor manually</p>
 
-    <br>
+    <br><br>
     <h2>Chemical Pump Motor Controllers:</h2>
     <img class="fitHeight" src="media/MotorControllerSchematic.png" alt="mcSchematic" />
     <img class="fitHeight" src="media/MotorControllerFront.jpg" alt="mcFront" />
     <img class="fitHeight" src="media/MotorControllerBack.jpg" alt="mcBack" />
 
-    <br>
+    <br><br>
     <h2>Pool Pump Relay Controller:</h2>
     <img class="fitHeight" src="media/PoolPumpControllerSchematic.jpg" alt="ppcSchematic" />
     <img class="fitHeight" src="media/PoolPumpController.jpg" alt="ppc" />
 
-    <br>
+    <br><br>
     <h2>Sensor Breakout Board:</h2>
     <img class="fitHeight" src="media/SensorBreakout.jpg" alt="sensorBreakout" />
     <p>Break out 5v and ground to each of the 2 temperature probes, chemical level readers, A to D reader, and LEDs.</p>
@@ -306,11 +310,11 @@
     <p>Break out GPIO to Red and Blue LEDs</p>
     <p>Break out GPIO to temperature sensors data lines</p>
 
-    <br>
+    <br><br>
     <h2>Rasbperry Pi Casing:</h2>
     <img class="fitHeight" src="media/RPi.jpg" alt="rPiCasing" />
 
-    <br>
+    <br><br>
     <h2>Chemical Tanks & Electronics:</h2>
     <img class="fitHeight" src="media/Chemical1Tank.jpg" alt="tank1" />
     <img class="fitHeight" src="media/Chemical2Tank.jpg" alt="tank2" />
@@ -318,7 +322,7 @@
     <img class="fitHeight" src="media/Toats.jpg" alt="toats" />
     <img class="fitHeight" src="media/Antenna.jpg" alt="antenna" />
 
-    <br>
+    <br><br>
     <h2>Acurite wireless rain gauge:</h2>
     <img class="fitHeight" src="media/AcuriteRainGauge.png" alt="rainGauge" />
     <h3>433 MHz Rain Gauge signal bytes we care about:</h3>
@@ -327,31 +331,22 @@
     <p>int channel = bb[0] >> 6;  // Channel A, B, or C</p>
     <p>raincounter = ((bb[5] & 0x7f) << 7) | (bb[6] & 0x7f);</p>
 
-    <br>
+    <br><br>
     <h2>Web Application 2.0:</h2>
-    <iframe class="fitHeight" src="https://youtu.be/konXSP7cQpQ"></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/konXSP7cQpQ?si=Nkb0d8I5iBv56qP1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <h2>Web Application 1.0:</h2>
     <video id="giraffeVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
       <source src="media/WebApp_1.0.mp4" type="video/mp4">
       Your browser does not support HTML video.
     </video>
 
-    <br>
+    <br><br>
     <h2>Pumping out exactly half a gallon</h2>
     <video id="giraffeVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
       <source src="media/LayZPoolBoyPump.mp4" type="video/mp4">
       Your browser does not support HTML video.
     </video>
 
-
-
-
-
-
-
-    <br><br>
-    <img class="fitHeight" src="media/rickAcidVat.jpg" alt="rickVat" />
-    <p>*Trying to prevent pool from turning into a vat of acid*</p>
 
     <br><br>
     <video id="FluidLevel_WebShown_Video" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop"
@@ -361,6 +356,11 @@
     </video>
     <p>Able to read the fluid levels and display them on the webpage in real time as the vase gets filled with water.
     </p>
+
+
+    <br><br>
+    <img class="fitHeight" src="media/rickAcidVat.jpg" alt="rickVat" />
+    <p>*Trying to prevent pool from turning into a vat of acid*</p>
 
     <br><br>
 
