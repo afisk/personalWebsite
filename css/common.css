@@ -344,21 +344,21 @@ a
 	animation: pulsate 2s ease-out infinite;
 }
 @-webkit-keyframes pulsate {
-	0%   { box-shadow: 0 0 0 black; }
-	50%  { box-shadow: 0 0 17px cyan; }
-	100% { box-shadow: 0 0 0 black; }
+	0%   { box-shadow: -5px -5px 0 transparent; }
+	50%  { box-shadow: 0 0 27px cyan; }
+	100% { box-shadow: -5px -5px 0px transparent; }
 }
 
 .bigFasthilight {
 	animation: pulsate 0.4s ease-out infinite;
 }
 .bigFasthilight:hover {
-	animation: pulsate 5s ease-out infinite;
+	animation: pulsateBig 5s ease-out infinite;
 }
-@-webkit-keyframes pulsate {
-	0%   { box-shadow: 0 0 0 black; }
+@-webkit-keyframes pulsateBig {
+	0%   { box-shadow: 200px 0 0 black; }
 	50%  { box-shadow: 0 0 57px cyan; }
-	100% { box-shadow: 0 0 0 black; }
+	100% { box-shadow: -200px 0 0 black; }
 }
 
 /* #ChickenDoor:hover
