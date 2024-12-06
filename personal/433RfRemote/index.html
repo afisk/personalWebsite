@@ -91,6 +91,11 @@
   <br>
   <div style="margin: 0 auto; width:870px;">
     <br><br>
+    <h2>Uses</h2>
+    <br>
+    <p><a id="bw" class="borderedLink" href="#TouchTunes">Touch Tunes Remote</a></p>
+    <br><br>
+
     <h2>Introduction</h2>
     <p>I wanted to make a remote that could rest in low power and send 433Mhz RF signals.
     </p>
@@ -113,6 +118,11 @@
           <p>Learn more about hardware development, hardware debugging, and hardware problem solving.</p>
         </td>
       </tr>
+      <tr>
+        <td>
+          <p>Learn more about power consumption and power saving.</p>
+        </td>
+      </tr>
     </table>
 
 
@@ -121,7 +131,7 @@
     <h2>Parts List</h2>
     <img class="fitHeight" src="media/PCB_Parts_List.png" alt="partsListPNG" />
     <br>
-    <p>Total Cost: ~$400</p>
+    <p>Total Cost: ~$300</p>
     
     <br><br>
 
@@ -143,18 +153,19 @@
     <img class="fitHeight" src="media/Finished_Remote_3D_Model.png" alt="mcBack" />
     <br/>
     <img class="fitHeight" src="media/433_RF_Remote-In_Hand.jpg" alt="mcBack" />
+    <p>Mock up what the final design will look like to figure out if it will feel okay? <br>
+      Test how good this would feel in hand. Aka 3D print and hold and pretend to push buttons. Felt like a function remote, so I ordered PCBs and components.</p>
     <br/>
     <br>
     <h2>Build a PCB</h2>
     <img class="fitHeight" src="media/PCB_Front.jpg" alt="mcBack" />
     <br/>
     <img class="fitHeight" src="media/PCB_Back.jpg" alt="mcBack" />
+    <p>Hand soldered a PCB together.</p>
     <br><br>
     <h2>PCB Fixes</h2>
     <br>
     <p>Low power mode can only be woken up from a signal coming from 3v being pulled down to ground. Had to modify the board</p>
-    <img class="fitHeight" src="media/433-PullUp-To-PullDown1.png" alt="mcBack" />
-    <br/><br>
     <img class="fitHeight" src="media/433-PullUp-To-PullDown2.png" alt="mcBack" />
     <br/><br>
     <h2>Fix poor RF</h2>
@@ -213,7 +224,53 @@
     <p>Button, LED diffuser, and circuit board in case</p>
     <br/>
     <img class="fitHeight" src="media/433-InCaseWithDiffuser.jpg" alt="mcBack" />
-    <br><br><br><br>
+    <br><br><br><hr><br><br><br>
+    <br><br><br><hr><br><br><br>
+
+    <u><h1 id="TouchTunes">Touch Tunes RF</h1></u>
+    <p>I decided to make this remote function for something. I decoded the touch tunes signals in order to generate my own on the fly for the different pins and information being sent.</p>
+    <br>
+
+    <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PowerOn.jpg" alt="mcBack" />
+    <p>Remote must be woken up from the sleep state before use. This remote will go back to sleep 10 seconds after the last use.</p>
+    <br/>
+    <br/>
+    <div style="margin: 0 auto; width:870px;">
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolUp.jpg" alt="mcBack">
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolDown.jpg" alt="mcBack" />
+    </div>
+    <div style="margin: 0 auto; width:870px;">
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-Pause.jpg" alt="mcBack" />
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-Skip.jpg" alt="mcBack" />
+    </div>
+    <br/>
+    <br/>
+    <div style="margin: 0 auto; width:870px;">
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolAreaUp.jpg" alt="mcBack" />
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolAreaDown.jpg" alt="mcBack" />
+    </div>
+    <p>When you select change your volume area, the LED will flash out which area is newly selected.</p>
+    <p>Volume areas can be different areas around a bar such as the patio speakers, dining area speakers, or main bar area speakers.</p>
+    <br/>
+    <br/>
+    <div style="margin: 0 auto; width:870px;">
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinUpFast.jpg" alt="mcBack" />
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinUpSlow.jpg" alt="mcBack" />
+    </div>
+    <div style="margin: 0 auto; width:870px;">
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinDownFast.jpg" alt="mcBack" />
+      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinDownSlow.jpg" alt="mcBack" />
+    </div>
+    <p>There are 256 different pins. Each juke box can have a different pin. Once you find your pin, the Volume Up, Volume Down, Pause/Play, and Skip song will use your selected pin. This sends a volume up signal with every chagne of the pin so that the user of the remote can verify when they have the correct pin. Most Touch Tunes work on Pin 0.</p>
+    <br>
+    <p>How to find the pin of your juke box: Starting at Pin 0, cycle up pins using Pin Up - Fast. Once you pass a pin that interacts with your juke box, you can go back over that pin with Pin Up/Down - Slow to set your remote to the correct Pin.</p>
+    <br/>
+    <br/>
+    <img style="width:430px;" src="media/433_RF_Remote-In_Hand-Reset.jpg" alt="mcBack" />
+    <p>Reset - Puts Volume Area back to Area #1 and the Pin Back to Pin 00</p>
+    <br><br><br>
+
+
     <h2>Testing to see if it works</h2>
     <video id="Area3 Volume Up/Down" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
         <source src="media/433-Area3-VolUp&Down.mp4" type="video/mp4">
@@ -224,11 +281,11 @@
         <source src="media/433-PauseMusic.mp4" type="video/mp4">
         Your browser does not support HTML video.
     </video>
-    <!-- <br><br>
+    <br><br>
     <video id="Area 2 Up" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
       <source src="media/433-Area2_VolUp.mp4" type="video/mp4">
       Your browser does not support HTML video.
-    </video> -->
+    </video>
     <h2>IT WORKS!!</h2>
     <br><br><br>
   </div>
