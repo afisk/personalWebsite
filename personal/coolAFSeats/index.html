@@ -129,13 +129,6 @@
 
     <br><br>
 
-    <p>Currently, I have taken the car seat connectors apart. I have found which power drives the seat blower. I have found the seat blower is driven with a PWM line from the seat controller ECU.
-      I have figured out a way to control the seat blower by driving a mosfet set up to run the PWM signal's connection to ground with an Adafruit Board. - 4/15/2025
-    </p>
-    <p>Next is to find out if I can read the OEM PWM signal with a GPIO or if I need to read in through a Low Pass Filter and read an averaged out voltage with an analog GPIO. Also need to figure
-      out what kind of connector crimp terminals are on the connector. **Stay tunes to find out more**
-    </p>
-
     <h2>Reading through wiring diagram to see how wiring is set up and see what connectors to tap into</h2>
     <img class="fitHeight slowFadeIn" src="media/WiringDiagram.png" alt="Controller" />
     <br><br>
@@ -146,9 +139,15 @@
     <br><br>
     <img class="fitHeight slowFadeIn" src="media/PassengerSeatConnector.png" alt="Controller" />
     <br><br>
+    <p>After looking through the wiring diagram, it was time to look for the real connectors in the seat itself. I flipped up the front passenger seat up.
+      The passenger side has fewer connections to look at compared to the drivers seat (8 compared to 12) due to the drivers seats extra features like lumbar support and seat position memory.
+      <br>
+      I found there was a ground (position #1), +12v (position #5), and a +12v when the ignition was on (position #4).
+      I also found that there was only one line that changed when the ventolated seats were turned on (position #12).
+    </p>
+    <br><br>
     <p>Connections 1-9 work with the general automotive crimp teriminal 621-2.2A for the female side and 611-2.2 for the male side.</p>
     <p>Connections 10-17 are a crimp teriminal 82998-24290 for the female side and 82998-24300 for the male side.</p>
-    <p>Terminal position #1 is battery +, position #5 is battery -, position #8 is battery + when the seat blower is active, and position #12 is the PWM signal leading to the seat blower.</p>
     <br><br><br><br>
 
     <h2>Reading to see how OEM setup works</h2>
@@ -158,7 +157,10 @@
     <p>This is a read from the slowest seat blower setting.</p>
     <br><br>
     <img class="fitHeight slowFadeIn" src="media/Saleae_FullSpeed.png" alt="Controller" />
-    <p>This is a read from the highest seat blower setting, with the cars HVAC blowing at high and the vents facing the head.</p>
+    <p>
+      This is a read from the highest seat blower setting, with the cars HVAC blowing at high and the vents facing the head.
+      It looks like the seat is driven from a PWM signal through pin #12 on the connector. This PWM signal is a low driving signal.
+    </p>
     <br><br><br>
 
     <img class="fitHeight slowFadeIn" src="media/SaleaeRead_GPIO_OutAdafruit.png" alt="Controller" />
@@ -166,52 +168,57 @@
       70us is much less than the 2ms PWM signal from the OEM seat controller.
       Polling should work okay to read in the signal.</p>
 
-    <h2>Sucessfully reading in the signals from the seat blower OEM controller and representing what is going on with LEDs</h2>
+    <h2>Sucessfully reading in the signals from the seat blower OEM controller and visually representing what is going on with LEDs.</h2>
     <video id="giraffeVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
       <source src="media/ReadInSeatBlower.mp4" type="video/mp4">
       Your browser does not support HTML video.
     </video>
     <br><br><br>
 
-    <h2>Modify signals to seat</h2>
-    <video id="giraffeVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-      <source src="media/ReadInSeatBlower.mp4" type="video/mp4">
-      Your browser does not support HTML video.
-    </video>
-    <br><br><br>
-
-
-    <u><h1 id="PcbProject">*_*_*_* Picture Dump - Description coming soon - 6/8/25 *_*_*_*</h1></u>
+    <u><h2 id="PcbProject">Creating A Solution</h2></u>
     <br><br>
+
     <img class="fitHeight slowFadeIn" src="media/CableAssembly.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/CaseBottom.png" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/CaseTop.png" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
     <br><br>
     <img class="fitHeight slowFadeIn" src="media/CircuitBoard.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
+    <p>After finding that I could run this with a simple Adafruit board. I decided make my own. I had an old circuit board that took in a 12v signal to power the board and modified it.
+      This board has an LPC5536 processor. I popped off a couple of unused parts to make room for my project specific ones, the mosfet.
+      The mosfet is hooked up to a PWM line which when running, PWMs a ground signal for the blower motor in the car seat.
+      Another line is a signal line for the OEM blower motor. This input is held high by a pullup in the LPC5536 in order to mimic the OEM blower motor.
+      Then the code can cycle over this input to see if the OEM PWM signal is driving this line low or keeping it high. This is how I determine the PWM speed.
+      Thankfully the LPC5536 is incredibly fast, meaning it is easy to read in the PWM signal with polling rather than using a voltage divider.
+    </p>
+    <p>
+      Looking at the OEM PWM signal, I found that of the 3 settings of the seat, when at the lowest speed setting, the seat ran at 10% PWM.<br>
+      2nd highest setting, 19% PWM.<br>
+      Highest setting, 28% PWM.<br>
+      And the real kicker, when the car's cabin AC was on, with the blower pointing at your head, the highest setting on the ventolated seat's PWM signal would increase.
+      I found that the highest seat blower setting coupled with the car's cabin AC blower on max, set on the vents pointing at the head, the PWM signal would go up to a whopping 53%!
+      I decided to take this as my new max setting.<br>
+      I decided to read in the OEM signal and modify out so that the new lowest setting blows at 17% PWM, 2nd highest blows a 36% PWM, and the highest setting is a 50% PWM.
+      For the case where the car wants to drive the PWM any higher than 50% PWM, I pass the PWM signal onto the seat so that it can be driven even higher.
+    </p>
     <br><br>
-    <img class="fitHeight slowFadeIn" src="media/DriversSideConnector.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/FullCable.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat_Circled.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat_ZoomedOut.jpg" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
 
-    <u><h1 id="PcbProject">*_*_*_* Project Finished *_*_*_*</h1></u>
-    <u><h1 id="PcbProject">*_*_*_* Project page currently being updates 6/8/25 *_*_*_*</h1></u>
+    <p>Of course every good circuit board needs a case to protect it.</p>
+    <img class="fitHeight slowFadeIn" src="media/CaseTop.png" alt="Controller" />
+    <p>Case top, notice the cutout in the side for the mosfet to fit.</p>
+    <img class="fitHeight slowFadeIn" src="media/CaseBottom.png" alt="Controller" />
+    <p>Case bottom, notice the cutout in the bottom for the wires to follow.</p>
+    <br><br>
+
+    <img class="fitHeight slowFadeIn" src="media/FullCable.jpg" alt="Controller" />
+    <p>Here is the full cable assembly with the 3D printed case on the circuit board.</p>
+    <br><br>
+    <p>Installation.</p>
+    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat_Circled.jpg" alt="Controller" />
+    <br>
+    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat_ZoomedOut.jpg" alt="Controller" />
+    <p>Here it is installed on the drivers side seat. It was easy to tuck away. The seat is still completely functional and movable without this getting in the way.</p>
+    <br><br>
+
+    <p>I will be using this every time I drive. I'm very excited to see how much better my sweaty back feels on car rides now :)</p>
+    <br><br>
 
   </div> 
   <br>
