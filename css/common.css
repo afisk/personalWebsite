@@ -166,13 +166,11 @@ a
 .borderedLink:hover,.borderedLink:hover
 {
 	color:#FAAD1E;
-	width: 90%;
-  	border-width: 10px;
+	box-shadow: 0px 0px 8px 4px #46abf5;
 	background-image: url("https://pages.cs.wisc.edu/~fisk/sharedMedia/abstractCircuitBackground.jpg");
 	/* background-size: 220% 800%; */
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
-	
 }
 
 
