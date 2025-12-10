@@ -1,374 +1,679 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
-  <title>Austin Fisk</title>
-  <script>
-    var fullURL = window.location.href;
-    fullURL = fullURL.substr(0, fullURL.lastIndexOf("/") + 1);
+  <title>433 RF Remote – Austin Fisk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="433 MHz RF remote project by Austin Fisk – custom PCB, low-power firmware, 3D-printed cases, TouchTunes jukebox remote, and an incognito vape enclosure.">
 
-    function toggleActive() {
-      var z, i, elmnt, link, xhttp;
-      /* Loop through a collection of all HTML elements: */
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        link = elmnt.getAttribute("href");
-        if (link) {
-          if (link.substr(0, link.lastIndexOf("/") + 1) == fullURL) {
-            /* If is a drop down, add active to parent node */
-            if (elmnt.classList.contains("dropdown-item")) {
-              elmnt.classList.add("highlight");
-              elmnt.parentNode.parentNode.classList.add("active");
-              console.log("Found one " + link);
-            }
-            else if (elmnt.classList.contains("nav-link")) {
-              /* else it is a drop down header */
-              elmnt.classList.add("active");
-              console.log("Found one " + link);
-            }
-          }
-
-        }
-        // /* Exit the function: */
-        // return;
-      }
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1221;
+      --card: #11182b;
+      --accent: #4fd1c5;
+      --accent-soft: #2c7a7b;
+      --text: #f7fafc;
+      --muted: #a0aec0;
+      --border: rgba(148, 163, 184, 0.45);
     }
 
-    window.onload = function includeHTML() {
-      var z, i, elmnt, file, xhttp;
-      /* Loop through a collection of all HTML elements: */
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("include-html-header");
-        if (file) {
-          /* Make an HTTP request using the attribute value as the file name: */
-          xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-              /* Remove the attribute, and call this function once more: */
-              elmnt.removeAttribute("include-html-header");
-              includeHTML();
-            }
-          }
-          xhttp.open("GET", file, true);
-          xhttp.send();
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-          xhttp.addEventListener('loadend', toggleActive);
-
-          /* Exit the function: */
-          return;
-        }
-      }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a365d 0, #050816 45%);
+      color: var(--text);
+      line-height: 1.6;
     }
-  </script>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-  <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 4rem;
+    }
+
+    /* NAVBAR */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0.4rem 0.85rem;
+      margin-bottom: 1.6rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5,8,22,0.96), rgba(5,8,22,0.85));
+      z-index: 20;
+    }
+
+    .nav-left span {
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+    }
+
+    .nav-right a {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-right a:hover {
+      color: var(--accent);
+      border-color: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    .nav-right a.active {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    header.hero {
+      margin-bottom: 2.25rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.96rem;
+      color: var(--muted);
+      max-width: 42rem;
+    }
+
+    section {
+      margin-bottom: 2.6rem;
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.lead {
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      max-width: 46rem;
+    }
+
+    ul {
+      margin-left: 1.2rem;
+      margin-top: 0.2rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    li { margin-bottom: 0.18rem; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    figure {
+      margin: 0.6rem 0;
+    }
+
+    figure img,
+    figure video {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: block;
+    }
+
+    figcaption {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.9);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.8rem;
+      margin-top: 0.6rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 720px) {
+      h1 { font-size: 1.9rem; }
+      .nav-right { justify-content: flex-start; }
+    }
+
+    /* -------- LIGHTBOX -------- */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 28px;
+      color: white;
+      font-size: 2.4rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+      user-select: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
-
 <body>
-  <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
+<div class="page">
 
-  <h1 class="header">433 RF Remote Project</h1>
-  <br>
-  <div style="margin: 0 auto; width:870px;">
-    <br><br>
-    <h2>Sub Projects</h2>
-    <br>
-    <p><a id="bw" class="borderedLink" href="#PcbProject">Design PCB</a></p>
-    <br>
-    <p><a id="bw" class="borderedLink" href="#BasicCase">Basic Case</a></p>
-    <br>
-    <p><a id="bw" class="borderedLink" href="#TouchTunes">Touch Tunes Remote</a></p>
-    <br>
-    <p><a id="bw" class="borderedLink" href="#IncognitoCase">Incognito Case Design</a></p>
-    <br><br>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="nav-left">
+      <span>Austin&nbsp;Fisk</span>
+    </div>
+    <div class="nav-right">
+      <a class="nav-link" href="https://pages.cs.wisc.edu/~fisk/">Home</a>
+    </div>
+  </nav>
 
-    <h2>Introduction</h2>
-    <p>I wanted to make a remote that could rest in low power and send 433Mhz RF signals.
+  <header class="hero">
+    <h1>433&nbsp;MHz RF Remote</h1>
+    <p class="subtitle">
+      A low-power handheld 433&nbsp;MHz remote built from scratch: PCB, RF front end,
+      firmware, and 3D-printed enclosures – including a stealth “vape” case – used to
+      control TouchTunes jukeboxes and future 433&nbsp;MHz devices.
     </p>
+  </header>
 
-    <br><br>
-    <h2>Goals</h2>
-    <table class="centered">
-      <tr>
-        <td>
-          <p>Learn how to make a PCB.</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>Hand place and solder PCB parts.</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>Learn more about hardware development, hardware debugging, and hardware problem solving.</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>Learn more about power consumption and power saving.</p>
-        </td>
-      </tr>
-    </table>
+  <main>
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <h2>Overview &amp; Goals</h2>
+      <p class="lead">
+        I wanted a pocketable remote that could sleep most of the time, wake instantly,
+        send a 433&nbsp;MHz packet, and drop back into a low-power state on a coin cell.
+        It also doubled as a crash course in PCB design, RF layout, and enclosure design.
+      </p>
+      <ul>
+        <li>Learn PCB design and layout for a real battery-powered product.</li>
+        <li>Hand place and solder SMD parts, then move to paste + stencil + hot air.</li>
+        <li>Debug wake-up sources, sleep behavior, and RF performance.</li>
+        <li>Design comfortable cases and iterate on the ergonomics.</li>
+      </ul>
+    </section>
+
+    <!-- PARTS / BOM -->
+    <section id="parts">
+      <h2>Parts &amp; BOM</h2>
+      <p class="lead">
+        The board combines the MCU, RF circuitry, 125&nbsp;kHz section, buttons, and a
+        coin cell holder. The full BOM came out to around $300 including prototyping.
+      </p>
+
+      <figure>
+        <img src="media/PCB_Parts_List.png" alt="Bill of materials spreadsheet" data-enlarge="">
+        <figcaption>Bill of Materials for the 433&nbsp;MHz Remote PCB.</figcaption>
+      </figure>
+    </section>
+
+    <!-- SCHEMATIC / PCB -->
+    <section id="pcb">
+      <h2>Schematic</h2>
+      <p class="lead">
+        The remote’s PCB hosts the RF front end, MCU, 125&nbsp;kHz interface for future
+        features, and all user buttons. I wanted a single compact board that could slide
+        into different cases.
+      </p>
+
+      <div class="grid-2">
+<figure>
+          <img src="media/433_Schematic.png" alt="433 MHz RF remote schematic" data-enlarge="">
+          <figcaption>Full schematic: MCU, RF front end, 125 kHz section, and buttons.</figcaption>
+        </figure>
+      </div>
+</section>
+<section id="pcb">
+      <h2>PCB</h2>
+      <p class="lead">
+        The remote’s PCB hosts the RF front end, MCU, 125&nbsp;kHz interface for future
+        features, and all user buttons. I wanted a single compact board that could slide
+        into different cases.
+      </p>
+
+      <div class="grid-2">
+        <figure>
+          <img src="media/PCB_Front.png" alt="433 MHz RF remote schematic" data-enlarge="">
+          <figcaption>Rendered front of the PCB</figcaption>
+        </figure>
+<figure>
+          <img src="media/PCB_Back.png" alt="433 MHz RF remote schematic" data-enlarge="">
+          <figcaption>Rendered back of the PCB</figcaption>
+        </figure>
+        
+      </div>
+
+      <div class="grid-2">
+<figure>
+        <img src="media/PCB_Front.jpg" alt="Assembled PCB front with antenna" data-enlarge="" style="transform: rotate(90deg);">
+        <figcaption>Assembled PCB with the helical 433&nbsp;MHz antenna mounted.</figcaption>
+      </figure>
+<figure>
+        <img src="media/PCB_Back.jpg" alt="Assembled PCB front with antenna" data-enlarge="" style="transform: rotate(90deg);">
+        <figcaption>Assembled PCB with the helical 433&nbsp;MHz antenna mounted.</figcaption>
+      </figure>
+</div>
+
+      <div class="callout">
+        Early builds were fully hand-soldered; later ones used solder paste, a stencil, and
+        hot air for more consistent joints and RF behavior.
+      </div>
+    </section>
 
 
 
-    <br><br>
-    <h2>Parts List</h2>
-    <img class="fitHeight" src="media/PCB_Parts_List.png" alt="partsListPNG" />
-    <br>
-    <p>Total Cost: ~$300</p>
+
+
+<section id="fixes">
+      <h2>Fixes</h2>
+      <p class="lead">
+        Low power mode can only be woken up from a signal coming from 3v being pulled down to ground. Had to move the antenna from its original placing. The hand soldering job wasn't working great for the RF.
+      </p>
+
+      <div class="grid-2">
+        <figure>
+          <img src="media/433-PullUp-To-PullDown2.png" alt="433 MHz RF remote pull up fix" data-enlarge="">
+          <figcaption>Schematic fix to utilize low power mode</figcaption>
+        </figure>
+<figure>
+          <img src="media/433-AntennaMoved.jpg" alt="433 MHz RF remote schematic" data-enlarge="">
+          <figcaption>Antenna moved for better RF radiation</figcaption>
+        </figure>
+        
+      </div>
+
+      
+<div class="grid-2">
+      <figure>
+          <img src="media/433-PoorHandSoldering.png" alt="Poor hand soldering" data-enlarge="">
+          <figcaption>Hand soldering that left room for inprovement</figcaption>
+        </figure><figure>
+          <img src="media/433-SmtSoldered.jpg" alt="Poor hand soldering" data-enlarge="">
+          <figcaption>Soldering with a stencil and hot air iron made for a much prettier board</figcaption>
+        </figure>
+</div>
+<div class="callout">
+        Early builds were fully hand-soldered; later ones used solder paste, a stencil, and
+        hot air for more consistent joints and RF behavior.
+      </div>
+<div class="grid-2">
+      <figure>
+          <img src="media/433-UrhRecording.png" alt="Imprived RF" data-enlarge="">
+          <figcaption>The RF is finally looking good</figcaption>
+        </figure><figure><video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+            <source src="media/RTL_433LiveRecording.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video></figure>
+          
+</div>
+    </section>
     
-    <br><br>
 
-    <br><br><br><hr><br><br><br>
+    <section id="rf">
+      <h2>RF Debugging &amp; Fixes</h2>
+      <p class="lead">
+        The first revision taught me a lot about RF layout. Moving the antenna away from
+        ground and power planes, improving solder joints, and cleaning up the layout
+        dramatically improved range and reliability.
+      </p>
 
+      <div class="card">
+        <h3>RF Lessons Learned</h3>
+        <ul>
+          <li>Antenna over continuous planes can hurt range and detune the coil.</li>
+          <li>Lead dress and connector geometry matter more than they look at 433&nbsp;MHz.</li>
+          <li>Consistent solder reflow equals more consistent RF behavior across builds.</li>
+        </ul>
+        <div class="pill-row">
+          <span class="pill">433&nbsp;MHz RF</span>
+          <span class="pill">Low power</span>
+          <span class="pill">Board bring-up</span>
+        </div>
+      </div>
+    </section>
+<!-- CASE DESIGN -->
 
+    <section id="case">
+      <h2>Rectangular Remote Case</h2>
+      <p class="lead">
+        The first case version was a classic rectangular remote: easy to print, easy to
+        hold, and a good playground for button spacing and board retention features.
+      </p>
 
+      <div class="grid-2">
+        <figure>
+          <img src="media/Finished_Remote_3D_Model.png" alt="Top view of remote 3D model with buttons" data-enlarge="">
+          <figcaption>Initial 3D model used to test button spacing and overall size.</figcaption>
+        </figure>
 
+        <figure>
+          <img src="media/433Case.png" alt="Tall remote shell 3D model" data-enlarge="">
+          <figcaption>Refined case design with internal rails for the PCB.</figcaption>
+        </figure>
+      </div>
+<div class="grid-2">
+        
+          
+          <figure>
+          <img src="media/433Button.png" alt="Tall remote shell 3D model" data-enlarge="">
+          <figcaption>A button</figcaption>
+        </figure>
+        <figure>
+          <img src="media/433LedDiffuser.png" alt="Tall remote shell 3D model" data-enlarge="">
+          <figcaption>An LED diffuser</figcaption>
+      </figure></div>
+
+      <div class="grid-2">
+        
+          
+          <figure>
+          <img src="media/433-CaseMockUp.png" alt="Tall remote shell 3D model" data-enlarge="">
+          <figcaption>Rendered drawing of LED, Button, and Case with the circuti board</figcaption>
+        </figure>
+        <figure>
+        <img src="media/BoardInCase-Side.jpg" alt="Board inside 3D printed case, side view with antenna" data-enlarge="">
+        <figcaption>Board and coil antenna installed in the first-generation case.</figcaption>
+      </figure></div><figure>
+        <img src="media/433-InCaseWithDiffuser.jpg" alt="Board inside 3D printed case, side view with antenna" data-enlarge="">
+        <figcaption>The final product!</figcaption>
+      </figure>
+
+    </section>
+
+    <!-- RF FIXES -->
     
-    <u><h1 id="PcbProject">PCB Schematic</h1></u>
-    <br/>
-    <img class="fitHeight" src="media/433_Schematic.png" alt="mcBack" />
 
-    <br><br>
+    <!-- TOUCHTUNES REMOTE -->
+    <section id="touchtunes">
+      <h2>TouchTunes RF Remote</h2>
+      <p class="lead">
+        To give the remote a real job, I decoded the RF protocol used by TouchTunes
+        jukebox remotes and mapped the buttons to volume control, play/pause, skip, and
+        pin programming. The remote wakes from sleep on the first button press, then
+        returns to sleep automatically after a timeout.
+      </p>
 
-    <h2>PCB</h2>
-    <br/>
-    <img class="fitHeight" src="media/PCB_Front.png" alt="mcSchematic" />
-    <br/>
-    <img class="fitHeight" src="media/PCB_Back.png" alt="mcFront" />
-    <br/>
-    <br/>
-    <h2>End Product Mock Up</h2>
-    <p>Testing to see how the buttons would feel.</p>
-    <img class="fitHeight" src="media/Finished_Remote_3D_Model.png" alt="mcBack" />
-    <br/>
-    <img class="fitHeight" src="media/433_RF_Remote-In_Hand.jpg" alt="mcBack" />
-    <p>Mock up what the final design will look like to figure out if it will feel okay? <br>
-      Test how good this would feel in hand. Aka 3D print and hold and pretend to push buttons. Felt like a function remote, so I ordered PCBs and components.</p>
-    <br/>
-    <br>
-    <h2>Build a PCB</h2>
-    <img class="fitHeight" src="media/PCB_Front.jpg" alt="mcBack" />
-    <br/>
-    <img class="fitHeight" src="media/PCB_Back.jpg" alt="mcBack" />
-    <p>Hand soldered a PCB together.</p>
-    <br><br>
-    <h2>PCB Fixes</h2>
-    <br>
-    <p>Low power mode can only be woken up from a signal coming from 3v being pulled down to ground. Had to modify the board</p>
-    <img class="fitHeight" src="media/433-PullUp-To-PullDown2.png" alt="mcBack" />
-    <br/><br>
-    <h2>Fix poor RF</h2>
-    <br/>
-    <img class="fitHeight" src="media/433-AntennaMoved.jpg" alt="mcBack" />
-    <br/>
-    <p>Moved the antenna to not go over the ground and 3v planes. Antenna now sticks out the back</p>
-    <br>
+      <div class="grid-2">
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-PowerOn.jpg" alt="Remote in hand powering on from sleep" data-enlarge="">
+          <figcaption>Waking the remote from sleep – LED indicates power-on.</figcaption>
+        </figure>
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-VolUp.jpg" alt="Remote in hand volume up" data-enlarge="">
+          <figcaption>Volume Up – mapped to one of the top buttons.</figcaption>
+        </figure>
+      </div>
 
-    <img class="fitHeight" src="media/433-PoorHandSoldering.png" alt="mcBack" />
-    <br/>
-    <p>The hand soldering didn't look amazing. Could be poor connections.</p>
-    <br>
+      <div class="grid-2">
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-Pause.jpg" alt="Remote in hand pause/play" data-enlarge="">
+          <figcaption>Pause / Play control for the jukebox.</figcaption>
+        </figure>
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-Skip.jpg" alt="Remote in hand skip song" data-enlarge="">
+          <figcaption>Skip Song while keeping the current volume area and pin.</figcaption>
+        </figure>
+      </div>
 
-    <img class="fitHeight" src="media/433-SmtSoldered.jpg" alt="mcBack" />
-    <br/>
-    <p>Built a board with solder paste, solder mask stencil, tweasers, and a hot air soldering rework station.</p>
-    <br>
-    
-    <h2>Test New RF</h2>
-    <p>RF is working great after implementing the chagnes mentioned above.</p>
-    <img class="fitHeight" src="media/433-UrhRecording.png" alt="mcBack" />
-    <br/><br>
-    <video id="giraffeVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-        <source src="media/RTL_433LiveRecording.mp4" type="video/mp4">
-        Your browser does not support HTML video.
-    </video>
-    <br><br>
-    <br><br><br><hr><br><br><br>
+      <div class="grid-2">
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-VolAreaUp.jpg" alt="Remote in hand volume area up" data-enlarge="">
+          <figcaption>Volume Area Up – cycles through different zones (bar, patio, etc.).</figcaption>
+        </figure>
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-VolAreaDown.jpg" alt="Remote in hand volume area down" data-enlarge="">
+          <figcaption>Volume Area Down – step backwards through the available areas.</figcaption>
+        </figure>
+      </div>
+<p>When you select change your volume area, the LED will flash out which area is newly selected.</p><br>
 
 
+      <div class="grid-2">
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-PinUpFast.jpg" alt="Remote in hand pin up fast" data-enlarge="">
+          <figcaption>Pin Up – Fast: quickly scan through possible TouchTunes pins.</figcaption>
+        </figure>
+        <figure>
+          <img src="media/433_RF_Remote-In_Hand-PinDownFast.jpg" alt="Remote in hand pin down fast" data-enlarge="">
+          <figcaption>Pin Down – Fast: step backwards during pin search.</figcaption>
+        </figure>
+      </div>
+<p>There are 256 different pins. Each juke box can have a different pin. Once you find your pin, the Volume Up, Volume Down, Pause/Play, and Skip song will use your selected pin. This sends a volume up signal with every chagne of the pin so that the user of the remote can verify when they have the correct pin. Most Touch Tunes work on Pin 0.</p>
+<p>How to find the pin of your juke box: Starting at Pin 0, cycle up pins using Pin Up - Fast. Once you pass a pin that interacts with your juke box, you can go back over that pin with Pin Up/Down - Slow to set your remote to the correct Pin.</p><br>
 
 
-    
-    <u><h1 id="BasicCase">Build A Case</h1></u>
-    <br/>
-    <img class="fitHeight" src="media/433Case.png" alt="mcBack" />
-    <p>Remote shell design.</p>
-    <br/>
-    <img class="fitHeight" src="media/433RemoteSide3D-1.png" alt="mcBack" />
-    <p>Button and circuit board in case</p>
-    <br/>
-    <img class="fitHeight" src="media/433Button.png" alt="mcBack" />
-    <p>Push button to go in case, over the circuit board. Wider on the bottom so it can't move or fall out of the case once the circuit board is in.</p>
-    <br/>
-    <h2>Print and assemble board</h2>
-    <img class="fitHeight" src="media/BoardInCase-Side.jpg" alt="mcBack" />
-    <br/>
-    <br/>
+      <figure>
+        <img src="media/433_RF_Remote-In_Hand-Reset.jpg" alt="Remote in hand reset device" data-enlarge="">
+        <figcaption>Reset – returns the volume area to Area 1 and the pin back to 00.</figcaption>
+      </figure>
 
-    <img class="fitHeight" src="media/433-BoardInCase.jpg" alt="mcBack" />
-    <br/>
-    <br/>
-
-    <h2>Adding LED Diffuser</h2>
-    <p>I made the case black and decided to add an LED diffuser that comes through the case.</p>
-    <img class="fitHeight" src="media/433LedDiffuser.png" alt="mcBack" />
-    <p>LED diffuser, to go in case, over the circuit board. Wider on the bottom so it can't move or fall out of the case once the circuit board is in.</p>
-    <br/>
-    <img class="fitHeight" src="media/433-CaseMockUp.png" alt="mcBack" />
-    <p>Button, LED diffuser, and circuit board in case</p>
-    <br/>
-    <img class="fitHeight" src="media/433-InCaseWithDiffuser.jpg" alt="mcBack" />
-    <br><br><br><hr><br><br><br>
-    <br><br><br><hr><br><br><br>
+      <div class="card" style="margin-top:0.75rem;">
+        <h3>TouchTunes Behavior</h3>
+        <ul>
+          <li>Remote must be woken from sleep before use; auto-sleeps ~10 seconds after last press.</li>
+          <li>Volume Up/Down, Pause/Play, and Skip all respect the currently selected pin and area.</li>
+          <li>
+            There are 256 possible pins; most TouchTunes units default to Pin 0,
+            but the remote can scan quickly using Pin Up/Down – Fast, then refine using slower steps.
+          </li>
+        </ul>
+      </div><figure>
+          <!-- Replace with your actual upgraded-seat video file if you want -->
+          <video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+            <source src="media/433-Area3-VolUp&amp;Down.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>Turning the volume up &amp; down in Area #3</figcaption>
+        </figure>
 
 
+<figure>
+          <!-- Replace with your actual upgraded-seat video file if you want -->
+          <video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+            <source src="media/433-PauseMusic.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>Pausing the bar's music</figcaption>
+        </figure><figure>
+          <!-- Replace with your actual upgraded-seat video file if you want -->
+          <video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+            <source src="media/433-Area2_VolUp.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>Turning up the volume in Area #2</figcaption>
+        </figure>
+    </section>
 
+    <!-- INCOGNITO VAPE CASE -->
+    <section id="incognito">
+      <h2>Incognito “Vape” Case</h2>
+      <p class="lead">
+        While testing the TouchTunes remote at a bar, the idea came up to disguise it as a
+        vape. A couple of days of SolidWorks tutorials later, I had a vape-style case that
+        fit the remote perfectly – and fooled a few friends who thought I’d picked up
+        vaping.
+      </p>
 
-    
-    <u><h1 id="TouchTunes">Touch Tunes RF</h1></u>
-    <p>I decided to make this remote function for something. I decoded the touch tunes signals in order to generate my own on the fly for the different pins and information being sent.</p>
-    <br>
+      <div class="grid-2">
+        
+        <figure>
+          <img src="media/VapeCase_Whole.JPG" alt="Rendered 3D model of the vape-style case" data-enlarge="">
+          <figcaption>Full 3D model of the vape-style enclosure with button layout.</figcaption>
+        </figure>
+      </div>
 
-    <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PowerOn.jpg" alt="mcBack" />
-    <p>Remote must be woken up from the sleep state before use. This remote will go back to sleep 10 seconds after the last use.</p>
-    <br/>
-    <br/>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolUp.jpg" alt="mcBack">
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolDown.jpg" alt="mcBack" />
-    </div>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-Pause.jpg" alt="mcBack" />
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-Skip.jpg" alt="mcBack" />
-    </div>
-    <br/>
-    <br/>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolAreaUp.jpg" alt="mcBack" />
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-VolAreaDown.jpg" alt="mcBack" />
-    </div>
-    <p>When you select change your volume area, the LED will flash out which area is newly selected.</p>
-    <p>Volume areas can be different areas around a bar such as the patio speakers, dining area speakers, or main bar area speakers.</p>
-    <br/>
-    <br/>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinUpFast.jpg" alt="mcBack" />
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinUpSlow.jpg" alt="mcBack" />
-    </div>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinDownFast.jpg" alt="mcBack" />
-      <img style="width:430px;" src="media/433_RF_Remote-In_Hand-PinDownSlow.jpg" alt="mcBack" />
-    </div>
-    <p>There are 256 different pins. Each juke box can have a different pin. Once you find your pin, the Volume Up, Volume Down, Pause/Play, and Skip song will use your selected pin. This sends a volume up signal with every chagne of the pin so that the user of the remote can verify when they have the correct pin. Most Touch Tunes work on Pin 0.</p>
-    <br>
-    <p>How to find the pin of your juke box: Starting at Pin 0, cycle up pins using Pin Up - Fast. Once you pass a pin that interacts with your juke box, you can go back over that pin with Pin Up/Down - Slow to set your remote to the correct Pin.</p>
-    <br/>
-    <br/>
-    <img style="width:430px;" src="media/433_RF_Remote-In_Hand-Reset.jpg" alt="mcBack" />
-    <p>Reset - Puts Volume Area back to Area #1 and the Pin Back to Pin 00</p>
-    <br><br><br>
+      <div class="grid-2">
+        <figure>
+          <img src="media/VapeCase_Model.JPG" alt="Vape case body with internal rails" data-enlarge="">
+          <figcaption>The real vape product I used as the reference for proportions.</figcaption>
+        </figure>
+        <figure>
+          <img src="media/VapeCase_Finished_Front.jpg" alt="Finished printed vape case front view" data-enlarge="">
+          <figcaption>Printed vape case with the remote inside – front view with LED diffuser.</figcaption>
+        </figure>
+      </div>
 
+      <div class="grid-2">
+        <figure>
+          <img src="media/VapeCase_Finished_Top.jpg" alt="Top view showing antenna coil in nozzle" data-enlarge="">
+          <figcaption>The 433&nbsp;MHz coil antenna hides perfectly in the vape “nozzle.”</figcaption>
+        </figure>
+        <figure>
+          <img src="media/VapeCase_Finished_Back.jpg" alt="Back view of the finished vape case" data-enlarge="">
+          <figcaption>Back of the case – looks like a normal vape sitting on a bar table.</figcaption>
+        </figure>
+      </div>
 
-    <h2>Testing to see if it works</h2>
-    <video id="Area3 Volume Up/Down" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-        <source src="media/433-Area3-VolUp&Down.mp4" type="video/mp4">
-        Your browser does not support HTML video.
-    </video>
-    <br><br>
-    <video id="Pause" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-        <source src="media/433-PauseMusic.mp4" type="video/mp4">
-        Your browser does not support HTML video.
-    </video>
-    <br><br>
-    <video id="Area 2 Up" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-      <source src="media/433-Area2_VolUp.mp4" type="video/mp4">
-      Your browser does not support HTML video.
-    </video>
-    <h2>IT WORKS!!</h2>
-    
-    <br><br><br><hr><br><br><br>
-    <br><br><br><hr><br><br><br>
+      <div class="callout">
+        Vapes usually have a heating coil in the nozzle, which lines up nicely with the RF
+        antenna visually. The nozzle pops off to give easy access to the battery and PCB.
+      </div>
+    </section>
 
+    <!-- STATUS -->
+    <section id="results">
+      <h2>Status</h2>
+      <p class="lead">
+        The remote works reliably as a TouchTunes controller and as a general-purpose
+        433&nbsp;MHz platform. The rectangular and vape-style cases both hold the board
+        securely and feel good in hand, making this a solid base for future handheld RF
+        projects.
+      </p>
+    </section>
+  </main>
 
+  <footer>
+    © <span id="year"></span> Austin Fisk ·
+    <a href="https://pages.cs.wisc.edu/~fisk/">Back to main page</a>
+  </footer>
+</div>
 
+<!-- LIGHTBOX OVERLAY -->
+<div id="lightbox" class="lightbox-overlay">
+  <span id="lightbox-close" class="lightbox-close">×</span>
+  <img id="lightbox-img" class="lightbox-img" src="">
+</div>
 
-    
-    <u><h1 id="IncognitoCase">Incognito Vape Case</h1></u>
-    <br>
-    <p>While at the bar testing the Touch Tunes function of the remote, Ariel Kuhm and I decided that it would be a fun idea to make the remote look like a vape.
-      Many many people like to Vape Nation it up in the bars and the remote would go by unnoticed if it looked like something else. I took a couple days worth of 
-      SolidWorks training and got started on my model. This project worked so well that even friends thought I had picked up the Vape Nation hobby when they saw 
-      the vape case on my counter.
-    </p>
-    <br>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/VapeCase_Model.JPG" alt="mcBack" />
-      <img style="width:430px;" src="media/VapeCase_Whole.JPG" alt="mcBack" />
-    </div>
-    <p>Left side picture is the vape I based the model off of. Right side is the finished model.</p>
-    <br>
-    <br>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/VapeCase_Body.JPG" alt="mcBack" />
-      <img style="width:430px;" src="media/VapeCase_Nozzle.JPG" alt="mcBack" />
-    </div>
-    <p>This case works out perfectly. It solidly holds the circuit board in place. When the nozzle portion is ripped off, it provides easy access to the battery.</p>
-    <br>
-    <br>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/VapeCase_Finished_Front.jpg" alt="mcBack" />
-      <img style="width:430px;" src="media/VapeCase_Finished_Back.jpg" alt="mcBack" />
-    </div>
-    <br>
-    <div style="margin: 0 auto; width:870px;">
-      <img style="width:430px;" src="media/VapeCase_Finished_Top.jpg" alt="mcBack" />
-    </div>
-    <p>The antenna fits perfectly in the vape nozzle area. Vapes have a coil to heat up the juice, which goes along perfectly with this incofnito case, giving all the more reason why someone could believe this is a real vape.</p>
-    <br>
-    <br>
-
-  </div>
-  <br>
-  <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
-  <br>
-  <br>
-  <br>
-  <!-- <p>November 2024 Project Complete</p> -->
-
-
-</body>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  gtag('config', 'UA-61034445-2');
+  // Lightbox logic
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+
+  // Any image with data-enlarge becomes clickable
+  document.querySelectorAll('img[data-enlarge]').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lb.style.display = 'flex';
+    });
+  });
+
+  function closeLightbox() {
+    lb.style.display = 'none';
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+
+  // Click outside the image closes it
+  lb.addEventListener('click', e => {
+    if (e.target === lb) closeLightbox();
+  });
+
+  // ESC closes it
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
-</html>
+
+</body></html>
