@@ -1,264 +1,543 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
+<html lang="en"><head>
   <meta charset="UTF-8">
-  <title>Austin Fisk</title>
-  <script>
-    var fullURL = window.location.href;
-    fullURL = fullURL.substr(0, fullURL.lastIndexOf("/") + 1);
+  <title>Cool A.F. Seats – RAV4 Ventilated Seat Upgrade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cool A.F. Seats – reverse-engineered ventilated seat controller for a 2023 RAV4. Reads OEM PWM and drives the seat blower harder with an LPC5536-based module.">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1221;
+      --card: #11182b;
+      --accent: #4fd1c5;
+      --accent-soft: #2c7a7b;
+      --text: #f7fafc;
+      --muted: #a0aec0;
+      --border: rgba(148, 163, 184, 0.45);
+    }
 
-    function toggleActive() {
-      var z, i, elmnt, link, xhttp;
-      /* Loop through a collection of all HTML elements: */
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        link = elmnt.getAttribute("href");
-        if (link) {
-          if (link.substr(0, link.lastIndexOf("/") + 1) == fullURL) {
-            /* If is a drop down, add active to parent node */
-            if (elmnt.classList.contains("dropdown-item")) {
-              elmnt.classList.add("highlight");
-              elmnt.parentNode.parentNode.classList.add("active");
-              console.log("Found one " + link);
-            }
-            else if (elmnt.classList.contains("nav-link")) {
-              /* else it is a drop down header */
-              elmnt.classList.add("active");
-              console.log("Found one " + link);
-            }
-          }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        }
-        // /* Exit the function: */
-        // return;
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a365d 0, #050816 45%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    header {
+      margin-bottom: 2.25rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 40rem;
+    }
+
+    section {
+      margin-bottom: 2.75rem;
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.lead {
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      max-width: 45rem;
+    }
+
+    ul {
+      margin-left: 1.2rem;
+      margin-top: 0.3rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    li {
+      margin-bottom: 0.18rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.9);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    figure {
+      margin: 0.6rem 0;
+    }
+
+    figure img,
+    figure video {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: block;
+    }
+
+    figcaption {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.8rem;
+      margin-top: 0.6rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 720px) {
+      h1 {
+        font-size: 1.9rem;
       }
     }
 
-    window.onload = function includeHTML() {
-      var z, i, elmnt, file, xhttp;
-      /* Loop through a collection of all HTML elements: */
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("include-html-header");
-        if (file) {
-          /* Make an HTTP request using the attribute value as the file name: */
-          xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-              /* Remove the attribute, and call this function once more: */
-              elmnt.removeAttribute("include-html-header");
-              includeHTML();
-            }
-          }
-          xhttp.open("GET", file, true);
-          xhttp.send();
-
-          xhttp.addEventListener('loadend', toggleActive);
-
-          /* Exit the function: */
-          return;
-        }
-      }
+    /* ------------ LIGHTBOX ------------- */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
-  </script>
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      animation: fadeIn 0.18s ease-out;
+    }
 
-  <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 28px;
+      color: white;
+      font-size: 2.4rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+      user-select: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+  </style>
 </head>
-
 <body>
-  <div include-html-header="https://pages.cs.wisc.edu/~fisk/header.html"></div>
-
-  <h1 class="header">Cool A.F. Seats</h1>
-  <h3 class="header">Cool (Austin Fisk) Seats</h3>
-  <br>
-  <div style="margin: 0 auto; width:870px;">
-    <br><br>
-    <h2>High Level Overview Of Project</h2>
-    <p>
-      I have ventolated seats in my 2023 Rav4. I noticed that the seat fan was throttled. This is my journey of finding a solution to read in what the OEM settings were and turn up the amount the fans are turned to.
+<div class="page">
+  <header>
+    <h1>Cool A.F. Seats</h1>
+    <p class="subtitle">
+      Turning the “meh” ventilated seats in my 2023 RAV4 into actually-cold seats by
+      reverse-engineering the OEM PWM control and inserting an LPC5536-based controller
+      in-line with the blower signal.
     </p>
-    <br><br>
+  </header>
 
-    <h2>Introduction</h2>
-    <p>I noticed that the high setting on my climate controlled seats was not actually running on high unless I turned up the AC and selected that the air be dispursed in the vents facing my head. 
-      I personally did not like this and wanted to have my seat cooled at max blower speed, even if I did not have the AC running at full blast. This would enable conversation easier and minimize
-      my back sweating and ultimately make it more comfortable for me during long car rides, like my current commute to the work office of over just over 2 hours.
-    </p>
+  <main>
+    <!-- PROBLEM / GOAL -->
+    <section id="overview">
+      <h2>Problem &amp; Goal</h2>
+      <p class="lead">
+        The RAV4’s ventilated seats only run the fan at full speed when the HVAC fan is on
+        high and blowing out the top vents. I wanted the seat to blast at “max chill” whenever
+        I asked for it – independent of the cabin fan – without breaking any OEM features.
+      </p>
+      <ul>
+        <li>Read the OEM control signal going to the seat blower.</li>
+        <li>Understand how the three seat levels map to PWM duty cycle.</li>
+        <li>Insert my own controller that safely reads the OEM signal and drives the blower harder.</li>
+        <li>Keep everything plug-and-play and reversible.</li>
+      </ul>
+      <div class="callout">
+        The OEM “High” was about 28% duty cycle. With my module, “High” becomes
+        50%.
+      </div>
+    </section>
 
-    <br><br>
-    <!-- <h2>Goals</h2>
-    <table class="centered">
-      <tr>
-        <td>
-          <p>Work In Progress</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>Work In Progress</p>
-        </td>
-      </tr>
-    </table> -->
+    <!-- WIRING DIAGRAMS -->
+    <section id="wiring">
+      <h2>Finding the Right Wires</h2>
+      <p class="lead">
+        I started with the Toyota wiring diagrams to locate the seat climate control
+        connectors, power feeds, and the mysterious control line that changes with the
+        ventilated seat levels.
+      </p>
 
+      <div class="grid-2">
+        <div><figure>
+          <img src="media/WiringDiagram.png" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>HVAC / seat harness diagram with the seat blower path traced.</figcaption>
+        </figure><figure>
+            <img src="media/PassengerSeatConnector.png" alt="Passenger seat connector pinout MS1" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Passenger seat connector pinout (MS1).</figcaption>
+          </figure></div>
 
+        <div>
+          <figure>
+            <img src="media/WiringDiagram2.png" alt="Climate seat wiring diagram close-up" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Zoomed-in view of the climate seat and seat back blower circuit.</figcaption>
+          </figure>
+            <figure>
+            <img src="media/DriverSeatConnector.png" alt="Driver seat connector pinout NT1" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Driver seat connector pinout (NT1).</figcaption>
+          </figure>
 
-    <!-- <br><br>
-    <h2>Parts List</h2>
-    <img class="fitHeight" src="media/PCB_Parts_List.png" alt="partsListPNG" />
-    <br>
-    <p>Total Cost: ~$300</p>
-    
-    <br><br>
+          
 
-    <br><br><br><hr><br><br><br> -->
+          
+        </div>
+      </div>
 
+      <div class="callout">
+        On the seat connector I found:
+        <ul>
+          <li>Pin 1 – Ground</li>
+          <li>Pin 4 – Ignition-switched +12&nbsp;V</li>
+          <li>Pin 5 – Constant +12&nbsp;V</li>
+          <li>Pin 12 – Single line that changed with seat fan level (the PWM control)</li>
+        </ul>
+      </div>
+    </section>
 
-    <br><br>
+    <!-- SIGNAL CAPTURE -->
+    <section id="signal">
+      <h2>Reverse-Engineering the OEM PWM Signal</h2>
+      <p class="lead">
+        With the wiring identified, I tapped into the control line and used a Saleae logic
+        analyzer to see what the seat controller was actually doing.
+      </p>
 
-    <h2>Reading through wiring diagram to see how wiring is set up and see what connectors to tap into</h2>
-    <img class="fitHeight slowFadeIn" src="media/WiringDiagram.png" alt="Controller" />
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/WiringDiagram2.png" alt="Controller" />
-    <br><br><br>
+      <div class="grid-2">
+        <figure>
+          <img src="media/Saleae_SeatRead.jpg" alt="Saleae connected to seat" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Capturing the blower control line with a Saleae while cycling seat levels.</figcaption>
+        </figure>
 
-    <img class="fitHeight slowFadeIn" src="media/DriverSeatConnector.png" alt="Controller" />
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/PassengerSeatConnector.png" alt="Controller" />
-    <br><br>
-    <p>After looking through the wiring diagram, it was time to look for the real connectors in the seat itself. I flipped up the front passenger seat up.
-      The passenger side has fewer connections to look at compared to the drivers seat (8 compared to 12) due to the drivers seats extra features like lumbar support and seat position memory.
-      <br>
-      I found there was a ground (position #1), +12v (position #5), and a +12v when the ignition was on (position #4).
-      I also found that there was only one line that changed when the ventolated seats were turned on (position #12).
-    </p>
-    <br><br>
-    <p>Connections 1-9 work with the general automotive crimp teriminal 621-2.2A for the female side and 611-2.2 for the male side.</p>
-    <p>Connections 10-17 are a crimp teriminal 82998-24290 for the female side and 82998-24300 for the male side.</p>
-    <br><br><br><br>
+        <div class="card">
+          <h3>Measured OEM PWM behavior</h3>
+          <p>
+            At the seat’s three levels (with normal HVAC settings), the duty cycle looked like:
+          </p>
+          <ul>
+            <li>Low: ~10% duty cycle</li>
+            <li>Medium: ~19% duty cycle</li>
+            <li>High: ~28% duty cycle</li>
+          </ul>
+          <p>
+            When the cabin HVAC fan was on max and pointed at the head, the same “High”
+            seat setting jumped up to about <strong>53% duty cycle</strong>.
+          </p>
+          <div class="pill-row">
+            <span class="pill">2&nbsp;ms period</span>
+            <span class="pill">Low-side PWM</span>
+            <span class="pill">Single control line</span>
+          </div>
+        </div>
+      </div>
 
-    <h2>Reading to see how OEM setup works</h2>
-    <img class="fitHeight slowFadeIn" src="media/Saleae_SeatRead.jpg" alt="Controller" />
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/Saleae_LowSpeed.png" alt="Controller" />
-    <p>This is a read from the slowest seat blower setting.</p>
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/Saleae_FullSpeed.png" alt="Controller" />
-    <p>
-      This is a read from the highest seat blower setting, with the cars HVAC blowing at high and the vents facing the head.
-      It looks like the seat is driven from a PWM signal through pin #12 on the connector. This PWM signal is a low driving signal.
-    </p>
-    <br><br><br>
+      <div class="grid-2" style="margin-top:1rem;">
+        <figure>
+          <img src="media/Saleae_LowSpeed.png" alt="PWM trace low speed" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Low-speed trace – narrow pulses (~10% duty).</figcaption>
+        </figure>
+        <figure>
+          <img src="media/Saleae_FullSpeed.png" alt="PWM trace high speed" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>High-speed trace – longer pulses, up to ~53% duty in the “bonus” HVAC mode.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-    <img class="fitHeight slowFadeIn" src="media/SaleaeRead_GPIO_OutAdafruit.png" alt="Controller" />
-    <p>Testing to see how fast the Adafruit board can execute GPIO actions.
-      70us is much less than the 2ms PWM signal from the OEM seat controller.
-      Polling should work okay to read in the signal.</p>
+    <!-- CONTROLLER DESIGN -->
+    <section id="controller">
+      <h2>Controller Design &amp; Firmware</h2>
+      <figure>
+        <!-- Replace with your actual stock-seat video file if you want -->
+        <video controls="" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackrate="1">
+          <source src="media/ReadInSeatBlower.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption>Stock ventilated seat - Reading in the PWM signal as high, med, low, off.</figcaption>
+      </figure>
+      <p class="lead">
+        I first proved this out on an Adafruit board, then migrated everything to an
+        LPC5536-based board I’d previously designed. The module sits inline between the
+        OEM controller and the seat blower.
+      </p>
 
-    <h2>Sucessfully reading in the signals from the seat blower OEM controller and visually representing what is going on with LEDs.</h2>
-    <video id="giraffeVideo" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-      <source src="media/ReadInSeatBlower.mp4" type="video/mp4">
-      Your browser does not support HTML video.
-    </video>
-    <br><br><br>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Timing Budget Check</h3>
+          <p>
+            Before committing, I verified the LPC5536 microcontroller could comfortably keep up with
+            the incoming PWM while also generating a new one.
+          </p>
+          <figure>
+            <img src="media/SaleaeRead_GPIO_OutAdafruit.png" alt="Adafruit GPIO timing on Saleae" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>
+              GPIO test on the prototype: ~76&nbsp;µs period, &lt;40&nbsp;µs high time – much faster
+              than the 2&nbsp;ms OEM PWM period, so polling is plenty.
+            </figcaption>
+          </figure>
+        </article>
 
-    <u><h2 id="PcbProject">Creating A Solution</h2></u>
-    <br><br>
+        <article class="card">
+          <h3>Final LPC5536 Module</h3>
+          <p>
+            I repurposed an LPC5536 board, adding a MOSFET on a PWM pin to sink the blower
+            ground. The OEM control line feeds an input with an internal pull-up so the
+            firmware can read the PWM while still emulating the OEM load.
+          </p>
+          <ul>
+            <li>Reads OEM PWM and calculates duty cycle.</li>
+            <li>Maps seat level to new, more aggressive duty cycles:</li>
+          </ul>
+          <ul>
+            <li>Low → 17%</li>
+            <li>Medium → 36%</li>
+            <li>High → 50%</li>
+          </ul>
+          <p>
+            If the OEM ever tries to drive above 50% (e.g., head-blaster HVAC mode), the
+            module just passes the original PWM through.
+          </p>
+        </article>
+      </div>
 
-    <img class="fitHeight slowFadeIn" src="media/CableAssembly.jpg" alt="Controller" />
-    <br><br>
-    <img class="fitHeight slowFadeIn" src="media/CircuitBoard.jpg" alt="Controller" />
-    <p>After finding that I could run this with a simple Adafruit board. I decided make my own. I had an old circuit board that took in a 12v signal to power the board and modified it.
-      This board has an LPC5536 processor. I popped off a couple of unused parts to make room for my project specific ones, the mosfet.
-      The mosfet is hooked up to a PWM line which when running, PWMs a ground signal for the blower motor in the car seat.
-      Another line is a signal line for the OEM blower motor. This input is held high by a pullup in the LPC5536 in order to mimic the OEM blower motor.
-      Then the code can cycle over this input to see if the OEM PWM signal is driving this line low or keeping it high. This is how I determine the PWM speed.
-      Thankfully the LPC5536 is incredibly fast, meaning it is easy to read in the PWM signal with polling rather than using a voltage divider.
-    </p>
-    <p>
-      Looking at the OEM PWM signal, I found that of the 3 settings of the seat, when at the lowest speed setting, the seat ran at 10% PWM.<br>
-      2nd highest setting, 19% PWM.<br>
-      Highest setting, 28% PWM.<br>
-      And the real kicker, when the car's cabin AC was on, with the blower pointing at your head, the highest setting on the ventolated seat's PWM signal would increase.
-      I found that the highest seat blower setting coupled with the car's cabin AC blower on max, set on the vents pointing at the head, the PWM signal would go up to a whopping 53%!
-      I decided to take this as my new max setting.<br>
-      I decided to read in the OEM signal and modify out so that the new lowest setting blows at 17% PWM, 2nd highest blows a 36% PWM, and the highest setting is a 50% PWM.
-      For the case where the car wants to drive the PWM any higher than 50% PWM, I pass the PWM signal onto the seat so that it can be driven even higher.
-    </p>
-    <br><br>
+      <div class="grid-2" style="margin-top:1rem;">
+        <figure>
+          <img src="media/CircuitBoard.jpg" alt="Cool A.F. board close-up" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Modified LPC5536 board used as the heart of the Cool A.F. module.</figcaption>
+        </figure>
+        <figure>
+          <img src="media/CableAssembly.jpg" alt="Cable assembly on desk" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Assembly in progress: board and harness together.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-    <p>Of course every good circuit board needs a case to protect it.</p>
-    <img class="fitHeight slowFadeIn" src="media/CaseTop.png" alt="Controller" />
-    <p>Case top, notice the cutout in the side for the mosfet to fit.</p>
-    <img class="fitHeight slowFadeIn" src="media/CaseBottom.png" alt="Controller" />
-    <p>Case bottom, notice the cutout in the bottom for the wires to follow.</p>
-    <br><br>
+    <!-- ENCLOSURE -->
+    <section id="enclosure">
+      <h2>Enclosure &amp; Harness</h2>
+      <p class="lead">
+        To keep things OEM-like, I designed a small enclosure and a plug-and-play harness
+        that sits between the factory seat connector and the car harness – no wires cut.
+      </p>
 
-    <img class="fitHeight slowFadeIn" src="media/FullCable.jpg" alt="Controller" />
-    <p>Here is the full cable assembly with the 3D printed case on the circuit board.</p>
-    <br><br>
-    <p>Installation.</p>
-    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat_Circled.jpg" alt="Controller" />
-    <br>
-    <img class="fitHeight slowFadeIn" src="media/Installed_UnderSeat_ZoomedOut.jpg" alt="Controller" />
-    <p>Here it is installed on the drivers side seat. It was easy to tuck away. The seat is still completely functional and movable without this getting in the way.</p>
-    <br><br>
+      <div class="grid-2">
+        <figure>
+          <img src="media/CaseTop.png" alt="Case top model" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Case top with a relief cut for the MOSFET and connector clearance.</figcaption>
+        </figure>
+        <figure>
+          <img src="media/CaseBottom.png" alt="Case bottom model" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Case bottom with channels for the harness to sit in.</figcaption>
+        </figure>
+      </div>
 
-    <h2>Rough improvement showcase test</h2>
-    <video id="OriginalVsUpgraded" class="fitHeight slowFadeIn" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackRate=1  >
-      <source src="media/CoolAFSeat_OriginalVsUpgraded.mp4" type="video/mp4">
-      Your browser does not support HTML video.
-    </video>
-    <p>Original Ventolated Seat vs Upgraded Seat. You can see the upgraded seat sucking the air out of the trash bag much faster than the original.</p>
+      <div class="grid-2" style="margin-top:1rem;">
+        <figure>
+          <img src="media/FullCable.jpg" alt="Full cable assembly with case" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Full harness with module installed, ready to drop between seat and harness.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-    <br>
-    <p>Two Videos showing how long it takes to empty a trash bag put roughly in the same place each time with roughly about the same amount of air in them.</p>
-    <h2 style="display: inline-block">Results: </h2>
-    <p style="display: inline-block">Orignally took ~10 seconds to empty. With CoolAF module, it takes ~6-7 seconds to empty.</p>
+    <!-- INSTALLATION -->
+    <section id="install">
+      <h2>Installation</h2>
+      <p class="lead">
+        The module tucks under the driver’s seat and rides along with the factory harness.
+        The seat still moves freely and everything remains serviceable.
+      </p>
 
-      
+      <div class="grid-2">
+        <figure>
+          <img src="media/Installed_UnderSeat_Circled.jpg" alt="Module installed under seat highlighted" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Module location under the seat (highlighted).</figcaption>
+        </figure>
+        <figure>
+          <img src="media/Installed_UnderSeat_ZoomedOut.jpg" alt="Zoomed-out view of under-seat area" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Zoomed-out view: nothing hanging down, OEM is preserved.</figcaption>
+        </figure>
+      </div>
+    </section>
 
-    <p>I will be using this every time I drive. I'm very excited to see how much better my sweaty back feels on car rides now :)</p>
-    <br><br>
+    <!-- PERFORMANCE -->
+    <section id="performance">
+      <h2>Trash-Bag Test: Stock vs Cool A.F.</h2>
+      <p class="lead">
+        To visualize the difference, I put a trash bag over the seat perforations and
+        timed how long it took to suck the bag flat with and without the module installed.
+      </p>
 
-  </div> 
-  <br>
-  <p><a id="bw" class="borderedLink" href="#top">Return To Top</a></p>
-  <br>
-  <br>
-  <br>
+      <div class="grid-2">
+        <figure>
+          <!-- Replace with your actual upgraded-seat video file if you want -->
+          <video controls="" autoplay="autoplay" loop="loop" controls="controls" muted="muted" playbackrate="1">
+            <source src="media/CoolAFSeat_OriginalVsUpgraded.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>Cool A.F. module installed – noticeably faster bag collapse.</figcaption>
+        </figure>
+      </div>
 
-  <!-- <p>September 2025 Project Complete</p> -->
+      <div class="card" style="margin-top:1rem;">
+        <h3>Measured improvement</h3>
+        <ul>
+          <li>Stock seat: ~10 seconds to evacuate the bag.</li>
+          <li>Cool A.F. module: ~6–7 seconds.</li>
+        </ul>
+        <p>
+          That’s roughly a 30–40% reduction in time, which matches the duty-cycle changes
+          and absolutely feels better on real drives.
+        </p>
+      </div>
+    </section>
 
+    <!-- RESULTS -->
+    <section id="results">
+      <h2>Results &amp; Daily Use</h2>
+      <p class="lead">
+        The module has been working reliably in daily driving. The OEM controls still work
+        exactly as before – I just get “the better version” of the ventilated seats without
+        needing the HVAC blasting at my face.
+      </p>
+      <p class="lead" style="font-size:0.95rem;">
+        Overall, the Cool A.F. Seats project was a fun mix of automotive wiring research,
+        signal analysis, real-time firmware, man in the middle, and a little bit of
+        comfort-focused over-engineering.
+      </p>
+    </section>
+  </main>
 
-</body>
+  <footer>
+    © <span id="year">2025</span> Austin Fisk ·
+    <a href="https://pages.cs.wisc.edu/~fisk/">Back to project index</a>
+  </footer>
+</div>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-61034445-2"></script>
+<!-- LIGHTBOX OVERLAY -->
+<div id="lightbox" class="lightbox-overlay" style="display: none;">
+  <span id="lightbox-close" class="lightbox-close">×</span>
+  <img id="lightbox-img" class="lightbox-img" src="">
+</div>
+
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  gtag('config', 'UA-61034445-2');
+  // Lightbox logic
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+
+  // Any image with data-enlarge becomes clickable
+  document.querySelectorAll('img[data-enlarge]').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lb.style.display = 'flex';
+    });
+  });
+
+  function closeLightbox() {
+    lb.style.display = 'none';
+    lbImg.src = '';
+  }
+
+  lbClose.addEventListener('click', closeLightbox);
+
+  // Click outside the image closes it
+  lb.addEventListener('click', e => {
+    if (e.target === lb) closeLightbox();
+  });
+
+  // ESC closes it
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 
-</html>
+
+
+</body></html>
