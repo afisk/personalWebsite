@@ -221,7 +221,8 @@
       padding: 0 10px;
       z-index: 10;
       /* position: relative; */
-      justify-content: space-between;  /* <-- add this */
+      justify-content: space-between;
+      /* <-- add this */
 
       position: sticky;
       top: 0;
@@ -315,6 +316,52 @@
     .nav-right a.active {
       color: var(--accent);
       border-color: var(--accent);
+    }
+
+    @media (max-width: 720px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-left span {
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+      }
+
+      .nav-right {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0.4rem;
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+
+      .navbar a,
+      .navbar span.dropbtn {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+      }
+
+      /* Make dropdowns behave more like a stacked menu on mobile */
+      .dropdown {
+        position: static;
+      }
+
+      .dropdown-content {
+        position: static;
+        background-color: #11182b;
+        border: none;
+        margin-left: 0.75rem;
+        margin-top: -0.25rem;
+        box-shadow: none;
+      }
+
+      .dropdown-content a {
+        padding: 6px 0;
+        font-size: 0.82rem;
+      }
     }
   </style>
 </head>
