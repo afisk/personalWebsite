@@ -762,6 +762,49 @@
     });
   </script>
 
+  <script>
+    // Mobile dropdown toggle (Projects / School Projects)
+    (function () {
+      const isSmallScreen = () => window.matchMedia("(max-width: 720px)").matches;
+
+      // Buttons that open dropdowns
+      const dropdownButtons = document.querySelectorAll('.dropdown .dropbtn');
+
+      dropdownButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          if (!isSmallScreen()) {
+            // On desktop, let hover do the work
+            return;
+          }
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          const dropdown = this.closest('.dropdown');
+          const isOpen = dropdown.classList.contains('open');
+
+          // Close other open dropdowns
+          document.querySelectorAll('.dropdown.open').forEach(d => {
+            if (d !== dropdown) d.classList.remove('open');
+          });
+
+          // Toggle this one
+          if (!isOpen) {
+            dropdown.classList.add('open');
+          } else {
+            dropdown.classList.remove('open');
+          }
+        });
+      });
+
+      // Tap anywhere else to close
+      document.addEventListener('click', function () {
+        if (!isSmallScreen()) return;
+        document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+      });
+    })();
+  </script>
+
 
 
 </body>
