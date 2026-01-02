@@ -1,0 +1,874 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cool A.F. Seats – RAV4 Ventilated Seat Upgrade</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Cool A.F. Seats – reverse-engineered ventilated seat controller for a 2023 RAV4. Reads OEM PWM and drives the seat blower harder with an LPC5536-based module.">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1221;
+      --card: #11182b;
+      --accent: #4fd1c5;
+      --accent-soft: #2c7a7b;
+      --text: #f7fafc;
+      --muted: #a0aec0;
+      --border: rgba(148, 163, 184, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1a365d 0, #050816 45%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    header {
+      margin-bottom: 2.25rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 40rem;
+    }
+
+    section {
+      margin-bottom: 2.75rem;
+    }
+
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    section p.lead {
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      max-width: 45rem;
+    }
+
+    ul {
+      margin-left: 1.2rem;
+      margin-top: 0.3rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    li {
+      margin-bottom: 0.18rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.9);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    figure {
+      margin: 0.6rem 0;
+    }
+
+    figure img,
+    figure video {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: block;
+    }
+
+    figcaption {
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--muted);
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      padding-left: 0.8rem;
+      margin-top: 0.6rem;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 720px) {
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+
+    /* ------------ LIGHTBOX ------------- */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 28px;
+      color: white;
+      font-size: 2.4rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+      user-select: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background-color: #222;
+      overflow: visible;
+      /* MUST be visible or dropdowns won't show */
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      z-index: 10;
+      /* position: relative; */
+      justify-content: space-between;
+      /* <-- add this */
+
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(5, 8, 22, 0.96), rgba(5, 8, 22, 0.85));
+      z-index: 20;
+    }
+
+    .navbar a,
+    .navbar span.dropbtn {
+      color: white;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      user-select: none;
+    }
+
+    .navbar a:hover,
+    .dropdown:hover>.dropbtn {
+      background-color: #444;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #333;
+      min-width: 220px;
+      border: 1px solid #111;
+      z-index: 9999;
+      /* ensure it floats above page content */
+    }
+
+    .dropdown-content a {
+      color: #ddd;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #444;
+    }
+
+    /* Show dropdown ON HOVER */
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+
+
+
+
+    .nav-left span {
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      margin-left: auto;
+    }
+
+    .nav-right a {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav-right a:hover {
+      color: var(--accent);
+      border-color: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    .nav-right a.active {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
+
+    @media (max-width: 720px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-left span {
+        font-size: 0.8rem;
+        letter-spacing: 0.12em;
+      }
+
+      .nav-right {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0.4rem;
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+
+      .navbar a,
+      .navbar span.dropbtn {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+      }
+
+      /* Make dropdowns behave more like a stacked menu on mobile */
+      .dropdown {
+        position: static;
+      }
+
+      .dropdown-content {
+        position: static;
+        background-color: #11182b;
+        border: none;
+        margin-left: 0.75rem;
+        margin-top: -0.25rem;
+        box-shadow: none;
+      }
+
+      .dropdown-content a {
+        padding: 6px 0;
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- NAVBAR -->
+    <div class="navbar">
+
+      <div class="nav-left">
+        <span>Austin&nbsp;Fisk</span>
+      </div>
+      <div class="nav-right">
+        <!-- HOME LINK -->
+        <a href="https://pages.cs.wisc.edu/~fisk/">Home</a>
+
+        <!-- PROJECTS DROPDOWN -->
+        <div class="dropdown">
+          <span class="dropbtn">Projects ▾</span>
+          <div class="dropdown-content">
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/CANInjection/index.html">CAN Analysis</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/coolAFSeats/index.html">Super Cooled Seats</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/433RfRemote/index.html">433 RF Remote</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/Lay-ZPoolBoy/index.html">Lay-Z Pool Boy</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/emailMarketing/emailMarketingInfo.html">Email
+              Marketing</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/touchPainting/paintingInfo.html">Touch Paintings</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/gateController/gateInfo.html">Gate Controller</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/cbr1000rrLED/cbr1000rrLEDInfo.html">BLE Motorcycle
+              LEDs</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/chickenDoor/doorInfo.html">Chicken Door</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/thermostat/thermostatInfo.html">Pi Thermostat</a>
+
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/a-snoopy/snoopyInfo.html">Snoopy Mailbox</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/a-skiBoardHanger/index.html">Snowboard Hanger</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/a-metalPin/index.html">Laser Cut Pin</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/personal/a-mowerHitch/index.html">Lawnmower Hitch</a>
+          </div>
+        </div>
+
+        <!-- SCHOOL PROJECTS DROPDOWN -->
+        <div class="dropdown">
+          <span class="dropbtn">School Projects ▾</span>
+          <div class="dropdown-content">
+            <!-- Replace these with your actual school project links -->
+            <a href="https://numberprime-b359d.firebaseapp.com/#!/Login">Number Prime</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/school/graphics/default.htm">Intro To Computer Graphics</a>
+            <a href="https://pages.cs.wisc.edu/~fisk/school/fiska6811/index.html">Intro To Web Development</a>
+          </div>
+        </div>
+      </div>
+    </div> <!-- nav-right -->
+
+    <header>
+      <h1>2023 Rav4 CAN</h1>
+      <p class="subtitle">
+        Rav4s are being sotlen through CAN injection, I wanted to understand how this was being done.
+      </p>
+      <figure>
+        <img src="media/Austin-Ratatouille.gif" alt="Project Image" data-enlarge="" style="cursor: zoom-in;">
+        <figcaption>I wanted to be like Remy from Ratatouille and be the one pulling the strings, but on my Rav4.
+        </figcaption>
+      </figure>
+    </header>
+
+    <main>
+      <!-- PROBLEM / GOAL -->
+      <section id="overview">
+        <h2>Whats happening</h2>
+        <p class="lead">
+          I was able to decode and understand the Rav4's CAN messages to the point where I could unlock my doors via CAN
+          injection. This is a ~50 hour project. I will not be posting key parts of this project as I would not
+          like to be responsible for any Rav4s being stolen, including my own.
+        </p>
+      </section>
+
+      <!-- WIRING DIAGRAMS -->
+      <section id="wiring">
+        <h2>Finding the Right Wires</h2>
+        <p class="lead">
+          I started with the Toyota wiring diagrams to locate the seat climate control
+          connectors, power feeds, and the mysterious control line that changes with the
+          ventilated seat levels.
+        </p>
+
+        <div class="grid-2">
+          <figure>
+            <img src="media/Wiring Diagram.png" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Smart Key ECU wiring diagram.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/Connector Names.png" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Smart Key ECU's connector part numbers.</figcaption>
+          </figure>
+        </div>
+
+        <div class="grid-2">
+          <figure>
+            <img src="media/SmartKeyECU_DataLines.png" alt="Seat wiring diagram" data-enlarge=""
+              style="cursor: zoom-in;">
+            <figcaption>Smart Key ECU's important pins for this project..</figcaption>
+          </figure>
+          <div>
+            <figure>
+              <img src="media/SmartKeyECU Pinout - Diagram.png" alt="Seat wiring diagram" data-enlarge=""
+                style="cursor: zoom-in;">
+              <figcaption>Pin # for each connector on Smart Key ECU.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/SmartKeyECU Pinout.png" alt="Seat wiring diagram" data-enlarge=""
+                style="cursor: zoom-in;">
+              <figcaption>LIN bus is on G54's pin 13.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/SmartKeyECU CANOut.png" alt="Seat wiring diagram" data-enlarge=""
+                style="cursor: zoom-in;">
+              <figcaption>CAN pinout from wiring diagram.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Rates -->
+      <section id="Saleae">
+        <h2>Baud Rates</h2>
+        <p class="lead">
+          I hooked up my Saleae logic analyser to the CAN and LIN bus and got readings. The CAN runs at 500k and the LIN
+          bus runs at 9,600 baud.
+        </p>
+        <figure>
+          <img src="media/Saleae_ReadLINCAN.png" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+          <figcaption>Saleae reading.</figcaption>
+        </figure>
+      </section>
+
+      <!-- Data Analysis -->
+      <section id="Data">
+        <h2>Data Analysis</h2>
+        <p class="lead">
+          I started with CAN only as I have a device to read in and log CAN information. I read in multiple readings of
+          locking my car and unlocking my car and noted which Message ID's
+          and their messages changed or stayed the same throughout the file, changed or stayed the same throughout
+          multiple of the same files (unlocks vs unlock files), and which messages
+          changed or stayed the same between unlocking vs locking recordings. Here were the most interesting finds.
+        </p>
+        <div class="grid-2">
+          <figure>
+            <img src="media/CAN Setup.jpg" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Probed the CAN lines off the Smart Key ECU with Saleae probes, then ran the lines back to my
+              MPVI2+ to read the CAN data.</figcaption>
+          </figure>
+          <div>
+            <figure>
+              <img src="media/DataCompare.png" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+              <figcaption>Comparison between 3 unlock vs 3 lock recordings.</figcaption>
+            </figure>
+            <figure>
+              <img src="media/DataCompareSpecialMsgs.png" alt="Seat wiring diagram" data-enlarge=""
+                style="cursor: zoom-in;">
+              <figcaption>An closer look at one specific, interesting message.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Playback -->
+      <section id="DataPlayback">
+        <h2>Data Playback</h2>
+        <p class="lead">
+          I read online that Rav4s were easy to attack because the signals never changed. I went on to read that they
+          were so easy to hack that all you needed to do was run a playback of your recording. Turns out you can't trust
+          people on the internet. Rav4s are resilliant to a direct playback of an unlock signal.
+          <br>
+          I was able to start breaking down the data in the messages and find specific lines that did specific things. I
+          found a message for running the hazzard lights. I then found a message that could be mixed with the unlock
+          button of the key fob and it would try to double or tripple unlock the doors. This was exciting! I found the
+          unlock code in the CAN, I just needed to figure out how to authenticate it.
+        </p>
+        <div class="grid-2">
+          <figure>
+            <video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+              <source src="media/ActivatedBlinkers.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>Running the 'Flash Hazzards' command</figcaption>
+          </figure>
+
+          <figure>
+            <video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+              <source src="media/TrippleUnlockRav4.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>*Sound On* - I found one specific message that when played while unlocking the car with the key
+              fob, would try to unlock the door more than one time.</figcaption>
+          </figure>
+        </div>
+        <p class="lead">
+          This made it pretty clear that what I had read online was not true. The Doors were not just linked directly to
+          the CAN lines, which is GOOD. This means that no specific door unlock command is sent out to the doors, it
+          needs to be authenticated by the BCM that is much more involved in the Rav4's data life.
+        </p>
+        <div class="grid-2">
+          <figure>
+            <img src="media/OnlineDiagram.png" alt="Seat wiring diagram" data-enlarge="" style="cursor: zoom-in;">
+            <figcaption>Someone else's online diagram of the Rav4's CAN connections.</figcaption>
+          </figure>
+          <figure>
+            <img src="media/FoundViaResearchDiagram.png" alt="Seat wiring diagram" data-enlarge=""
+              style="cursor: zoom-in;">
+            <figcaption>What I found to be true. The door locks are all directly talking to the BCM.</figcaption>
+          </figure>
+        </div>
+
+      </section>
+
+      <!-- Data Analysis 2 -->
+      <section id="DataAnalysis2">
+        <h2>Data Analysis Round 2</h2>
+        <p class="lead">
+          I thought it might be easier to learn more about what the CAN IDs mean and what different messages do in order
+          to single out what messages are important and which are not for my use case.
+        </p>
+
+        <!-- _______Learned while unlock/locking______ -->
+
+        <h4>Flash Hazzards</h4>
+        <p class="lead">
+          Example: Flash one time - "000623 19 80 00 00 00 00 00 20"<br>
+          Example: Flash two time - "000623 19 80 00 00 00 00 00 40"<br>
+          ID - 0x623<br>
+          Data 0 - 0x19<br>
+          Data 1 - 0x80 when sending msg<br>
+          Data 2 - Sometimes 0x80, sometimes 0x00<br>
+          Data 3-6 - 0x00<br>
+          Data 7 - 0x20 for one flash, 0x40 for 2 flash
+        </p>
+
+        <h4>Something with lock/unlock</h4>
+        <p class="lead">
+          ID - 0x626<br>
+          Data 0 - 0x1C<br>
+          Data 1 - 0x80 during unlock/lock event (not subsiquent where no real action in unlocking/locking is actually
+          being taken), else 0x00<br>
+          Data 2 - 0x33 after unlock, gets reset on next wakeup?<br>
+          Data 3 - 0x30 after unlock, gets reset on next wakeup?<br>
+          Data 5 - 0x08<br>
+          All others are 0x00
+        </p>
+
+        <h4>Something with lock/unlock</h4>
+        <p class="lead">
+          ID - 0x4A5<br>
+          Data 4 - 0xF8 after Unlocked (sometimes 0x08 then turns to 0xF8), 0x00 after locked (Same from handle
+          lock/unlock)<br>
+          Data 7 - Constantly changing
+        </p>
+
+        <h4>Something with lock/unlock</h4>
+        <p class="lead">
+          ID - 0x375<br>
+          Data 0 - 0x00 after start/stop car - 0x26 after unlock, 0x00 after lock<br>
+          Data 1 - 0x00 after start stop car - 0x50 after lock, 0x4C after driver door handle lock, 0x00 after
+          unlock<br>
+          Data 2-7 - 0x00
+        </p>
+
+        <h4>Something with lock/unlock</h4>
+        <p class="lead">
+          ID - 0x621<br>
+          Data 0 - 11<br>
+          Data 1 - 0x80 during msg, else 0x00<br>
+          Data 2 - 0x21 during lock from remote, 0x31 from Driver door lock on handle, 0xA1 during unlock, 0xB1 from
+          driver door unlock handle, else 0x00<br>
+          Data 3-7 - 0x00
+        </p>
+
+        <h4>Something with Unlock/Unlock</h4>
+        <p class="lead">
+          ID - 0x631
+        </p>
+
+        <h4>Something with lock/unlock</h4>
+        <p class="lead">
+          ID - 0x638
+        </p>
+
+        <h4>Something with lock/unlock</h4>
+        <p class="lead">
+          ID - 0x639
+        </p>
+
+        <h4>Some kind of random counter, only counts up. Seems to get reset on start
+          <p class="lead">
+            ID - 0x63B<br>
+            Data is the counter?
+          </p>
+
+          <!-- _______Learned while running______ -->
+
+          <h4>Something with thermostat</h4>
+          <p class="lead">
+            ID - 0x590<br>
+            Data 5 - 0x01 when Air requested is much colder<br>
+            Data 6 -Fan speed
+          </p>
+
+          <h4>Front Passenger Seatbelt Status</h4>
+          <p class="lead">
+            ID - 0x610<br>
+            Data 1 - ?Occupancy Sensor?<br>
+            Data 7 - ?Unbuckle vs Buckle Flag?
+          </p>
+
+          <h4>Blinkers</h4>
+          <p class="lead">
+            Normal, idle - 000614 29 00 62 30 00 01 72 5C<br>
+            ID - 0x614<br>
+            Data 0 - 29<br>
+            Data 1 - 0x80 to initiate, 0x00 otherwise<br>
+            Data 2 - 0x62<br>
+            Data 3 - 0x30 idle, 0x10 for left, 0x20 for right, 0x38 for hazzards
+          </p>
+
+          <h4>Doors & Driver Seatbelt:</h4>
+          <p class="lead">
+            ID - 0x620<br>
+            Data 0 - Same<br>
+            Data 1 - 0x00 when nothing happens, 0x80 when door open/close event happens or Driver seatbelt event
+            (click/unclick)<br>
+            Data 4 - <br>
+            Data 5 - 0x00 when all doors closed, not 0x00 when a door is currently open <br>
+            Data 7 - Nibble 1 (Seat Belt) 0x5 when Disconnected<br>
+            Data 7 - Nibble 2 - Moon roof - 0xA when closed
+          </p>
+
+          <h4>Window status & Door Lock Status: - Msg comes every second</h4>
+          <p class="lead">
+            ID - 0x638<br>
+            Data 0 - Same<br>
+            Data 1 - 0x80 when status. 0x00 when event happens (window opening, window close)<br>
+            Data 2 - Door Lock status - 0x00 when doors locked - 0x1F when all doors unlocked (0b1 1111 - bits go Driver
+            door, front passenger, rear passenger, rear driver, I assume last bit is hatch)<br>
+            Data 4 - Window open/closed status - 0xAA when all closed, 0xFF when all halfway open, 0x55 when all open
+          </p>
+
+          <h4>Driver Seat Memory Position</h4>
+          <p class="lead">
+            ID - 0x63A<br>
+            Data 0 - Same<br>
+            Data 1 - 0x80 when starting or finished
+          </p>
+
+          <h4>Headlights Status</h4>
+          <p class="lead">
+            ID - 0x699<br>
+            Data 0 - 9D<br>
+            Data 1 - 0x80 when something changes, else 0x00<br>
+            Data 2 - 0x62 for on, 0x62 on with Fog lights on, 0x40 for driving lights, 0x00 is lights off
+          </p>
+
+          <h4>Driver Seat Moving</h4>
+          <p class="lead">
+            ID - 0x6A0<br>
+            Data 1 - 0x80 at start and finish of movement<br>
+            Data 5 - 0x0F when idle, 0x02 when something in seat is moving
+          </p>
+
+          <!-- Door Lock/Unlock from doors - Same for all doors -->
+
+          <h4>Unlock Msg from door handle</h4>
+          <p class="lead">
+            Example: 000621 11 80 83 00 00 00 00 00<br>
+            ID - 0x621<br>
+            Data 0 - Same (0x11)<br>
+            Data 1 - 0x00 no change, 0x80 during change<br>
+            Data 2 - 0x00 no change, 0x83 (unlock), 0x03(lock)
+          </p>
+
+          <h4>Second Counter</h4>
+          <p class="lead">
+            ID-0x675<br>
+            Data - #Seconds
+          </p>
+      </section>
+      <hr><br>
+      <!-- Data Playback -->
+      <section id="DataPlayback">
+        <h2>Skip Some Steps...IT UNLOCKS!</h2>
+        <p class="lead">
+          After lots and lots of data Analysis, I was able to send the CAN unlock signal. There is encoding on the
+          message, aka a record and repeat attack will not work. I am using a custom built CAN module that can initiate
+          the attack, and then read the appropriate messages from the CAN lines and send back the correct sequence of
+          messages required for the unlock. I will not share as I don't want my 2023 Rav4 stolen.
+          <br>
+          Here is a video of the unlock working!
+        </p>
+        <div class="grid-2">
+          <figure>
+            <video controls="" autoplay="autoplay" loop="loop" muted="muted" playbackrate="1">
+              <source src="media/UnlockRav4Doors.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>Here is me unlocking my 2023 Rav4's doors via CAN injection. You can hear the doors unlock as soon as I unplug and re-plug in my CAN module.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+
+    </main>
+
+    <footer>
+      © <span id="year">2025</span> Austin Fisk ·
+      <a href="https://pages.cs.wisc.edu/~fisk/">Back to project index</a>
+    </footer>
+  </div>
+
+  <!-- LIGHTBOX OVERLAY -->
+  <div id="lightbox" class="lightbox-overlay" style="display: none;">
+    <span id="lightbox-close" class="lightbox-close">×</span>
+    <img id="lightbox-img" class="lightbox-img" src="">
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightbox logic
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbClose = document.getElementById('lightbox-close');
+
+    // Any image with data-enlarge becomes clickable
+    document.querySelectorAll('img[data-enlarge]').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        lbImg.src = img.src;
+        lb.style.display = 'flex';
+      });
+    });
+
+    function closeLightbox() {
+      lb.style.display = 'none';
+      lbImg.src = '';
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+
+    // Click outside the image closes it
+    lb.addEventListener('click', e => {
+      if (e.target === lb) closeLightbox();
+    });
+
+    // ESC closes it
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+  <script>
+    // Mobile dropdown toggle (Projects / School Projects)
+    (function () {
+      const isSmallScreen = () => window.matchMedia("(max-width: 720px)").matches;
+
+      // Buttons that open dropdowns
+      const dropdownButtons = document.querySelectorAll('.dropdown .dropbtn');
+
+      dropdownButtons.forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          if (!isSmallScreen()) {
+            // On desktop, let hover do the work
+            return;
+          }
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          const dropdown = this.closest('.dropdown');
+          const isOpen = dropdown.classList.contains('open');
+
+          // Close other open dropdowns
+          document.querySelectorAll('.dropdown.open').forEach(d => {
+            if (d !== dropdown) d.classList.remove('open');
+          });
+
+          // Toggle this one
+          if (!isOpen) {
+            dropdown.classList.add('open');
+          } else {
+            dropdown.classList.remove('open');
+          }
+        });
+      });
+
+      // Tap anywhere else to close
+      document.addEventListener('click', function () {
+        if (!isSmallScreen()) return;
+        document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+      });
+    })();
+  </script>
+
+
+
+</body>
+
+</html>
